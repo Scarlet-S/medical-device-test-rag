@@ -27,12 +27,23 @@
 
 ## 当前进度
 
-- [x] 安装 WSL 2
+- [x] 安装 WSL 2 与 Ubuntu
 - [x] 安装并配置 Git
-- [x] 初始化本地 Git 仓库
-- [ ] 安装 Docker Desktop
-- [ ] 部署 RAGFlow
-- [ ] 建设医疗器械软件测试知识库
-- [ ] 配置检索与问答流程
-- [ ] 建立评估问题集
-- [ ] 完成效果评估与项目展示
+- [x] 初始化个人项目仓库
+- [x] 安装并配置 Docker Desktop
+- [x] 配置 Docker Desktop WSL 2 后端
+- [x] 部署 RAGFlow v0.26.4
+- [x] 验证 RAGFlow、MySQL、Elasticsearch、Redis 和 MinIO 容器
+- [x] 成功访问 RAGFlow Web 工作台
+- [ ] 配置聊天、Embedding 和 Rerank 模型
+- [ ] 设计医疗器械软件测试资料分类体系
+- [ ] 收集并整理官方公开资料
+- [ ] 创建并解析领域知识库
+- [ ] 配置医疗器械测试问答工作台
+- [ ] 编写文档目录与元数据处理脚本
+- [ ] 建立领域评估问题集
+- [ ] 编写 RAGFlow API 批量评估脚本
+- [ ] 编写评估指标与结果分析代码
+- [ ] 完成检索参数对比实验
+- [ ] 完成前端领域化定制
+- [ ] 完善 GitHub 文档、截图和演示材料

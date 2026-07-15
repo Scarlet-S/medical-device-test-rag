@@ -1,0 +1,45 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and temporary files
+*.log
+*.tmp
+temp/
+tmp/
+
+# Local data and generated files
+data/raw/*
+data/processed/*
+outputs/*
+evaluation/results/*
+screenshots/private/*
+
+# Docker local data
+docker-data/
+DockerDesktopData/
+
+# RAGFlow runtime data
+ragflow-data/
+storage/
+minio_data/
+mysql_data/
+esdata/

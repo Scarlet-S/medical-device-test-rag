@@ -43,3 +43,13 @@ storage/
 minio_data/
 mysql_data/
 esdata/
+
+# Original source documents
+data/source_documents/*
+!data/source_documents/README.md
+
+# Processed documents
+data/processed/*
+
+# Evaluation results containing local outputs
+evaluation/results/*

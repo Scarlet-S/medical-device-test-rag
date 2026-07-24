@@ -35,7 +35,7 @@
 - [x] 部署 RAGFlow v0.26.4
 - [x] 验证 RAGFlow、MySQL、Elasticsearch、Redis 和 MinIO 容器
 - [x] 成功访问 RAGFlow Web 工作台
-- [ ] 配置聊天、Embedding 和 Rerank 模型
+- [x] 配置聊天、Embedding 和 Rerank 模型
 - [ ] 设计医疗器械软件测试资料分类体系
 - [ ] 收集并整理官方公开资料
 - [ ] 创建并解析领域知识库

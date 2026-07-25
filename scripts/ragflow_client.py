@@ -24,12 +24,15 @@ def normalize_chunks(reference):
 
 
 class RAGFlowClient:
-    def __init__(self):
+    def __init__(self, chat_name=None):
         load_dotenv(PROJECT_ROOT / ".env")
 
         self.base_url = os.getenv("RAGFLOW_BASE_URL", "").rstrip("/")
         self.api_key = os.getenv("RAGFLOW_API_KEY", "")
-        self.chat_name = os.getenv("RAGFLOW_CHAT_NAME", "")
+        self.chat_name = (
+            chat_name
+            or os.getenv("RAGFLOW_CHAT_NAME", "")
+        ).strip()
         self.timeout = int(
             os.getenv("RAGFLOW_TIMEOUT_SECONDS", "120")
         )

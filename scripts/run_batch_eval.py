@@ -202,11 +202,20 @@ def evaluate_case(client, case):
     }
 
 
-def save_results(records):
+def save_results(records, experiment_label=""):
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    base_name = f"batch_eval_{len(records)}_{timestamp}"
+    safe_label = re.sub(
+        r"[^A-Za-z0-9_-]+",
+        "_",
+        experiment_label.strip(),
+    ).strip("_")
+    label_part = f"_{safe_label}" if safe_label else ""
+    base_name = (
+        f"batch_eval_{len(records)}"
+        f"{label_part}_{timestamp}"
+    )
 
     json_path = RESULTS_DIR / f"{base_name}.json"
     csv_path = RESULTS_DIR / f"{base_name}.csv"
@@ -235,6 +244,7 @@ def save_results(records):
                 "generated_at": datetime.now().isoformat(
                     timespec="seconds"
                 ),
+                "experiment_label": experiment_label,
                 "source_workbook": str(WORKBOOK_PATH),
                 "summary": summary,
                 "results": records,
@@ -297,6 +307,11 @@ def main():
         default=3,
         help="本次运行的题目数量，默认3题",
     )
+    parser.add_argument(
+        "--label",
+        default="",
+        help="参数实验标签，将写入结果文件名和JSON",
+    )
     args = parser.parse_args()
 
     if args.limit < 1:
@@ -330,7 +345,10 @@ def main():
             f"引用：{record['reference_count']}"
         )
 
-    json_path, csv_path, summary = save_results(records)
+    json_path, csv_path, summary = save_results(
+        records,
+        args.label,
+    )
 
     print("=" * 60)
     print(f"总题数：{summary['total']}")
@@ -338,6 +356,8 @@ def main():
     print(f"失败：{summary['failed']}")
     print(f"Top1命中：{summary['top1_hits']}")
     print(f"Top3命中：{summary['top3_hits']}")
+    if args.label:
+        print(f"实验标签：{args.label}")
     print(f"JSON结果：{json_path}")
     print(f"CSV结果：{csv_path}")
 

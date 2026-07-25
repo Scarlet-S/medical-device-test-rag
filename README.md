@@ -30,7 +30,7 @@
 - Elasticsearch、MySQL、Redis、MinIO
 - Python 3.14
 - Requests、python-dotenv、openpyxl
-- 混合检索：向量权重 0.30、全文权重 0.70
+- 混合检索：向量权重 0.50、全文权重 0.50
 - Rerank：qwen3-rerank
 - LLM API 与独立评测裁判助手
 - Git / GitHub
@@ -51,23 +51,23 @@
 
 ## 当前评测结果
 
-评测批次：`batch_eval_50_20260725_122601`
+最终配置批次：`batch_eval_50_vector50_fulltext50_20260725_150147`
 
 | 指标 | 结果 |
 |---|---:|
 | 批量调用成功率 | 100%（50/50） |
-| 严格检索 Top-1 | 70%（35/50） |
-| 严格检索 Top-3 | 96%（48/50） |
-| 可接受文档 Top-1 | 72%（36/50） |
+| 严格检索 Top-1 | 78%（39/50） |
+| 严格检索 Top-3 | 100%（50/50） |
+| 可接受文档 Top-1 | 88%（44/50） |
 | 可接受文档 Top-3 | 100%（50/50） |
-| 可接受引用 Top-1 | 98%（49/50） |
-| 可接受引用 Top-3 | 100%（50/50） |
 | 人工复核引用正确率 | 100%（50/50） |
-| 人工复核回答准确度 | 94%（94/100） |
-| 人工复核幻觉率 | 2%（1/50） |
-| 自动裁判与人工复核一致率 | 98%（49/50） |
+| 人工复核回答准确度 | 97%（97/100） |
+| 人工复核幻觉率 | 4%（2/50） |
+| 自动裁判与人工复核一致率 | 94%（47/50） |
 
 严格文档命中率较低的主要原因是 DOC003 与 DOC004 存在大量语义相同的对应条款。项目同时保留严格来源指标和可接受等价来源指标，避免将内容正确但来源顺序不同的回答误判为失败。
+
+权重对比实验测试了 `0.30/0.70`、`0.50/0.50` 和 `0.70/0.30` 三组向量/全文权重。最终选择 `0.50/0.50`：相比原基线，严格 Top-1 从 70% 提升到 78%，严格 Top-3 从 96% 提升到 100%，同时取得最高的可接受 Top-1。完整实验记录见 `evaluation/reviews/retrieval_parameter_experiment_20260725.md`。
 
 ## 快速使用
 
@@ -104,6 +104,12 @@ python scripts/run_judge_eval.py --limit 50
 python scripts/compare_judge_baseline.py
 ```
 
+比较两个检索参数实验：
+
+```powershell
+python scripts/compare_retrieval_experiments.py --baseline "基线JSON" --candidate "候选JSON"
+```
+
 生成的 JSON 和 CSV 保存在 `evaluation/results`，该目录中的运行结果默认不提交到 Git。
 
 ## 项目结构
@@ -123,7 +129,8 @@ medical-device-test-rag/
 │   ├── score_citation_hits.py
 │   ├── test_judge.py
 │   ├── run_judge_eval.py
-│   └── compare_judge_baseline.py
+│   ├── compare_judge_baseline.py
+│   └── compare_retrieval_experiments.py
 ├── .env.example
 ├── .gitignore
 ├── requirements.txt
@@ -142,6 +149,6 @@ medical-device-test-rag/
 - [x] 实现严格命中、等价文档命中和引用命中评估
 - [x] 创建并校准 LLM 自动裁判
 - [x] 完成自动裁判与人工基线对比及争议题复核
-- [ ] 完成检索参数对比实验
+- [x] 完成检索参数对比实验并确定最终权重
 - [ ] 整理系统截图和典型问答案例
 - [ ] 完善部署说明、演示材料和面试讲解

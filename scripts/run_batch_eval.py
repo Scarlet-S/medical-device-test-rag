@@ -12,7 +12,7 @@ from ragflow_client import RAGFlowClient
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-WORKBOOK_PATH = (
+DEFAULT_WORKBOOK_PATH = (
     PROJECT_ROOT
     / "evaluation"
     / "baseline"
@@ -32,9 +32,9 @@ def extract_doc_code(value):
     return match.group(0).upper() if match else ""
 
 
-def read_test_cases(limit):
+def read_test_cases(limit, workbook_path):
     workbook = load_workbook(
-        WORKBOOK_PATH,
+        workbook_path,
         read_only=True,
         data_only=True,
     )
@@ -202,7 +202,7 @@ def evaluate_case(client, case):
     }
 
 
-def save_results(records, experiment_label=""):
+def save_results(records, workbook_path, experiment_label=""):
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -245,7 +245,7 @@ def save_results(records, experiment_label=""):
                     timespec="seconds"
                 ),
                 "experiment_label": experiment_label,
-                "source_workbook": str(WORKBOOK_PATH),
+                "source_workbook": str(workbook_path),
                 "summary": summary,
                 "results": records,
             },
@@ -312,14 +312,31 @@ def main():
         default="",
         help="参数实验标签，将写入结果文件名和JSON",
     )
+    parser.add_argument(
+        "--workbook",
+        type=Path,
+        default=DEFAULT_WORKBOOK_PATH,
+        help=(
+            "评测工作簿路径；相对路径按项目根目录解析，"
+            "默认使用evaluation/baseline中的人工基线工作簿"
+        ),
+    )
     args = parser.parse_args()
 
     if args.limit < 1:
         print("运行失败：--limit必须大于0")
         return 1
 
+    workbook_path = args.workbook
+    if not workbook_path.is_absolute():
+        workbook_path = (PROJECT_ROOT / workbook_path).resolve()
+
+    if not workbook_path.is_file():
+        print(f"运行失败：找不到评测工作簿：{workbook_path}")
+        return 1
+
     try:
-        cases = read_test_cases(args.limit)
+        cases = read_test_cases(args.limit, workbook_path)
         client = RAGFlowClient()
     except Exception as exc:
         print(f"初始化失败：{exc}")
@@ -347,6 +364,7 @@ def main():
 
     json_path, csv_path, summary = save_results(
         records,
+        workbook_path,
         args.label,
     )
 
@@ -358,6 +376,7 @@ def main():
     print(f"Top3命中：{summary['top3_hits']}")
     if args.label:
         print(f"实验标签：{args.label}")
+    print(f"评测工作簿：{workbook_path}")
     print(f"JSON结果：{json_path}")
     print(f"CSV结果：{csv_path}")
 

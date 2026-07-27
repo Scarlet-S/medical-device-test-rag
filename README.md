@@ -69,6 +69,32 @@
 
 权重对比实验测试了 `0.30/0.70`、`0.50/0.50` 和 `0.70/0.30` 三组向量/全文权重。最终选择 `0.50/0.50`：相比原基线，严格 Top-1 从 70% 提升到 78%，严格 Top-3 从 96% 提升到 100%，同时取得最高的可接受 Top-1。完整实验记录见 `evaluation/reviews/retrieval_parameter_experiment_20260725.md`。
 
+## 系统展示
+
+### Docker运行环境
+
+![Docker容器运行状态](docs/screenshots/01-docker-containers.png)
+
+### 知识库建设
+
+![医疗器械软件测试知识库文档](docs/screenshots/02-knowledge-base-documents.png)
+
+### 最终检索配置
+
+![最终检索参数配置](docs/screenshots/03-final-retrieval-settings.png)
+
+### 检索与引用问答
+
+![知识库检索测试](docs/screenshots/04-retrieval-test.png)
+
+![带来源引用的专业问答](docs/screenshots/05-chat-answer-with-citations.png)
+
+### 评测结果
+
+![50题批量检索评测](docs/screenshots/06-batch-evaluation.png)
+
+![检索参数对比实验](docs/screenshots/07-parameter-comparison.png)
+
 ## 快速使用
 
 创建 `.env` 并参考 `.env.example` 填写本地 RAGFlow 地址、API Key、问答助手名称和裁判助手名称。真实 `.env` 不应提交到 Git。
@@ -150,5 +176,5 @@ medical-device-test-rag/
 - [x] 创建并校准 LLM 自动裁判
 - [x] 完成自动裁判与人工基线对比及争议题复核
 - [x] 完成检索参数对比实验并确定最终权重
-- [ ] 整理系统截图和典型问答案例
+- [x] 整理系统截图和典型问答案例
 - [ ] 完善部署说明、演示材料和面试讲解

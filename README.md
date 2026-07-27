@@ -138,6 +138,8 @@ python scripts/compare_retrieval_experiments.py --baseline "基线JSON" --candid
 
 生成的 JSON 和 CSV 保存在 `evaluation/results`，该目录中的运行结果默认不提交到 Git。
 
+完整的Windows、WSL 2和Docker Desktop部署步骤见：[RAGFlow本地部署与项目运行说明](docs/deployment.md)。
+
 ## 项目结构
 
 ```text

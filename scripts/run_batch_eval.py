@@ -32,7 +32,7 @@ def extract_doc_code(value):
     return match.group(0).upper() if match else ""
 
 
-def read_test_cases(limit, workbook_path):
+def read_test_cases(limit, workbook_path, question_id_filter=""):
     workbook = load_workbook(
         workbook_path,
         read_only=True,
@@ -77,9 +77,17 @@ def read_test_cases(limit, workbook_path):
         if not question_id or not question:
             continue
 
+        normalized_question_id = str(question_id).strip()
+        if (
+            question_id_filter
+            and normalized_question_id.upper()
+            != question_id_filter
+        ):
+            continue
+
         cases.append(
             {
-                "question_id": str(question_id).strip(),
+                "question_id": normalized_question_id,
                 "expected_document": str(
                     sheet.cell(
                         row_number,
@@ -321,6 +329,11 @@ def main():
             "默认使用evaluation/baseline中的人工基线工作簿"
         ),
     )
+    parser.add_argument(
+        "--question-id",
+        default="",
+        help="只运行指定问题ID，例如H005；默认按工作簿顺序运行",
+    )
     args = parser.parse_args()
 
     if args.limit < 1:
@@ -335,8 +348,20 @@ def main():
         print(f"运行失败：找不到评测工作簿：{workbook_path}")
         return 1
 
+    question_id_filter = args.question_id.strip().upper()
+
     try:
-        cases = read_test_cases(args.limit, workbook_path)
+        cases = read_test_cases(
+            args.limit,
+            workbook_path,
+            question_id_filter,
+        )
+        if not cases:
+            raise RuntimeError(
+                "工作簿中没有找到指定题目"
+                if question_id_filter
+                else "工作簿中没有可运行的题目"
+            )
         client = RAGFlowClient()
     except Exception as exc:
         print(f"初始化失败：{exc}")

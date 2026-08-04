@@ -24,6 +24,14 @@ def main():
     parser.add_argument("--base", type=Path, required=True)
     parser.add_argument("--retry", type=Path, required=True)
     parser.add_argument("--label", default="merged")
+    parser.add_argument(
+        "--replace-successful",
+        action="store_true",
+        help=(
+            "允许成功补测记录替换原结果中的同ID成功记录；"
+            "默认仅替换失败记录。"
+        ),
+    )
     args = parser.parse_args()
 
     base_path = args.base.resolve()
@@ -55,14 +63,24 @@ def main():
     for record in base_records:
         question_id = record.get("question_id")
         retry_record = retry_by_id.get(question_id)
-        if retry_record and record.get("status") != "success":
+        should_replace = retry_record and (
+            args.replace_successful
+            or record.get("status") != "success"
+        )
+        if should_replace:
             merged.append(retry_record)
             replaced.append(question_id)
         else:
             merged.append(record)
 
     if not replaced:
-        raise RuntimeError("没有找到可由成功补测记录替换的失败题")
+        if args.replace_successful:
+            raise RuntimeError("没有找到可由补测记录替换的同ID题目")
+        raise RuntimeError(
+            "没有找到可由成功补测记录替换的失败题；"
+            "若需更新原本成功的题目，请显式使用"
+            " --replace-successful"
+        )
 
     successful = [
         record for record in merged
@@ -99,6 +117,7 @@ def main():
             "base_result": str(base_path),
             "retry_result": str(retry_path),
             "replaced_question_ids": replaced,
+            "replace_successful": args.replace_successful,
         },
         "summary": summary,
         "results": merged,

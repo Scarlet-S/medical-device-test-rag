@@ -1,0 +1,46 @@
+{
+  "version": "5.1",
+  "dataset_name": "医疗器械控制软件测试知识库",
+  "description": "强化E036和E055聚焦切片：补齐系统级测试协议的直接证据，并将OTS组件识别要求组织为不可遗漏的完整清单。",
+  "patches": [
+    {
+      "document_code": "DOC009",
+      "document_id": "d0f87836897e11f19a060b8a644dee02",
+      "chunk_id": "9eafa4d090425c34",
+      "question_ids": ["E036"],
+      "replacement_content": "# DOC009｜FDA Content of Premarket Submissions for Device Software Functions (2023)｜VI.H(1) Basic Documentation Level\n\n## 常见检索问法\n- Basic文档等级的软件测试资料至少应包含哪些内容？\n- FDA基础文档等级需要提交哪些软件测试资料？\n- Basic Documentation Level的软件测试摘要、失败测试、回归测试及系统级测试资料有什么要求？\n\n## Basic文档等级的完整测试资料要求\n1. 提供单元、集成和系统级测试活动的摘要说明，包括被测软件版本，以及所有已执行测试协议的总体通过/失败结果。\n2. 记录针对失败测试所作的任何有意变更，并提供测试结果证明这些变更已被正确实施。\n3. 提供回归分析，以及适用时带通过/失败结果的回归测试，用于识别软件变更的非预期影响。\n4. 提供系统级测试协议和报告。系统级测试协议包括：由软件需求导出的预期结果；观察并记录的实际结果；客观的通过/失败判定，即实际结果与预期结果是否可接受地等效。系统级测试报告应证明协议已得到可接受的执行、测试结果通过，并且任何未解决异常均已依据候选发布版本的风险评估被可接受地延期。\n\nOriginal source requirements: Provide a summary description of testing activities at the unit, integration, and system levels, including the software version tested and overall pass/fail results for all test protocols executed. Document intentional changes made in response to failed tests and test results demonstrating correct implementation. Provide regression analysis and regression testing with pass/fail results, where applicable. The system-level test protocol should include expected results derived from software requirements, observed and recorded actual results, and an objective pass/fail determination. The system-level test report should demonstrate acceptable protocol execution with passing results and acceptable risk-based deferral of unresolved anomalies for the candidate release version.",
+      "retrieval_aliases_en": [
+        "What software testing documentation is required for the Basic Documentation Level?",
+        "Basic Documentation Level unit integration system testing summary pass fail regression analysis system test protocol report"
+      ],
+      "questions": [
+        "Basic文档等级的软件测试资料至少应包含哪些内容？",
+        "FDA基础文档等级需要提交哪些软件测试资料？",
+        "Basic Documentation Level的测试摘要、失败测试变更、回归测试和系统级测试资料有什么要求？"
+      ],
+      "important_keywords": [
+        "DOC009", "VI.H(1)", "Basic Documentation Level", "单元集成系统级测试", "测试活动摘要", "被测软件版本", "总体通过失败结果", "失败测试有意变更", "正确实施证据", "回归分析", "回归测试", "系统级测试协议", "预期结果", "实际结果", "客观通过失败判定", "系统级测试报告", "未解决异常", "风险评估延期"
+      ]
+    },
+    {
+      "document_code": "DOC011",
+      "document_id": "405299ac898211f19a060b8a644dee02",
+      "chunk_id": "41e42726d4177b85",
+      "question_ids": ["E055"],
+      "replacement_content": "# DOC011｜FDA Off-The-Shelf Software Use in Medical Devices (2023)｜III.C.1 What is it?\n\n## 常见检索问法\n- 使用OTS软件时，申报资料首先应如何完整识别每个OTS组件？\n- 每个OTS软件组件应列明哪些身份、版本、用户文档、适用性和设计限制信息？\n- OTS软件为何适用于医疗器械以及预期设计限制应如何说明？\n\n## 每个OTS组件的完整识别资料清单\n回答“如何识别每个OTS组件”时，应完整覆盖以下三组信息：\n1. 身份和版本：OTS软件名称和制造商；适用时列明版本级别、发布日期、补丁号和升级标识。\n2. 用户资料：说明将提供给最终用户的OTS软件文档。\n3. 适用性和限制：说明该OTS软件为何适用于该医疗器械，并说明OTS软件的预期设计限制。\n\n如果OTS软件版本发生变化，应更新相应文件以反映该变化。\n\nOriginal source requirements: For each component of OTS software used, specify the title and manufacturer; version level, release date, patch number, and upgrade designation, as appropriate; any OTS software documentation that will be provided to the end user; why the OTS software is appropriate for the medical device; and the expected design limitations of the OTS software. If the OTS software version changes, update the appropriate document to reflect the change.",
+      "retrieval_aliases_en": [
+        "How should each OTS software component be fully identified in a premarket submission?",
+        "OTS title manufacturer version release date patch upgrade end-user documentation appropriateness design limitations"
+      ],
+      "questions": [
+        "使用OTS软件时，申报资料首先应如何完整识别每个OTS组件？",
+        "每个OTS软件组件应列明哪些身份、版本、用户文档、适用性和设计限制信息？",
+        "OTS软件为何适用于医疗器械以及预期设计限制应如何说明？"
+      ],
+      "important_keywords": [
+        "DOC011", "III.C.1", "What is it", "OTS组件完整识别", "OTS软件名称", "制造商", "版本级别", "发布日期", "补丁号", "升级标识", "最终用户文档", "适用性理由", "为何适用于医疗器械", "预期设计限制", "完整清单"
+      ]
+    }
+  ],
+  "additions": []
+}

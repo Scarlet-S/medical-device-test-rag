@@ -6,6 +6,8 @@ Original files are not committed to GitHub because of file size, copyright, or l
 
 - `data/catalog/document_catalog.csv`
 - `data/catalog/document_integrity_v1.1.csv`
+- `data/catalog/document_catalog_v1.2_additions.csv`
+- `data/catalog/document_integrity_v1.2_additions.csv`
 
 ## Knowledge layers
 
@@ -15,6 +17,12 @@ Original files are not committed to GitHub because of file size, copyright, or l
 - `DOC006`: NMPA/CMDE usability engineering guidance (2024).
 - `DOC007`: CMDE mobile medical device guidance (2025 revision).
 - `DOC008`: NMPA product technical requirements guidance (2022).
+- `DOC012`: YY/T 0664—2020 lifecycle standard index card. This is
+  official metadata and a topic index, not the copyrighted standard text.
+- `DOC013`: GB/T 42062—2022 risk-management standard index card. This is
+  official metadata and a topic index, not the copyrighted standard text.
+- `DOC015`: SAMR adverse-event monitoring and re-evaluation provisions.
+- `DOC016`: SAMR medical-device recall provisions.
 
 These documents are Chinese official materials and are the primary source layer for questions about the Chinese regulatory environment.
 
@@ -43,3 +51,8 @@ The v1.0 five-document corpus, 50-question baseline, and 30-question holdout res
 5. Do not use unofficial translations to replace English FDA originals.
 6. Do not upload copyrighted consensus-standard full text unless a lawful copy and usage permission are available.
 7. When sources conflict, answers about China must prioritize the current Chinese official source and identify foreign guidance as comparison only.
+8. `DOC012` and `DOC013` are maintained as local structured transcriptions.
+   Their source files are not redistributed in this repository; verify
+   clause-level conclusions against an authorized copy of the standard.
+9. `DOC014` was removed from the active corpus because its transcription
+   was incomplete and could not support reliable evaluation.

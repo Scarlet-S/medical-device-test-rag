@@ -1,0 +1,5 @@
+document_id,local_filename,download_url,file_size_bytes,page_count,sha256,verified_date
+DOC012,DOC012_YYT_0664_2020_lifecycle_standard_index.md,https://std.samr.gov.cn/hb/search/stdHBDetailed?id=BE2EF7C824E286B7E05397BE0A0A29EE,1605,N/A,D1AFCF4650294C07601292A3E7D8B3F9F6B8E62DAAEA92DCFB41713F9B91F915,2026-07-27
+DOC013,DOC013_GBT_42062_2022_risk_management_standard_index.md,https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=1148CB082527B776560903948B22DAB0,1925,N/A,E6A2A8002D296923BB7627D5EAFD5E387423B5795B26D89BF20AE2AA2C98699D,2026-07-27
+DOC015,DOC015_SAMR_medical_device_adverse_event_monitoring_2018.pdf,https://www.samr.gov.cn/cms_files/filemanager/samr/www/samrnew/samrgkml/nsjg/bgt/202106/W020211127427208653527.pdf,279801,32,2F987B206B29DA9873F4B5588A442C0A4E7D257239474B4FD3952DEFC750EF7D,2026-07-27
+DOC016,DOC016_SAMR_medical_device_recall_2017.pdf,https://www.samr.gov.cn/cms_files/filemanager/samr/www/samrnew/samrgkml/nsjg/bgt/202106/W020211124317305178853.pdf,213956,15,55FBB31FADC59676311AE72424BEEB832D69F97F3C1EA4AE6A767BE3D1E75213,2026-07-27

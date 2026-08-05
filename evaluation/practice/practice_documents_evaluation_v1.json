@@ -1,0 +1,208 @@
+{
+  "metadata": {
+    "title": "医疗器械软件测试知识库实践层评测题集",
+    "version": "v1",
+    "created_date": "2026-08-04",
+    "case_count": 24,
+    "purpose": "验证PRACTICE001-PRACTICE008原创工程实践文档的检索、精确来源、引用和回答完整性。",
+    "limitations": [
+      "本题集是实践层覆盖回归集，不是独立留出集。",
+      "实践文档不是监管要求，回答合规问题时仍应优先引用官方文件。",
+      "每份文档3题，需同时检查逻辑文档命中和expected_filename精确文件命中。"
+    ]
+  },
+  "cases": [
+    {
+      "question_id": "P001",
+      "expected_document": "PRACTICE001",
+      "expected_filename": "PRACTICE001_test_strategy_and_lifecycle.md",
+      "question": "医疗器械控制软件测试策划应收集哪些输入，并形成哪些主要测试证据？",
+      "expected_location": "策划输入；建议证据",
+      "reference_answer": "策划输入应包括预期用途和用户、系统边界与接口、软硬件和第三方软件版本、软件安全性级别与风险控制、需求与设计、网络安全和可用性任务，以及历史缺陷、投诉、不良事件和更新记录。主要证据包括测试计划及审批、环境工具清单、需求—风险—测试追溯矩阵、用例与原始记录、缺陷与风险复评、评审记录和测试总结报告。"
+    },
+    {
+      "question_id": "P002",
+      "expected_document": "PRACTICE001",
+      "expected_filename": "PRACTICE001_test_strategy_and_lifecycle.md",
+      "question": "单元测试、集成测试、系统测试、用户测试、安装部署测试和回归测试分别关注什么？",
+      "expected_location": "测试层级",
+      "reference_answer": "单元测试关注软件单元逻辑、边界和异常分支；集成测试关注软件项之间的接口、数据流、时序和错误传播；系统测试在目标或等效环境验证完整系统；用户测试由代表性用户在真实或模拟场景验证任务与使用风险；安装部署测试验证安装、配置、启动、卸载和恢复；回归测试依据变更影响和风险确定复测范围。"
+    },
+    {
+      "question_id": "P003",
+      "expected_document": "PRACTICE001",
+      "expected_filename": "PRACTICE001_test_strategy_and_lifecycle.md",
+      "question": "软件发布前可采用哪些测试退出条件？",
+      "expected_location": "退出标准示例",
+      "reference_answer": "计划范围内用例应执行并可追溯；高风险需求和风险控制应具有通过证据；未关闭缺陷应完成影响分析、风险评价和批准；环境差异应已评估且不影响结论；测试总结报告应完成评审和批准。"
+    },
+    {
+      "question_id": "P004",
+      "expected_document": "PRACTICE002",
+      "expected_filename": "PRACTICE002_risk_based_testing_and_traceability.md",
+      "question": "如何把软件风险控制措施转化为可核查的测试设计？",
+      "expected_location": "核心链路；风险测试设计方法",
+      "reference_answer": "应从危害分析提取软件风险控制，判断其属于预防、检测、报警、限制或恢复，为每项控制设计正常、边界、异常和失效场景，验证控制有效性及其失效可检测性；严重伤害路径增加组合、时序、并发和长时间测试，并检查控制是否引入新风险。证据链应连接危害、控制、需求、设计实现、用例、结果和剩余风险。"
+    },
+    {
+      "question_id": "P005",
+      "expected_document": "PRACTICE002",
+      "expected_filename": "PRACTICE002_risk_based_testing_and_traceability.md",
+      "question": "风险测试优先级P0至P3可如何划分，使用时有什么限制？",
+      "expected_location": "测试优先级参考",
+      "reference_answer": "P0覆盖可能影响患者或操作者安全的核心控制、报警、剂量、运动或能量输出；P1覆盖诊疗流程、关键数据完整性、权限边界和恢复能力；P2覆盖影响效率但不直接改变安全有效性的普通功能；P3覆盖低风险显示、帮助和便利功能。该优先级只是项目执行工具，不能替代软件安全性级别或正式风险评价。"
+    },
+    {
+      "question_id": "P006",
+      "expected_document": "PRACTICE002",
+      "expected_filename": "PRACTICE002_risk_based_testing_and_traceability.md",
+      "question": "需求、风险控制和测试之间应检查哪些可追溯关系与断点？",
+      "expected_location": "可追溯性检查；退出标准示例",
+      "reference_answer": "每个需求至少关联设计项和验证证据，每个风险控制至少关联实现位置和测试结果，每个失败应能回溯到需求、风险或设计影响；需求删除、合并或变更时同步更新关系，发布时冻结矩阵并保留评审记录。高风险控制不得存在无测试、测试失败或追溯断点，新增和变更风险应进入回归范围。"
+    },
+    {
+      "question_id": "P007",
+      "expected_document": "PRACTICE003",
+      "expected_filename": "PRACTICE003_access_control_and_audit_log_testing.md",
+      "question": "医疗器械软件的横向越权和纵向越权应如何测试？",
+      "expected_location": "权限测试",
+      "reference_answer": "横向越权测试验证同级用户不能访问其他用户或机构的数据；纵向越权测试验证普通用户不能执行管理员或维护功能。还应对每个角色同时验证允许和禁止操作，检查界面隐藏但接口仍可调用的问题，并确认角色变更、停用和权限撤销后的生效情况。"
+    },
+    {
+      "question_id": "P008",
+      "expected_document": "PRACTICE003",
+      "expected_filename": "PRACTICE003_access_control_and_audit_log_testing.md",
+      "question": "身份鉴别和会话管理测试应覆盖哪些异常与边界场景？",
+      "expected_location": "身份与会话测试",
+      "reference_answer": "应覆盖正确、错误、空值、超长和特殊字符凭据，连续失败、锁定解锁和密码重置，会话超时、退出、浏览器关闭和设备重启，并发登录、令牌重放和过期、权限变化后的旧会话，以及网络中断、时间漂移和认证服务不可用时的安全行为。"
+    },
+    {
+      "question_id": "P009",
+      "expected_document": "PRACTICE003",
+      "expected_filename": "PRACTICE003_access_control_and_audit_log_testing.md",
+      "question": "审计日志测试应覆盖哪些关键事件、字段和防篡改要求？",
+      "expected_location": "审计日志测试",
+      "reference_answer": "关键事件可包括登录及失败、权限和配置变更、患者数据访问与导出删除、软件更新和异常恢复。字段应包括时间及时间来源、用户或服务身份、客体、操作与结果、终端或来源地址或会话标识、失败原因或错误码。还应验证普通用户不能修改、删除或绕过日志，并检查容量耗尽、导出和查询性能。"
+    },
+    {
+      "question_id": "P010",
+      "expected_document": "PRACTICE004",
+      "expected_filename": "PRACTICE004_fault_injection_and_recovery_testing.md",
+      "question": "控制软件故障注入可选择哪些外部依赖、资源和系统异常场景？",
+      "expected_location": "故障场景库",
+      "reference_answer": "场景可包括网络中断、延迟丢包和重复消息，数据库不可用、超时死锁和磁盘不足，外部设备掉线或非法响应，文件配置损坏和版本不兼容，进程崩溃、重启断电和启动顺序异常，CPU内存线程队列或日志空间耗尽，以及时间跳变、证书过期和依赖服务不可用。"
+    },
+    {
+      "question_id": "P011",
+      "expected_document": "PRACTICE004",
+      "expected_filename": "PRACTICE004_fault_injection_and_recovery_testing.md",
+      "question": "执行故障注入后，应如何检查恢复行为和数据完整性？",
+      "expected_location": "测试步骤；数据完整性关注点",
+      "reference_answer": "应先定义正常操作和安全状态，在可控时间注入并记录状态，观察检测、报警、提示、重试和降级，检查部分写入、重复执行和状态错位；移除故障后验证恢复步骤并比较关键数据、配置、审计记录和任务状态。还应检查事务回滚、重试幂等、缓存数据库一致性、恢复点、损坏检测和审计轨迹。"
+    },
+    {
+      "question_id": "P012",
+      "expected_document": "PRACTICE004",
+      "expected_filename": "PRACTICE004_fault_injection_and_recovery_testing.md",
+      "question": "断电或意外重启恢复测试应保留哪些证据并满足哪些退出条件？",
+      "expected_location": "建议证据；退出标准示例",
+      "reference_answer": "证据应包括故障注入脚本或工具配置、注入前后状态快照、客户端服务端数据库和设备日志、数据一致性校验、恢复时间、数据丢失范围和人工干预记录。退出时高风险故障应被检测并进入安全状态，不得出现不可接受数据损坏、静默失败或无限重试，恢复步骤可重复且功能数据校验通过，异常可由日志追溯。"
+    },
+    {
+      "question_id": "P013",
+      "expected_document": "PRACTICE005",
+      "expected_filename": "PRACTICE005_install_upgrade_rollback_compatibility.md",
+      "question": "软件安装与升级测试应覆盖哪些路径和失败注入点？",
+      "expected_location": "测试矩阵；安装测试；升级与回滚测试",
+      "reference_answer": "应覆盖全新和覆盖安装、各受支持旧版本及跨版本升级、失败恢复回滚、数据库迁移、环境组合及受限网络。安装检查完整性、版本依赖、路径空间权限、中断重复并发安装及初始配置；升级失败点包括下载、解压、校验、数据库迁移和服务重启。"
+    },
+    {
+      "question_id": "P014",
+      "expected_document": "PRACTICE005",
+      "expected_filename": "PRACTICE005_install_upgrade_rollback_compatibility.md",
+      "question": "数据库迁移和软件回滚前后应验证哪些一致性内容？",
+      "expected_location": "升级与回滚测试；建议证据；退出标准示例",
+      "reference_answer": "升级前应完成备份与兼容性检查，验证配置、用户、权限、审计日志和历史数据迁移；检查回滚触发条件、步骤和回滚后的版本一致性，不支持降级时应阻止并提示。保留迁移前后校验报告、回滚恢复日志，确认版本、数据库结构、配置和依赖一致且不会产生不可恢复损坏。"
+    },
+    {
+      "question_id": "P015",
+      "expected_document": "PRACTICE005",
+      "expected_filename": "PRACTICE005_install_upgrade_rollback_compatibility.md",
+      "question": "如何基于支持声明和风险制定兼容性测试矩阵？",
+      "expected_location": "测试矩阵；兼容性测试",
+      "reference_answer": "矩阵可组合操作系统、硬件、浏览器、数据库、外设及不同网络环境，但应依据实际支持声明而非无边界枚举。优先覆盖市场占有率高的受支持环境、高风险硬件和接口、近期变更的依赖版本、历史故障组合以及最低配置和最高负载环境。"
+    },
+    {
+      "question_id": "P016",
+      "expected_document": "PRACTICE006",
+      "expected_filename": "PRACTICE006_performance_concurrency_stability.md",
+      "question": "基准、负载、压力、并发、容量、稳定性和峰值测试分别验证什么？",
+      "expected_location": "测试类型",
+      "reference_answer": "基准测试记录正常基线；负载测试逐步增加用户设备任务或数据；压力测试超过上限观察失效与恢复；并发测试验证同时读写控制审批的一致性；容量测试验证数据库日志队列和存储上限；稳定性测试长时间监测泄漏与性能漂移；峰值测试验证突发负载和队列积压。"
+    },
+    {
+      "question_id": "P017",
+      "expected_document": "PRACTICE006",
+      "expected_filename": "PRACTICE006_performance_concurrency_stability.md",
+      "question": "控制软件性能测试应监控哪些业务、错误和资源指标？",
+      "expected_location": "观察项",
+      "reference_answer": "应监控端到端响应时间及百分位数、吞吐量、失败率、超时率和重试次数，CPU、内存、线程、句柄、连接池、队列和磁盘，以及数据一致性、重复操作、任务丢失、过载报警、限流降级和恢复时间。"
+    },
+    {
+      "question_id": "P018",
+      "expected_document": "PRACTICE006",
+      "expected_filename": "PRACTICE006_performance_concurrency_stability.md",
+      "question": "稳定性和过载测试应如何设计场景、保留证据并判定退出？",
+      "expected_location": "场景设计；建议证据；退出标准示例",
+      "reference_answer": "场景应组合正常业务、大数据查询导出、报警控制与后台任务、网络延迟并发，以及日志数据库接近上限和资源紧张。保留环境负载模型、数据规则、原始监控趋势、请求日志、瓶颈优化和复测结果。正式指标应通过，峰值下无不可接受错误或不一致，过载行为可预测可恢复，长时间运行无持续泄漏或异常性能下降。"
+    },
+    {
+      "question_id": "P019",
+      "expected_document": "PRACTICE007",
+      "expected_filename": "PRACTICE007_regression_and_change_impact.md",
+      "question": "软件变更影响分析应从哪些维度确定受影响范围？",
+      "expected_location": "影响分析维度",
+      "reference_answer": "应分析被修改需求模块接口的直接影响，数据结构迁移计算缓存导出的数据影响，上下游和公共组件的调用影响，风险控制和新危害的风险影响，操作系统数据库硬件网络的环境影响，工作流界面权限培训的用户影响，以及认证授权加密日志接口和第三方组件的网络安全影响。"
+    },
+    {
+      "question_id": "P020",
+      "expected_document": "PRACTICE007",
+      "expected_filename": "PRACTICE007_regression_and_change_impact.md",
+      "question": "回归测试范围可分为哪些层级，什么情况下应采用系统回归或全量回归？",
+      "expected_location": "回归范围分层",
+      "reference_answer": "范围包括修改点和直接接口的最小回归，共享数据、公共组件和相邻流程的相关模块回归，受影响危害和风险控制的风险回归，核心端到端流程、安装升级和用户任务的系统回归，以及全量回归。架构性变更、公共基础组件变更或影响边界不确定时应采用全量回归；涉及核心流程和用户任务时应进入系统回归。"
+    },
+    {
+      "question_id": "P021",
+      "expected_document": "PRACTICE007",
+      "expected_filename": "PRACTICE007_regression_and_change_impact.md",
+      "question": "回归测试未选择某些用例时应保留什么依据，出现意外失败后如何处理？",
+      "expected_location": "执行原则；建议证据；退出标准示例",
+      "reference_answer": "未选择的用例应保留可审查的排除理由，并保存变更影响分析、代码配置数据库差异、回归清单、风险复评和发布回滚记录。出现意外失败时应重新评估影响边界并扩大范围；退出前选定范围应完成、失败已处置，版本环境数据和结果保持可追溯。"
+    },
+    {
+      "question_id": "P022",
+      "expected_document": "PRACTICE008",
+      "expected_filename": "PRACTICE008_defect_and_test_evidence.md",
+      "question": "一个可复现且可追溯的软件缺陷记录至少应包含哪些字段？",
+      "expected_location": "缺陷最小字段",
+      "reference_answer": "至少包括唯一编号、标题、发现日期和版本，环境、前置条件、输入数据和复现步骤，实际与预期结果及日志截图，严重度、优先级、影响范围和风险关联，根因、修复说明和修改组件，以及验证版本、结果、回归范围和关闭批准。"
+    },
+    {
+      "question_id": "P023",
+      "expected_document": "PRACTICE008",
+      "expected_filename": "PRACTICE008_defect_and_test_evidence.md",
+      "question": "软件缺陷从发现到关闭应经过哪些处理步骤，修复后为什么还要回归？",
+      "expected_location": "缺陷处理流程",
+      "reference_answer": "流程包括复现并收集证据，评估用户患者数据网络安全和合规影响，确定临时措施优先级和责任人，完成根因分析与修复，在目标版本验证并执行受影响范围回归，更新风险需求设计测试和发布资料，最后由授权人员关闭或记录延期接受理由。回归用于确认修复未破坏受影响功能或引入新风险。"
+    },
+    {
+      "question_id": "P024",
+      "expected_document": "PRACTICE008",
+      "expected_filename": "PRACTICE008_defect_and_test_evidence.md",
+      "question": "测试证据如何保证独立复核人员能够重现结论，归档时应检查什么？",
+      "expected_location": "测试证据质量；归档检查",
+      "reference_answer": "证据应说明执行人、环境、版本、时间、步骤、原始结果和复核人，优先保留原始日志、自动化报告与脚本版本、数据库接口设备输出、环境时间工具版本以及失败和复测记录。归档检查命名目录一致、用例记录缺陷报告版本匹配、敏感数据脱敏、临时和外部文件转入受控位置，并确保发布后仍可定位原始证据。"
+    }
+  ]
+}

@@ -24,6 +24,82 @@ HEADER_ROW = 2
 MAX_ATTEMPTS = 3
 
 
+def read_json_test_cases(
+    limit,
+    cases_path,
+    question_id_filter="",
+    question_id_filters=None,
+):
+    with cases_path.open("r", encoding="utf-8") as file:
+        payload = json.load(file)
+
+    raw_cases = payload.get("cases", [])
+    if not isinstance(raw_cases, list):
+        raise RuntimeError("JSON题集的cases字段必须是数组")
+
+    required_fields = {
+        "question_id",
+        "expected_document",
+        "question",
+        "expected_location",
+        "reference_answer",
+    }
+    cases = []
+    filters = {
+        value.strip().upper()
+        for value in (question_id_filters or [])
+        if value.strip()
+    }
+    if question_id_filter:
+        filters.add(question_id_filter)
+
+    for raw_case in raw_cases:
+        if not isinstance(raw_case, dict):
+            raise RuntimeError("JSON题集中的每道题必须是对象")
+
+        missing = [
+            field
+            for field in required_fields
+            if not str(raw_case.get(field, "")).strip()
+        ]
+        if missing:
+            raise RuntimeError(
+                "JSON题集存在缺失字段："
+                + ", ".join(sorted(missing))
+            )
+
+        question_id = str(raw_case["question_id"]).strip()
+        if (
+            filters
+            and question_id.upper() not in filters
+        ):
+            continue
+
+        cases.append(
+            {
+                "question_id": question_id,
+                "expected_document": str(
+                    raw_case["expected_document"]
+                ).strip(),
+                "expected_filename": str(
+                    raw_case.get("expected_filename", "")
+                ).strip(),
+                "question": str(raw_case["question"]).strip(),
+                "expected_location": str(
+                    raw_case["expected_location"]
+                ).strip(),
+                "reference_answer": str(
+                    raw_case["reference_answer"]
+                ).strip(),
+            }
+        )
+
+        if len(cases) >= limit:
+            break
+
+    return cases
+
+
 def extract_doc_code(value):
     if not value:
         return ""
@@ -32,13 +108,31 @@ def extract_doc_code(value):
     return match.group(0).upper() if match else ""
 
 
-def read_test_cases(limit, workbook_path, question_id_filter=""):
+def read_test_cases(
+    limit,
+    workbook_path,
+    question_id_filter="",
+    question_id_filters=None,
+):
+    if workbook_path.suffix.casefold() == ".json":
+        return read_json_test_cases(
+            limit,
+            workbook_path,
+            question_id_filter,
+            question_id_filters,
+        )
+
     workbook = load_workbook(
         workbook_path,
         read_only=True,
         data_only=True,
     )
     sheet = workbook[SHEET_NAME]
+
+    # Some valid XLSX generators omit worksheet dimension metadata.
+    # Force openpyxl to calculate it before using max_row/max_column.
+    if sheet.max_row is None or sheet.max_column is None:
+        sheet.calculate_dimension(force=True)
 
     headers = {
         str(cell.value).strip(): cell.column
@@ -62,6 +156,13 @@ def read_test_cases(limit, workbook_path, question_id_filter=""):
         )
 
     cases = []
+    filters = {
+        value.strip().upper()
+        for value in (question_id_filters or [])
+        if value.strip()
+    }
+    if question_id_filter:
+        filters.add(question_id_filter)
 
     for row_number in range(HEADER_ROW + 1, sheet.max_row + 1):
         question_id = sheet.cell(
@@ -79,9 +180,9 @@ def read_test_cases(limit, workbook_path, question_id_filter=""):
 
         normalized_question_id = str(question_id).strip()
         if (
-            question_id_filter
+            filters
             and normalized_question_id.upper()
-            != question_id_filter
+            not in filters
         ):
             continue
 
@@ -95,6 +196,7 @@ def read_test_cases(limit, workbook_path, question_id_filter=""):
                     ).value
                     or ""
                 ).strip(),
+                "expected_filename": "",
                 "question": str(question).strip(),
                 "expected_location": str(
                     sheet.cell(
@@ -183,6 +285,10 @@ def evaluate_case(client, case):
         item["document_code"]
         for item in references
     ]
+    retrieved_names = [
+        item["document_name"]
+        for item in references
+    ]
 
     top1_hit = int(
         bool(retrieved_codes)
@@ -190,6 +296,27 @@ def evaluate_case(client, case):
     )
     top3_hit = int(
         expected_code in retrieved_codes[:3]
+    )
+    expected_filename = case.get("expected_filename", "")
+    exact_top1_hit = (
+        int(
+            bool(retrieved_names)
+            and retrieved_names[0].casefold()
+            == expected_filename.casefold()
+        )
+        if expected_filename
+        else ""
+    )
+    exact_top3_hit = (
+        int(
+            expected_filename.casefold()
+            in [
+                name.casefold()
+                for name in retrieved_names[:3]
+            ]
+        )
+        if expected_filename
+        else ""
     )
 
     return {
@@ -202,8 +329,13 @@ def evaluate_case(client, case):
         "actual_top1_document": (
             retrieved_codes[0] if retrieved_codes else ""
         ),
+        "actual_top1_filename": (
+            retrieved_names[0] if retrieved_names else ""
+        ),
         "top1_hit": top1_hit,
         "top3_hit": top3_hit,
+        "exact_top1_hit": exact_top1_hit,
+        "exact_top3_hit": exact_top3_hit,
         "reference_count": len(references),
         "references": references,
         "error": "" if result else error,
@@ -233,6 +365,11 @@ def save_results(records, workbook_path, experiment_label=""):
         for record in records
         if record["status"] == "success"
     ]
+    exact_scored = [
+        record
+        for record in successful
+        if record.get("expected_filename")
+    ]
 
     summary = {
         "total": len(records),
@@ -243,6 +380,15 @@ def save_results(records, workbook_path, experiment_label=""):
         ),
         "top3_hits": sum(
             record["top3_hit"] for record in successful
+        ),
+        "exact_scored": len(exact_scored),
+        "exact_top1_hits": sum(
+            record["exact_top1_hit"]
+            for record in exact_scored
+        ),
+        "exact_top3_hits": sum(
+            record["exact_top3_hit"]
+            for record in exact_scored
         ),
     }
 
@@ -266,6 +412,7 @@ def save_results(records, workbook_path, experiment_label=""):
     fieldnames = [
         "question_id",
         "expected_document",
+        "expected_filename",
         "question",
         "expected_location",
         "reference_answer",
@@ -274,8 +421,11 @@ def save_results(records, workbook_path, experiment_label=""):
         "elapsed_seconds",
         "answer",
         "actual_top1_document",
+        "actual_top1_filename",
         "top1_hit",
         "top3_hit",
+        "exact_top1_hit",
+        "exact_top3_hit",
         "reference_count",
         "top3_documents",
         "session_id",
@@ -334,6 +484,14 @@ def main():
         default="",
         help="只运行指定问题ID，例如H005；默认按工作簿顺序运行",
     )
+    parser.add_argument(
+        "--question-ids",
+        default="",
+        help=(
+            "运行逗号分隔的多个问题ID，例如E002,E005,E054；"
+            "与--question-id不能同时使用"
+        ),
+    )
     args = parser.parse_args()
 
     if args.limit < 1:
@@ -349,19 +507,50 @@ def main():
         return 1
 
     question_id_filter = args.question_id.strip().upper()
+    question_id_filters = [
+        value.strip().upper()
+        for value in args.question_ids.split(",")
+        if value.strip()
+    ]
+
+    if question_id_filter and question_id_filters:
+        print("运行失败：--question-id与--question-ids不能同时使用")
+        return 1
+
+    case_limit = (
+        len(question_id_filters)
+        if question_id_filters
+        else args.limit
+    )
 
     try:
         cases = read_test_cases(
-            args.limit,
+            case_limit,
             workbook_path,
             question_id_filter,
+            question_id_filters,
         )
         if not cases:
             raise RuntimeError(
                 "工作簿中没有找到指定题目"
-                if question_id_filter
+                if question_id_filter or question_id_filters
                 else "工作簿中没有可运行的题目"
             )
+        if question_id_filters:
+            found_ids = {
+                case["question_id"].upper()
+                for case in cases
+            }
+            missing_ids = [
+                question_id
+                for question_id in question_id_filters
+                if question_id not in found_ids
+            ]
+            if missing_ids:
+                raise RuntimeError(
+                    "工作簿中没有找到题目："
+                    + ", ".join(missing_ids)
+                )
         client = RAGFlowClient()
     except Exception as exc:
         print(f"初始化失败：{exc}")
@@ -399,6 +588,17 @@ def main():
     print(f"失败：{summary['failed']}")
     print(f"Top1命中：{summary['top1_hits']}")
     print(f"Top3命中：{summary['top3_hits']}")
+    if summary["exact_scored"]:
+        print(
+            "精确文件Top1命中："
+            f"{summary['exact_top1_hits']}/"
+            f"{summary['exact_scored']}"
+        )
+        print(
+            "精确文件Top3命中："
+            f"{summary['exact_top3_hits']}/"
+            f"{summary['exact_scored']}"
+        )
     if args.label:
         print(f"实验标签：{args.label}")
     print(f"评测工作簿：{workbook_path}")

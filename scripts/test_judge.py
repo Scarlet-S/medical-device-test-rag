@@ -40,19 +40,123 @@ def extract_citation_ids(answer):
     return citation_ids
 
 
+def extract_match_terms(text):
+    normalized = re.sub(r"\s+", " ", text or "").lower()
+    terms = set(
+        re.findall(
+            r"[a-z0-9][a-z0-9_.\-/]{2,}",
+            normalized,
+        )
+    )
+
+    for sequence in re.findall(r"[\u4e00-\u9fff]{3,}", normalized):
+        terms.update(
+            sequence[index : index + 3]
+            for index in range(len(sequence) - 2)
+        )
+
+    terms.update(
+        quote.strip().lower()
+        for quote in re.findall(
+            r"[“\"]([^”\"]{6,120})[”\"]",
+            normalized,
+        )
+    )
+
+    return terms
+
+
+def select_evidence_excerpt(
+    content,
+    query,
+    window_size=2200,
+    max_windows=2,
+):
+    if len(content) <= window_size * max_windows:
+        return content
+
+    terms = extract_match_terms(query)
+    step = window_size // 2
+    starts = list(range(0, len(content), step))
+    last_start = max(0, len(content) - window_size)
+
+    if last_start not in starts:
+        starts.append(last_start)
+
+    candidates = []
+
+    for start in starts:
+        window = content[start : start + window_size]
+        lowered = window.lower()
+        score = sum(
+            min(len(term), 12)
+            for term in terms
+            if term in lowered
+        )
+        candidates.append((score, start, window))
+
+    candidates.sort(key=lambda item: (-item[0], item[1]))
+    selected = []
+
+    for score, start, window in candidates:
+        if selected and score <= 0:
+            break
+
+        if any(
+            abs(start - selected_start) < window_size
+            for _, selected_start, _ in selected
+        ):
+            continue
+
+        selected.append((score, start, window))
+
+        if len(selected) == max_windows:
+            break
+
+    if not selected:
+        selected = [(0, 0, content[:window_size])]
+
+    selected.sort(key=lambda item: item[1])
+    excerpts = []
+
+    for _, start, window in selected:
+        prefix = "……" if start > 0 else ""
+        suffix = (
+            "……"
+            if start + len(window) < len(content)
+            else ""
+        )
+        excerpts.append(prefix + window + suffix)
+
+    return "\n\n".join(excerpts)
+
+
 def build_evidence(record):
     references = record.get("references", [])
     citation_ids = extract_citation_ids(
         record.get("answer", "")
     )
+    evidence_ids = citation_ids + [
+        reference_id
+        for reference_id in range(len(references))
+        if reference_id not in citation_ids
+    ]
+    query = "\n".join(
+        [
+            record.get("question", ""),
+            record.get("reference_answer", ""),
+            record.get("answer", ""),
+        ]
+    )
 
     evidence_parts = []
 
-    for citation_id in citation_ids:
+    for citation_id in evidence_ids:
         if citation_id >= len(references):
             continue
 
         reference = references[citation_id]
+        is_explicitly_cited = citation_id in citation_ids
         content = re.sub(
             r"\s+",
             " ",
@@ -70,7 +174,31 @@ def build_evidence(record):
                             "",
                         )
                     ),
-                    f"内容：{content[:1800]}",
+                    (
+                        "回答显式引用："
+                        + (
+                            "是"
+                            if is_explicitly_cited
+                            else "否"
+                        )
+                    ),
+                    (
+                        "内容："
+                        + select_evidence_excerpt(
+                            content,
+                            query,
+                            window_size=(
+                                1800
+                                if is_explicitly_cited
+                                else 900
+                            ),
+                            max_windows=(
+                                2
+                                if is_explicitly_cited
+                                else 1
+                            ),
+                        )
+                    ),
                 ]
             )
         )
@@ -92,7 +220,7 @@ def build_prompt(record):
             "【待评测回答】",
             record["answer"],
             "",
-            "【回答实际引用的证据】",
+            "【RAG系统实际返回的引用证据】",
             build_evidence(record),
         ]
     )

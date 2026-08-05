@@ -33,8 +33,10 @@ class RAGFlowClient:
             chat_name
             or os.getenv("RAGFLOW_CHAT_NAME", "")
         ).strip()
+        # Chat and batch evaluation should fail fast without shortening
+        # the longer timeout used by document ingestion operations.
         self.timeout = int(
-            os.getenv("RAGFLOW_TIMEOUT_SECONDS", "120")
+            os.getenv("RAGFLOW_CHAT_TIMEOUT_SECONDS", "30")
         )
 
         missing = [

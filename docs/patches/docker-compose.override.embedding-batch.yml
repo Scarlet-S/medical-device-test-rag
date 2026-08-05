@@ -1,0 +1,4 @@
+services:
+  ragflow-cpu:
+    volumes:
+      - ./patches/embedding_model.py:/ragflow/rag/llm/embedding_model.py:ro

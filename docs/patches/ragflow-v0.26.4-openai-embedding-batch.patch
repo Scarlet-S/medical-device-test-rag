@@ -1,0 +1,17 @@
+--- a/rag/llm/embedding_model.py
++++ b/rag/llm/embedding_model.py
+@@ -269,7 +269,11 @@
+     def encode(self, texts: list):
+-        # OpenAI requires batch size <=16; 8191 is the documented per-input token ceiling.
+-        return self._batched_encode(texts, self._call, batch_size=16, truncate_to=8191)
++        # OpenAI-compatible providers may enforce a lower batch limit than
++        # OpenAI. Honor RAGFlow's EMBEDDING_BATCH_SIZE setting so ingestion,
++        # retrieval, and citation insertion use the same provider-safe limit.
++        batch_size = min(16, int(os.environ.get("EMBEDDING_BATCH_SIZE", 16)))
++        return self._batched_encode(texts, self._call, batch_size=batch_size, truncate_to=8191)
+ 
+     def encode_queries(self, text):
+-        vectors, token_count = self._batched_encode([text], self._call, batch_size=16, truncate_to=8191)
++        batch_size = min(16, int(os.environ.get("EMBEDDING_BATCH_SIZE", 16)))
++        vectors, token_count = self._batched_encode([text], self._call, batch_size=batch_size, truncate_to=8191)
+         return vectors[0], token_count

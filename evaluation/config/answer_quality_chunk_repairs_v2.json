@@ -1,0 +1,215 @@
+{
+  "version": "2.0",
+  "dataset_name": "医疗器械控制软件测试知识库",
+  "description": "官方扩充评测第二轮答案质量修复。只增强可核验原文切片的相关问题和关键词，不改写原文，不注入标准答案。",
+  "patches": [
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "chunk_id": "aa703ae289385884",
+      "question_ids": ["E002"],
+      "questions": [
+        "医疗器械可用性工程的三个核心要素是什么，各自主要包括什么内容？",
+        "用户、使用场景和用户界面在可用性工程中分别指什么？"
+      ],
+      "important_keywords": ["可用性工程", "三个核心要素", "用户", "用户组", "使用场景", "使用环境", "操作任务", "用户界面", "人机交互"]
+    },
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "chunk_id": "3fbaa090c36ee714",
+      "question_ids": ["E005"],
+      "questions": [
+        "医疗器械可用性工程过程包括哪些活动，哪些活动应贯穿其中？",
+        "可用性工程的需求分析、设计、实现、验证、确认和更改是什么关系？"
+      ],
+      "important_keywords": ["可用性工程过程", "需求分析", "设计", "实现", "验证", "确认", "更改", "风险管理", "可追溯性分析", "可用性工程文档"]
+    },
+    {
+      "document_code": "DOC008",
+      "document_id": "ab8bf140897e11f19a060b8a644dee02",
+      "chunk_id": "2313e7feb3f5e11d",
+      "question_ids": ["E026"],
+      "questions": [
+        "医疗器械产品技术要求的首页、编号和页面编排有哪些基本格式要求？",
+        "医疗器械产品技术要求通常包括哪些主要内容？"
+      ],
+      "important_keywords": ["医疗器械产品技术要求", "格式", "首页", "产品名称", "型号规格", "性能指标", "检验方法", "编号", "页面编排"]
+    },
+    {
+      "document_code": "DOC008",
+      "document_id": "ab8bf140897e11f19a060b8a644dee02",
+      "chunk_id": "b60c3c9510a1b418",
+      "question_ids": ["E026"],
+      "questions": [
+        "医疗器械产品技术要求的首页、编号和页面编排有哪些基本格式要求？",
+        "医疗器械产品技术要求编号应如何填写？"
+      ],
+      "important_keywords": ["产品技术要求编号", "注册证号", "备案号", "拟注册", "拟备案", "格式要求", "页面编排"]
+    },
+    {
+      "document_code": "DOC009",
+      "document_id": "d0f87836897e11f19a060b8a644dee02",
+      "chunk_id": "40c3fb8d01119953",
+      "question_ids": ["E031"],
+      "retrieval_aliases_en": [
+        "What elements should an FDA device software risk assessment include, and what is the priority order for risk control measures?"
+      ],
+      "questions": [
+        "FDA建议器械软件风险评估包含哪些环节，风险控制措施的优先顺序是什么？",
+        "FDA软件风险评估如何验证风险控制措施并检查新危险？"
+      ],
+      "important_keywords": ["FDA", "Risk Assessment", "risk analysis", "risk evaluation", "risk control", "benefit-risk analysis", "design", "protective measures", "information for safety", "verification", "new hazards"]
+    },
+    {
+      "document_code": "DOC010",
+      "document_id": "900cf6e4898311f19a060b8a644dee02",
+      "chunk_id": "64947039ed9e0d7b",
+      "question_ids": ["E054"],
+      "retrieval_aliases_en": [
+        "Which device modifications are likely to affect cybersecurity or cybersecurity controls?"
+      ],
+      "questions": [
+        "判断器械修改是否可能影响网络安全时应关注哪些方面？",
+        "FDA网络安全审查重点关注哪些器械修改？"
+      ],
+      "important_keywords": ["FDA", "Modifications", "cybersecurity controls", "likely to affect cybersecurity", "known cybersecurity concerns", "器械修改", "网络安全控制", "可能影响网络安全"]
+    },
+    {
+      "document_code": "DOC011",
+      "document_id": "405299ac898211f19a060b8a644dee02",
+      "chunk_id": "8ef61e29913bc931",
+      "question_ids": ["E063"],
+      "retrieval_aliases_en": [
+        "What minimum hardware, installation test, and software installation warnings should OTS software device labeling provide?"
+      ],
+      "questions": [
+        "含OTS软件的医疗器械标签至少应提供哪些运行和安装信息？",
+        "OTS软件标签应如何说明最低硬件平台、安装测试和其他软件安装警告？"
+      ],
+      "important_keywords": ["OTS software", "Product Labeling", "minimum hardware platforms", "processor", "memory", "interface", "proper installation", "stand-alone computer", "warning", "utilities", "applications programs"]
+    },
+    {
+      "document_code": "DOC012",
+      "document_id": "cab7e94e8a4011f19ab9e1187646df57",
+      "chunk_id": "bd8d99810a738085",
+      "question_ids": ["E068"],
+      "questions": [
+        "YY/T 0664—2020中A、B、C三个软件安全级别分别如何判定？",
+        "软件失效概率设为1时，A、B、C级如何根据伤害严重度划分？"
+      ],
+      "important_keywords": ["YY/T 0664—2020", "4.3 软件安全分级", "软件失效概率为1", "A级", "B级", "C级", "不可接受风险", "非严重损伤", "严重损伤", "死亡"]
+    },
+    {
+      "document_code": "DOC012",
+      "document_id": "cab7e94e8a4011f19ab9e1187646df57",
+      "chunk_id": "3bdcd0cab1146aba",
+      "question_ids": ["E069"],
+      "questions": [
+        "外部风险控制措施如何影响软件安全分级？",
+        "B级或C级软件系统能否通过外部风险控制措施重新分级？"
+      ],
+      "important_keywords": ["外部风险控制措施", "软件安全分级", "重新分级", "B级", "C级", "硬件", "单独的软件系统", "医疗程序", "风险管理文档"]
+    },
+    {
+      "document_code": "DOC013",
+      "document_id": "144abf388a4011f19ab9e1187646df57",
+      "chunk_id": "c324fad72177a017",
+      "question_ids": ["E075"],
+      "questions": [
+        "GB/T 42062—2022适用于哪些医疗器械和风险，不适用于哪些决策？",
+        "GB/T 42062—2022风险管理过程的适用范围和不适用范围是什么？"
+      ],
+      "important_keywords": ["GB/T 42062—2022", "范围", "医疗器械软件", "体外诊断医疗器械", "生命周期", "生物相容性", "信息安全", "电气", "辐射", "可用性", "临床程序", "商业风险管理"]
+    },
+    {
+      "document_code": "DOC013",
+      "document_id": "144abf388a4011f19ab9e1187646df57",
+      "chunk_id": "85221301bbf32ef7",
+      "question_ids": ["E079"],
+      "questions": [
+        "风险管理文档对每个已识别危险应建立哪些可追溯关系？",
+        "GB/T 42062—2022第4.5条要求风险管理文档追溯哪些内容？"
+      ],
+      "important_keywords": ["风险管理文档", "已识别危险", "可追溯性", "风险分析", "风险评价", "风险控制措施", "实施和验证", "剩余风险评价", "引用或指向"]
+    },
+    {
+      "document_code": "DOC013",
+      "document_id": "144abf388a4011f19ab9e1187646df57",
+      "chunk_id": "a82ba8a0c8406ef7",
+      "question_ids": ["E080"],
+      "questions": [
+        "风险分析中，预期用途和可合理预见的误使用应如何形成文件？",
+        "预期用途形成文件时宜考虑哪些信息？"
+      ],
+      "important_keywords": ["预期用途", "可合理预见的误使用", "形成文件", "医学适应证", "患者群体", "身体部位", "用户特征", "使用环境", "工作原理", "风险管理文档"]
+    },
+    {
+      "document_code": "DOC013",
+      "document_id": "144abf388a4011f19ab9e1187646df57",
+      "chunk_id": "11742053599d3f24",
+      "question_ids": ["E083"],
+      "questions": [
+        "风险控制方案应按什么优先顺序选择，实施后需要进行哪两类验证？",
+        "GB/T 42062—2022第7.1条规定的风险控制优先顺序是什么？"
+      ],
+      "important_keywords": ["风险控制方案", "优先顺序", "固有安全的设计和制造", "防护措施", "安全信息", "用户培训", "风险控制措施的实施"]
+    },
+    {
+      "document_code": "DOC013",
+      "document_id": "144abf388a4011f19ab9e1187646df57",
+      "chunk_id": "94b8e7b7846d781d",
+      "question_ids": ["E083"],
+      "questions": [
+        "风险控制方案应按什么优先顺序选择，实施后需要进行哪两类验证？",
+        "风险控制措施实施后需要完成哪两种验证？"
+      ],
+      "important_keywords": ["风险控制措施的实施", "两种验证", "最终设计", "制造过程", "实施验证", "有效性验证", "降低风险"]
+    },
+    {
+      "document_code": "DOC013",
+      "document_id": "144abf388a4011f19ab9e1187646df57",
+      "chunk_id": "a2c23ad5dca8b579",
+      "question_ids": ["E085"],
+      "questions": [
+        "综合剩余风险评价应如何开展，结论为可接受后还需做什么？",
+        "综合剩余风险可接受后如何向用户公开重大剩余风险？"
+      ],
+      "important_keywords": ["综合剩余风险评价", "风险管理计划", "可接受性准则", "预期用途的受益", "重大剩余风险", "向用户告知", "随附文件", "风险管理文档"]
+    },
+    {
+      "document_code": "DOC013",
+      "document_id": "144abf388a4011f19ab9e1187646df57",
+      "chunk_id": "4c6a7f00bfbcf1bd",
+      "question_ids": ["E086"],
+      "questions": [
+        "器械商业发布前的风险管理评审和发布后的信息管理分别应完成什么？",
+        "医疗器械商业销售发布前风险管理评审至少应确认什么？"
+      ],
+      "important_keywords": ["商业销售发布前", "风险管理评审", "风险管理计划", "综合剩余风险", "生产和生产后信息", "风险管理报告", "生产和生产后活动"]
+    },
+    {
+      "document_code": "DOC013",
+      "document_id": "144abf388a4011f19ab9e1187646df57",
+      "chunk_id": "9f9e294b6f8ff65d",
+      "question_ids": ["E086"],
+      "questions": [
+        "器械商业发布前的风险管理评审和发布后的信息管理分别应完成什么？",
+        "生产和生产后阶段应收集并评审哪些安全相关信息？"
+      ],
+      "important_keywords": ["生产和生产后活动", "信息收集", "信息评审", "安全有关的信息", "未识别危险", "风险不可接受", "最新技术水平", "风险管理文档"]
+    },
+    {
+      "document_code": "DOC013",
+      "document_id": "144abf388a4011f19ab9e1187646df57",
+      "chunk_id": "107109c6885d081c",
+      "question_ids": ["E086"],
+      "questions": [
+        "器械商业发布前的风险管理评审和发布后的信息管理分别应完成什么？",
+        "生产后信息确定与安全有关时制造商应采取哪些措施？"
+      ],
+      "important_keywords": ["生产后信息", "安全有关", "重新评估风险", "新风险", "风险控制措施", "医疗器械修改", "市场措施", "风险管理过程", "最高管理者评审"]
+    }
+  ],
+  "additions": []
+}

@@ -1,0 +1,37 @@
+{
+  "version": "4.0",
+  "dataset_name": "医疗器械控制软件测试知识库",
+  "description": "针对E054建立DOC010可回滚聚焦切片，整合FDA修改条款标题、双语自然语言问法和第39至40页可核验要求；不覆盖原文切片。",
+  "patches": [],
+  "additions": [
+    {
+      "document_code": "DOC010",
+      "document_id": "900cf6e4898311f19a060b8a644dee02",
+      "question_ids": ["E054"],
+      "content": "# DOC010｜FDA Cybersecurity in Medical Devices (2026)｜Section VII.D Modifications｜器械修改对网络安全的影响\n\n## 常见检索问法\n- 判断器械修改是否可能影响网络安全时应关注哪些方面？\n- FDA审查器械修改时重点关注哪些网络安全变化？\n- Which device modifications are likely to affect cybersecurity or cybersecurity controls?\n\n## 修改申报与网络安全影响\n对于符合cyber device定义、并通过510(k)、PMA、PDP、De Novo或HDE路径提交申请的器械修改，制造商也需要遵守FD&C Act第524B节的要求。FDA建议制造商提供的信息通常取决于修改类型，以及该修改是否影响器械的网络安全。\n\nFDA的网络安全实质审查通常重点关注两类修改：一是对网络安全控制的修改；二是可能影响网络安全的修改。无论拟议修改属于何种类型，FDA在上市前审查以及判断器械是否具有合理网络安全保证时，都会考虑适用于该器械的已知网络安全问题。制造商应根据Section VII.D的建议，确定器械修改上市前申报中用于证明满足第524B节要求的信息。",
+      "retrieval_aliases_en": [
+        "Which device modifications are likely to affect cybersecurity or cybersecurity controls?",
+        "What does FDA consider when reviewing whether a device modification impacts cybersecurity?"
+      ],
+      "questions": [
+        "判断器械修改是否可能影响网络安全时应关注哪些方面？",
+        "FDA审查器械修改时重点关注哪些网络安全变化？",
+        "器械修改申报需要如何判断是否影响网络安全？"
+      ],
+      "important_keywords": [
+        "DOC010",
+        "FDA Cybersecurity in Medical Devices",
+        "Section VII.D Modifications",
+        "device modifications",
+        "cybersecurity controls",
+        "likely to affect cybersecurity",
+        "known cybersecurity concerns",
+        "reasonable assurance of cybersecurity",
+        "器械修改",
+        "网络安全控制",
+        "可能影响网络安全",
+        "已知网络安全问题"
+      ]
+    }
+  ]
+}

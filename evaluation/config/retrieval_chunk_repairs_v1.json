@@ -1,0 +1,604 @@
+{
+  "version": "1.0",
+  "dataset_name": "医疗器械控制软件测试知识库",
+  "description": "官方扩充评测中14道检索未命中题的切片相关问题与关键词修复。保留原切片正文，仅增强检索元数据；E077新增跨切片聚焦内容。",
+  "chat_adjustment": {
+    "chat_name": "医疗器械控制软件测试知识助手",
+    "prompt_config": {
+      "cross_languages": [
+        "English"
+      ]
+    },
+    "reason": "知识库同时包含中文监管文件和英文FDA文件。保留English跨语言搜索，并通过聚焦切片中的英文检索别名避免中文直接证据被英文材料挤出Top N。"
+  },
+  "patches": [
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "chunk_id": "089d6232d18d59b6",
+      "question_ids": ["E001"],
+      "retrieval_aliases_en": [
+        "Which medical devices are covered by the Medical Device Usability Engineering Registration Review Guidance, and which product category is explicitly excluded?"
+      ],
+      "questions": [
+        "《医疗器械可用性工程注册审查指导原则》适用于哪些医疗器械，明确不适用于哪类产品？",
+        "医疗器械可用性工程注册审查指导原则的适用范围是什么？",
+        "第二类、第三类医疗器械和体外诊断试剂是否适用可用性工程指导原则？"
+      ],
+      "important_keywords": [
+        "适用范围",
+        "第二类医疗器械",
+        "第三类医疗器械",
+        "体外诊断试剂",
+        "可用性工程"
+      ]
+    },
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "chunk_id": "ff65ee6311430c01",
+      "question_ids": ["E003"],
+      "retrieval_aliases_en": [
+        "What is the relationship among normal use, abnormal use, correct use, and use error?"
+      ],
+      "questions": [
+        "正常使用、非正常使用、正确使用和错误使用之间是什么关系？",
+        "医疗器械正常使用与非正常使用如何区分？",
+        "正确使用、错误使用和使用错误分别是什么，它们之间有什么关系？"
+      ],
+      "important_keywords": [
+        "正常使用",
+        "非正常使用",
+        "正确使用",
+        "错误使用",
+        "使用错误",
+        "用户行动或行动缺失"
+      ]
+    },
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "chunk_id": "440b3ca4d71c83d3",
+      "question_ids": ["E004"],
+      "retrieval_aliases_en": [
+        "What are the three medical device use-risk levels and how is each level determined?"
+      ],
+      "questions": [
+        "医疗器械使用风险分为哪三级，分别如何判定？",
+        "高、中、低医疗器械使用风险的判定标准是什么？",
+        "医疗器械使用风险应在采取风险控制措施前还是之后判定？"
+      ],
+      "important_keywords": [
+        "使用风险分级",
+        "高使用风险",
+        "中使用风险",
+        "低使用风险",
+        "伤害严重度",
+        "关键任务",
+        "风险控制前"
+      ]
+    },
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "chunk_id": "13810d6c18101d9d",
+      "question_ids": ["E007"],
+      "retrieval_aliases_en": [
+        "Can a clinical trial replace user interface validation testing, and why?"
+      ],
+      "questions": [
+        "临床试验能否替代用户界面确认测试，为什么？",
+        "临床试验与总结性可用性测试是什么关系？",
+        "什么情况下临床试验可以作为用户界面确认测试？"
+      ],
+      "important_keywords": [
+        "临床试验",
+        "用户界面确认测试",
+        "总结性可用性测试",
+        "替代",
+        "支持和补充",
+        "关键任务"
+      ]
+    },
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "chunk_id": "e85d46fbdb693c7f",
+      "question_ids": ["E008"],
+      "retrieval_aliases_en": [
+        "Why should an imported medical device generally undergo user interface validation in China?"
+      ],
+      "questions": [
+        "进口医疗器械为什么原则上需要在中国开展用户界面确认工作？",
+        "进口医疗器械是否必须在中国开展用户界面确认？",
+        "进口医疗器械在什么情况下可以不重新开展中国用户界面确认？"
+      ],
+      "important_keywords": [
+        "进口医疗器械",
+        "中国",
+        "用户界面确认",
+        "中外差异",
+        "用户",
+        "使用场景",
+        "使用风险"
+      ]
+    },
+    {
+      "document_code": "DOC007",
+      "document_id": "81a4c438897e11f19a060b8a644dee02",
+      "chunk_id": "03051f429c78fafb",
+      "question_ids": ["E015"],
+      "retrieval_aliases_en": [
+        "Which safety and effectiveness issues should be considered in battery management for mobile medical devices?"
+      ],
+      "questions": [
+        "移动医疗器械的电池管理应考虑哪些安全有效性问题？",
+        "移动医疗器械应如何确定电池容量和续航时间要求？",
+        "移动医疗器械的剩余电量和电量不足提示需要提供哪些研究资料？"
+      ],
+      "important_keywords": [
+        "移动医疗器械",
+        "电池容量",
+        "续航时间",
+        "剩余电量提示",
+        "电量不足提示",
+        "研究资料",
+        "临床风险"
+      ]
+    },
+    {
+      "document_code": "DOC009",
+      "document_id": "d0f87836897e11f19a060b8a644dee02",
+      "chunk_id": "7f901e7e7ac30ac7",
+      "question_ids": ["E029"],
+      "retrieval_aliases_en": [
+        "What information should the Software Description include in an FDA premarket submission?"
+      ],
+      "questions": [
+        "FDA上市前申报中的软件描述应至少说明哪些内容？",
+        "FDA premarket submission的Software Description需要包含什么？",
+        "修改后的医疗器械在软件描述中应如何说明既往申报和软件变化？"
+      ],
+      "important_keywords": [
+        "FDA",
+        "上市前申报",
+        "Software Description",
+        "软件描述",
+        "重要软件特征",
+        "预期用途",
+        "输入输出",
+        "硬件平台"
+      ]
+    },
+    {
+      "document_code": "DOC009",
+      "document_id": "d0f87836897e11f19a060b8a644dee02",
+      "chunk_id": "7c18b999600d4ac1",
+      "question_ids": ["E035", "E037"],
+      "questions": [
+        "Basic和Enhanced文档等级对软件设计规范（SDS）的提交要求有何不同？",
+        "Basic Documentation Level是否需要提交Software Design Specification？",
+        "Enhanced Documentation Level的SDS应包含哪些设计和可追溯性信息？",
+        "FDA建议软件版本历史以什么方式记录，最终条目还需说明什么？",
+        "Software Version History应记录哪些字段？",
+        "软件版本历史的最后一项为什么必须是拟发布版本，还需评价什么？"
+      ],
+      "important_keywords": [
+        "Basic Documentation Level",
+        "Enhanced Documentation Level",
+        "Software Design Specification",
+        "SDS",
+        "Software Version History",
+        "软件版本历史",
+        "设计历史文件",
+        "拟发布版本"
+      ]
+    },
+    {
+      "document_code": "DOC012",
+      "document_id": "cab7e94e8a4011f19ab9e1187646df57",
+      "chunk_id": "3bdcd0cab1146aba",
+      "question_ids": ["E070"],
+      "questions": [
+        "软件系统分解为软件项后，安全级别如何继承和调整？",
+        "子软件项是否继承父软件项或软件系统的安全级别？",
+        "为子软件项赋予较低安全级别时需要记录什么理由和隔离措施？"
+      ],
+      "important_keywords": [
+        "软件安全级别",
+        "软件项",
+        "父软件项",
+        "子软件项",
+        "继承",
+        "隔离",
+        "风险管理文档"
+      ]
+    },
+    {
+      "document_code": "DOC012",
+      "document_id": "cab7e94e8a4011f19ab9e1187646df57",
+      "chunk_id": "77a56132de492d9a",
+      "question_ids": ["E072"],
+      "questions": [
+        "继续使用遗留软件时应开展哪些风险管理活动？",
+        "遗留软件继续使用前需要评价哪些内部、用户和生产后信息？",
+        "继续使用遗留软件时如何识别危险情况、潜在原因并确定风险控制措施？"
+      ],
+      "important_keywords": [
+        "遗留软件",
+        "继续使用",
+        "风险管理",
+        "生产后信息",
+        "风险控制有效性",
+        "危险情况",
+        "潜在原因"
+      ]
+    },
+    {
+      "document_code": "DOC015",
+      "document_id": "a0f94c3c898d11f19a060b8a644dee02",
+      "chunk_id": "a241723d1f60b7f1",
+      "question_ids": ["E091"],
+      "questions": [
+        "上市后定期风险评价报告应包含什么，通常在何时完成？",
+        "医疗器械定期风险评价报告需要汇总分析哪些资料？",
+        "首次注册或备案后每年的定期风险评价报告应在多少日内完成？"
+      ],
+      "important_keywords": [
+        "定期风险评价报告",
+        "不良事件报告",
+        "监测资料",
+        "国内外风险信息",
+        "风险受益评价",
+        "每满一年",
+        "60日"
+      ]
+    },
+    {
+      "document_code": "DOC016",
+      "document_id": "6f3bb42c898e11f19a060b8a644dee02",
+      "chunk_id": "9a78af1618731db1",
+      "question_ids": ["E095"],
+      "questions": [
+        "评价缺陷医疗器械时应重点考虑哪些因素？",
+        "医疗器械缺陷评价需要考虑哪些标准、伤害、地区、人群和概率因素？",
+        "召回管理中评价缺陷医疗器械应考虑哪些短期和长期后果？"
+      ],
+      "important_keywords": [
+        "缺陷医疗器械",
+        "评价因素",
+        "强制性标准",
+        "产品技术要求",
+        "伤害程度",
+        "发生概率",
+        "涉及地区和人群",
+        "短期长期后果"
+      ]
+    }
+  ],
+  "additions": [
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "question_ids": ["E001"],
+      "retrieval_aliases_en": [
+        "Which medical devices are covered by the Medical Device Usability Engineering Registration Review Guidance, and which product category is explicitly excluded?"
+      ],
+      "content": "# DOC006｜医疗器械可用性工程注册审查指导原则｜一、适用范围\n\n问题：《医疗器械可用性工程注册审查指导原则》适用于哪些医疗器械，明确不适用于哪类产品？\n\n本指导原则适用于第二类、第三类医疗器械可用性工程的注册申报，不适用于体外诊断试剂。注册申请人可参照本指导原则要求开展全部医疗器械的可用性工程工作。",
+      "questions": [
+        "《医疗器械可用性工程注册审查指导原则》适用于哪些医疗器械，明确不适用于哪类产品？",
+        "医疗器械可用性工程注册审查指导原则的适用范围是什么？",
+        "第二类、第三类医疗器械和体外诊断试剂是否适用可用性工程指导原则？"
+      ],
+      "important_keywords": [
+        "适用范围",
+        "第二类医疗器械",
+        "第三类医疗器械",
+        "体外诊断试剂",
+        "可用性工程"
+      ]
+    },
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "question_ids": ["E003"],
+      "retrieval_aliases_en": [
+        "What is the relationship among normal use, abnormal use, correct use, and use error?"
+      ],
+      "content": "# DOC006｜医疗器械可用性工程注册审查指导原则｜二、主要概念（三）医疗器械使用情况\n\n问题：正常使用、非正常使用、正确使用和错误使用之间是什么关系？\n\n医疗器械使用情况分为正常使用和非正常使用。正常使用是用户按照说明书要求及常识惯例操作医疗器械，反之为非正常使用。正常使用按使用结果又分为正确使用和错误使用：正确使用是没有错误使用的正常使用，其使用风险预期均可接受；错误使用是用户行动或行动缺失导致医疗器械响应异于注册申请人或用户预期，可能降低安全有效性并导致伤害，需要采取风险控制措施。使用错误是可能导致错误使用的潜在根源，可分为感知错误、认知错误和行动错误。",
+      "questions": [
+        "正常使用、非正常使用、正确使用和错误使用之间是什么关系？",
+        "医疗器械正常使用与非正常使用如何区分？",
+        "正确使用、错误使用和使用错误分别是什么，它们之间有什么关系？"
+      ],
+      "important_keywords": [
+        "正常使用",
+        "非正常使用",
+        "正确使用",
+        "错误使用",
+        "使用错误",
+        "用户行动或行动缺失"
+      ]
+    },
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "question_ids": ["E004"],
+      "retrieval_aliases_en": [
+        "What are the three medical device use-risk levels and how is each level determined?"
+      ],
+      "content": "# DOC006｜医疗器械可用性工程注册审查指导原则｜三、基本原则（二）使用风险导向\n\n问题：医疗器械使用风险分为哪三级，分别如何判定？\n\n医疗器械使用风险按伤害严重度分为高、中、低三级：错误使用可能导致严重伤害或死亡为高使用风险，可能导致轻微伤害为中使用风险，不可能导致伤害为低使用风险。高使用风险医疗器械含有关键任务，中、低使用风险医疗器械不含关键任务。使用风险级别可通过风险管理判定，但需在采取风险控制措施之前判定。",
+      "questions": [
+        "医疗器械使用风险分为哪三级，分别如何判定？",
+        "高、中、低医疗器械使用风险的判定标准是什么？",
+        "医疗器械使用风险应在采取风险控制措施前还是之后判定？"
+      ],
+      "important_keywords": [
+        "使用风险分级",
+        "高使用风险",
+        "中使用风险",
+        "低使用风险",
+        "伤害严重度",
+        "关键任务",
+        "风险控制前"
+      ]
+    },
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "question_ids": ["E007"],
+      "retrieval_aliases_en": [
+        "Can a clinical trial replace user interface validation testing, and why?"
+      ],
+      "content": "# DOC006｜医疗器械可用性工程注册审查指导原则｜六、技术考量（一）临床试验\n\n问题：临床试验能否替代用户界面确认测试，为什么？\n\n临床试验通常不能替代用户界面确认测试，只能作为其支持和补充。一方面，部分关键任务的测试可能危及受试者；另一方面，临床试验的参与人数未必满足总结性可用性测试要求。特殊情况下，若临床试验满足总结性可用性测试要求，则可将其作为用户界面确认测试。",
+      "questions": [
+        "临床试验能否替代用户界面确认测试，为什么？",
+        "临床试验与总结性可用性测试是什么关系？",
+        "什么情况下临床试验可以作为用户界面确认测试？"
+      ],
+      "important_keywords": [
+        "临床试验",
+        "用户界面确认测试",
+        "总结性可用性测试",
+        "替代",
+        "支持和补充",
+        "关键任务"
+      ]
+    },
+    {
+      "document_code": "DOC006",
+      "document_id": "e34c9b26897d11f19a060b8a644dee02",
+      "question_ids": ["E008"],
+      "retrieval_aliases_en": [
+        "Why should an imported medical device generally undergo user interface validation in China?"
+      ],
+      "content": "# DOC006｜医疗器械可用性工程注册审查指导原则｜六、技术考量（二）进口医疗器械\n\n问题：进口医疗器械为什么原则上需要在中国开展用户界面确认工作？\n\n进口医疗器械的境外用户界面确认资料原则上不能直接替代中国用户界面确认，因为中外用户、使用场景及可用性工程申报要求可能存在差异，原用户界面设计未必能保证产品在中国安全有效使用。注册申请人原则上应根据使用风险级别在中国开展用户界面确认；若提交详实资料证明中外差异对用户界面确认无显著影响，可不重新开展相应确认。",
+      "questions": [
+        "进口医疗器械为什么原则上需要在中国开展用户界面确认工作？",
+        "进口医疗器械是否必须在中国开展用户界面确认？",
+        "进口医疗器械在什么情况下可以不重新开展中国用户界面确认？"
+      ],
+      "important_keywords": [
+        "进口医疗器械",
+        "中国",
+        "用户界面确认",
+        "中外差异",
+        "用户",
+        "使用场景",
+        "使用风险"
+      ]
+    },
+    {
+      "document_code": "DOC007",
+      "document_id": "81a4c438897e11f19a060b8a644dee02",
+      "question_ids": ["E015"],
+      "retrieval_aliases_en": [
+        "Which safety and effectiveness issues should be considered in battery management for mobile medical devices?"
+      ],
+      "content": "# DOC007｜移动医疗器械注册审查指导原则｜四、技术考量（四）电池容量限制\n\n问题：移动医疗器械的电池管理应考虑哪些安全有效性问题？\n\n移动医疗器械电池容量有限，续航时间可能无法满足临床需求并产生临床风险。注册申请人应根据产品类型、预期用途、使用环境和核心功能，确定电池续航能力要求，包括电池容量、续航时间、剩余电量提示和电量不足提示等，并提供相应确定依据和研究资料。",
+      "questions": [
+        "移动医疗器械的电池管理应考虑哪些安全有效性问题？",
+        "移动医疗器械应如何确定电池容量和续航时间要求？",
+        "移动医疗器械的剩余电量和电量不足提示需要提供哪些研究资料？"
+      ],
+      "important_keywords": [
+        "移动医疗器械",
+        "电池容量",
+        "续航时间",
+        "剩余电量提示",
+        "电量不足提示",
+        "研究资料",
+        "临床风险"
+      ]
+    },
+    {
+      "document_code": "DOC009",
+      "document_id": "d0f87836897e11f19a060b8a644dee02",
+      "question_ids": ["E029"],
+      "retrieval_aliases_en": [
+        "What information should the Software Description include in an FDA premarket submission?"
+      ],
+      "content": "# DOC009｜FDA Content of Premarket Submissions for Device Software Functions｜VI.B Software Description\n\nQuestion: FDA上市前申报中的软件描述应至少说明哪些内容？\n\nThe Software Description should provide an overview of significant software features and functions, using images, flow charts, and state diagrams as needed. It should explain the role of the software in the device's intended use, intended users and patient population, major inputs and outputs, analyses performed, and hardware platforms. For a modified device, identify the previous submission and highlight pertinent software changes that affect safety or effectiveness.",
+      "questions": [
+        "FDA上市前申报中的软件描述应至少说明哪些内容？",
+        "FDA premarket submission的Software Description需要包含什么？",
+        "修改后的医疗器械在软件描述中应如何说明既往申报和软件变化？"
+      ],
+      "important_keywords": [
+        "FDA",
+        "上市前申报",
+        "Software Description",
+        "软件描述",
+        "重要软件特征",
+        "预期用途",
+        "输入输出",
+        "硬件平台"
+      ]
+    },
+    {
+      "document_code": "DOC009",
+      "document_id": "d0f87836897e11f19a060b8a644dee02",
+      "question_ids": ["E035"],
+      "retrieval_aliases_en": [
+        "How do Basic and Enhanced Documentation Levels differ in FDA submission requirements for the Software Design Specification?"
+      ],
+      "content": "# DOC009｜FDA Content of Premarket Submissions for Device Software Functions｜VI.F Software Design Specification\n\nQuestion: Basic和Enhanced文档等级对软件设计规范（SDS）的提交要求有何不同？\n\nFor the Basic Documentation Level, FDA does not recommend submitting the Software Design Specification as part of the premarket submission. The sponsor should retain the design information internally in the device design history file, and FDA may request it during review. For the Enhanced Documentation Level, the sponsor should submit one SDS or a set of SDS documents describing how the software functions, how the design completely and correctly implements the SRS, traceability to the SRS, and detailed design information for software modules and their interfaces.",
+      "questions": [
+        "Basic和Enhanced文档等级对软件设计规范（SDS）的提交要求有何不同？",
+        "Basic Documentation Level是否需要提交Software Design Specification？",
+        "Enhanced Documentation Level的SDS应包含哪些设计和可追溯性信息？"
+      ],
+      "important_keywords": [
+        "Basic Documentation Level",
+        "Enhanced Documentation Level",
+        "Software Design Specification",
+        "SDS",
+        "SRS",
+        "设计历史文件",
+        "模块接口",
+        "可追溯性"
+      ]
+    },
+    {
+      "document_code": "DOC009",
+      "document_id": "d0f87836897e11f19a060b8a644dee02",
+      "question_ids": ["E037"],
+      "retrieval_aliases_en": [
+        "How should FDA Software Version History be recorded, and what should the final entry explain?"
+      ],
+      "content": "# DOC009｜FDA Content of Premarket Submissions for Device Software Functions｜VI.I Software Version History\n\nQuestion: FDA建议软件版本历史以什么方式记录，最终条目还需说明什么？\n\nSoftware Version History should begin with the version that became subject to design controls and normally use a line-item table containing the test date, tested version number, and a brief description of all changes relative to the previously tested version. The last entry should be the final version to be incorporated in the released device. It should also describe differences between the tested and released versions and assess their potential effect on device safety and effectiveness.",
+      "questions": [
+        "FDA建议软件版本历史以什么方式记录，最终条目还需说明什么？",
+        "Software Version History应记录哪些字段？",
+        "软件版本历史的最后一项为什么必须是拟发布版本，还需评价什么？"
+      ],
+      "important_keywords": [
+        "Software Version History",
+        "软件版本历史",
+        "line-item table",
+        "测试日期",
+        "版本号",
+        "版本变更",
+        "发布版本",
+        "安全有效性影响"
+      ]
+    },
+    {
+      "document_code": "DOC012",
+      "document_id": "cab7e94e8a4011f19ab9e1187646df57",
+      "question_ids": ["E070"],
+      "retrieval_aliases_en": [
+        "When a software system is decomposed into software items, how is the software safety classification inherited or changed?"
+      ],
+      "content": "# DOC012｜YY/T 0664—2020｜软件安全级别的继承与调整\n\n问题：软件系统分解为软件项后，安全级别如何继承和调整？\n\n子软件项原则上继承父软件项或软件系统的安全级别。制造商若为子软件项赋予不同安全级别，应文件化理由，并解释如何通过隔离使其能够单独分级。对一组软件项通常按其中最高安全级别的要求执行；若对部分软件项使用较低级别要求，也应在风险管理文档中说明理由。",
+      "questions": [
+        "软件系统分解为软件项后，安全级别如何继承和调整？",
+        "子软件项是否继承父软件项或软件系统的安全级别？",
+        "为子软件项赋予较低安全级别时需要记录什么理由和隔离措施？"
+      ],
+      "important_keywords": [
+        "软件安全级别",
+        "软件项",
+        "父软件项",
+        "子软件项",
+        "继承",
+        "隔离",
+        "风险管理文档"
+      ]
+    },
+    {
+      "document_code": "DOC012",
+      "document_id": "cab7e94e8a4011f19ab9e1187646df57",
+      "question_ids": ["E072"],
+      "retrieval_aliases_en": [
+        "Which risk management activities are required when legacy software continues to be used?"
+      ],
+      "content": "# DOC012｜YY/T 0664—2020｜4.4.2 继续使用遗留软件的风险管理\n\n问题：继续使用遗留软件时应开展哪些风险管理活动？\n\n继续使用遗留软件时，应评价组织内部和用户反馈以及生产后信息，评价现有风险控制措施在预期寿命内是否持续有效，识别继续使用相关的危险情况以及软件促成危险情况的潜在原因，并为每个潜在原因确定风险控制措施。",
+      "questions": [
+        "继续使用遗留软件时应开展哪些风险管理活动？",
+        "遗留软件继续使用前需要评价哪些内部、用户和生产后信息？",
+        "继续使用遗留软件时如何识别危险情况、潜在原因并确定风险控制措施？"
+      ],
+      "important_keywords": [
+        "遗留软件",
+        "继续使用",
+        "风险管理",
+        "生产后信息",
+        "风险控制有效性",
+        "危险情况",
+        "潜在原因"
+      ]
+    },
+    {
+      "document_code": "DOC015",
+      "document_id": "a0f94c3c898d11f19a060b8a644dee02",
+      "question_ids": ["E091"],
+      "retrieval_aliases_en": [
+        "What should a periodic post-market risk evaluation report contain, and when should it normally be completed?"
+      ],
+      "content": "# DOC015｜医疗器械不良事件监测和再评价管理办法｜第三十八条、第三十九条\n\n问题：上市后定期风险评价报告应包含什么，通常在何时完成？\n\n定期风险评价报告应汇总产品不良事件报告、监测资料和国内外风险信息，评价产品风险与受益，并记录采取的风险控制措施。自产品首次注册或备案之日起，每满一年后的60日内完成上年度报告；第一类医疗器械的报告由持有人留存备查。",
+      "questions": [
+        "上市后定期风险评价报告应包含什么，通常在何时完成？",
+        "医疗器械定期风险评价报告需要汇总分析哪些资料？",
+        "首次注册或备案后每年的定期风险评价报告应在多少日内完成？"
+      ],
+      "important_keywords": [
+        "定期风险评价报告",
+        "不良事件报告",
+        "监测资料",
+        "国内外风险信息",
+        "风险受益评价",
+        "每满一年",
+        "60日"
+      ]
+    },
+    {
+      "document_code": "DOC016",
+      "document_id": "6f3bb42c898e11f19a060b8a644dee02",
+      "question_ids": ["E095"],
+      "retrieval_aliases_en": [
+        "Which factors should be considered when evaluating a defective medical device?"
+      ],
+      "content": "# DOC016｜医疗器械召回管理办法｜第十二条\n\n问题：评价缺陷医疗器械时应重点考虑哪些因素？\n\n评价医疗器械缺陷时，应考虑产品是否符合强制性标准和产品技术要求，使用中是否发生故障或伤害，现有使用环境下是否会造成伤害及是否有科学或经验数据证明，缺陷涉及的地区范围和人群特点，伤害程度，伤害发生概率，短期和长期后果，以及其他可能对人体造成伤害的因素。",
+      "questions": [
+        "评价缺陷医疗器械时应重点考虑哪些因素？",
+        "医疗器械缺陷评价需要考虑哪些标准、伤害、地区、人群和概率因素？",
+        "召回管理中评价缺陷医疗器械应考虑哪些短期和长期后果？"
+      ],
+      "important_keywords": [
+        "缺陷医疗器械",
+        "评价因素",
+        "强制性标准",
+        "产品技术要求",
+        "伤害程度",
+        "发生概率",
+        "涉及地区和人群",
+        "短期长期后果"
+      ]
+    },
+    {
+      "document_code": "DOC013",
+      "document_id": "144abf388a4011f19ab9e1187646df57",
+      "question_ids": ["E077"],
+      "retrieval_aliases_en": [
+        "What are top management's main responsibilities for the medical device risk management process?"
+      ],
+      "content": "# DOC013｜GB/T 42062—2022｜4.2 管理职责\n\n最高管理者应通过提供充分的资源和分配胜任的人员，证明其对风险管理过程的承诺。最高管理者应规定并文件化建立风险可接受性准则的方针，该方针应基于适用的法规要求和相关标准，并考虑公认的最新技术水平以及利益相关方的关注点。最高管理者应按计划的时间间隔评审风险管理过程的适宜性，以确保风险管理过程持续有效，并记录评审所产生的任何决定和措施。",
+      "questions": [
+        "最高管理者对医疗器械风险管理过程承担哪些主要职责？",
+        "最高管理者应如何提供资源、分配胜任人员并制定风险可接受性方针？",
+        "最高管理者应如何评审风险管理过程的适宜性和持续有效性？"
+      ],
+      "important_keywords": [
+        "最高管理者",
+        "管理职责",
+        "风险管理过程",
+        "充分资源",
+        "胜任人员",
+        "风险可接受性准则",
+        "最新技术水平",
+        "定期评审"
+      ]
+    }
+  ]
+}

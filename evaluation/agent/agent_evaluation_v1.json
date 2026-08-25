@@ -1,0 +1,248 @@
+{
+  "title": "医疗器械软件测试知识库 Agent 路由与工具调用评测集 v1",
+  "version": "1.0.0",
+  "frozen_at": "2026-08-25",
+  "description": "30道平衡题，验证三个专业Agent的路由、工具调用、证据覆盖、低置信度改写和任务完成情况。",
+  "cases": [
+    {
+      "case_id": "A001",
+      "question": "NMPA指导原则对医疗器械软件安全性级别有哪些规定？",
+      "expected_agent": "regulatory",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A002",
+      "question": "独立软件现场检查时，黑盒测试人员独立性对应什么条款？",
+      "expected_agent": "regulatory",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A003",
+      "question": "医疗器械软件缺陷管理规范要求形成哪些文件和记录？",
+      "expected_agent": "regulatory",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A004",
+      "question": "YY/T 0664对医疗器械软件生存周期过程有哪些要求？",
+      "expected_agent": "regulatory",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A005",
+      "question": "GB/T 42062标准中的风险控制措施实施后还需要开展什么活动？",
+      "expected_agent": "regulatory",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A006",
+      "question": "注册质量管理体系现场核查可能形成哪四种结论？",
+      "expected_agent": "regulatory",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A007",
+      "question": "医疗器械召回法规对召回计划和调查评估报告有什么要求？",
+      "expected_agent": "regulatory",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A008",
+      "question": "软件更新后如何判定验证和确认的工作范围？",
+      "expected_agent": "regulatory",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "low_confidence_query_rewrite"],
+      "min_references": 1,
+      "expect_rewrite": true
+    },
+    {
+      "case_id": "A009",
+      "question": "可追溯性分析分别需要建立哪些关系？",
+      "expected_agent": "regulatory",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "low_confidence_query_rewrite"],
+      "min_references": 1,
+      "expect_rewrite": true
+    },
+    {
+      "case_id": "A010",
+      "question": "软件发布前通常需要准备什么？",
+      "expected_agent": "regulatory",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "low_confidence_query_rewrite"],
+      "min_references": 1,
+      "expect_rewrite": true
+    },
+    {
+      "case_id": "A011",
+      "question": "请为医疗器械软件登录失败锁定功能设计测试用例和预期结果。",
+      "expected_agent": "test_design",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A012",
+      "question": "如何测试不同角色对患者数据的访问权限？请给出测试步骤。",
+      "expected_agent": "test_design",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A013",
+      "question": "为软件升级中断和回滚场景设计异常测试方案。",
+      "expected_agent": "test_design",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A014",
+      "question": "医疗器械软件时间输入字段应如何设计边界值测试？",
+      "expected_agent": "test_design",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A015",
+      "question": "请根据风险控制要求设计报警功能的验证方法和测试点。",
+      "expected_agent": "test_design",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A016",
+      "question": "为审计日志的完整性、时间戳和防篡改能力设计测试方案。",
+      "expected_agent": "test_design",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A017",
+      "question": "软件更新后回归测试范围应如何转化为测试用例？",
+      "expected_agent": "test_design",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A018",
+      "question": "请给出网络断开、恢复和数据重传的测试前置条件与预期结果。",
+      "expected_agent": "test_design",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A019",
+      "question": "如何测试第三方现成软件组件升级后的兼容性和风险？",
+      "expected_agent": "test_design",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A020",
+      "question": "请为用户会话超时设计正向、异常和边界测试用例。",
+      "expected_agent": "test_design",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A021",
+      "question": "请复核这个回答的引用正确性：软件安全性级别只有严重一级。",
+      "expected_agent": "evaluation",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "citation_reference_audit"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A022",
+      "question": "评估回答是否完整：缺陷管理只需要修复缺陷，不需要回归测试。",
+      "expected_agent": "evaluation",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "citation_reference_audit"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A023",
+      "question": "请检查该结论是否存在幻觉：所有医疗器械软件都必须采用云部署。",
+      "expected_agent": "evaluation",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "citation_reference_audit"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A024",
+      "question": "请对回答质量评分并说明证据是否支持：黑盒测试人员可以兼任开发人员。",
+      "expected_agent": "evaluation",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "citation_reference_audit"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A025",
+      "question": "复核这段回答是否遗漏软件更新中的风险管理和用户告知要求。",
+      "expected_agent": "evaluation",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "citation_reference_audit"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A026",
+      "question": "请核查回答中的[ID:9]是否属于有效引用，并判断引用正确性。",
+      "expected_agent": "evaluation",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "citation_reference_audit"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A027",
+      "question": "评测这份答案对标准答案要点的覆盖程度，并指出重要遗漏。",
+      "expected_agent": "evaluation",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "citation_reference_audit"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A028",
+      "question": "请进行证据核查，判断外包软件质量协议回答是否有直接条款支持。",
+      "expected_agent": "evaluation",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "citation_reference_audit"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A029",
+      "question": "统计并复核该回答中可映射到检索片段的有效引用。",
+      "expected_agent": "evaluation",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "citation_reference_audit"],
+      "min_references": 1,
+      "expect_rewrite": false
+    },
+    {
+      "case_id": "A030",
+      "question": "请评估回答准确度、引用正确性和无依据事实风险。",
+      "expected_agent": "evaluation",
+      "required_tools": ["intent_router", "ragflow_knowledge_qa", "citation_reference_audit"],
+      "min_references": 1,
+      "expect_rewrite": false
+    }
+  ]
+}

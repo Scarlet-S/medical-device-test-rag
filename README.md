@@ -23,6 +23,11 @@
 - 严格文档命中与可接受等价文档命中评估
 - 基于实际引用证据的 LLM 自动裁判
 - 自动结果与人工基线对比及争议题复核
+- 法规、测试设计、评测三个专业 Agent 与可解释意图路由
+- 低置信度查询改写、引用质量门禁和一次受控重试
+- 30 道 Agent 路由/工具调用评测与统一质量、延迟、成本指标
+- Prometheus 指标、OpenTelemetry Trace 与 Jaeger 链路分析
+- LangChain + Docling 批量解析、SHA-256增量去重与SQLite断点续跑
 
 ## 技术方案
 
@@ -31,6 +36,7 @@
 - Elasticsearch、MySQL、Redis、MinIO
 - Python 3.14
 - Requests、python-dotenv、openpyxl
+- LangChain Text Splitters、Docling、SQLite、ProcessPool
 - 混合检索：向量权重 0.50、全文权重 0.50
 - Rerank：qwen3-rerank
 - LLM API 与独立评测裁判助手
@@ -235,12 +241,125 @@ python scripts/compare_retrieval_experiments.py --baseline "基线JSON" --candid
 
 完整的Windows、WSL 2和Docker Desktop部署步骤见：[RAGFlow本地部署与项目运行说明](docs/deployment.md)。
 
+## FastAPI Agent 服务（v1.3）
+
+项目提供独立的 API 服务层，便于接入前端、Agent 和外部测试工具。接口包含 RAGFlow 健康检查、结构化问答、SSE 阶段事件流和证据核查 Agent。证据核查 Agent 通过工具链调用知识库问答和引用编号核验，并返回可观察的工具执行轨迹；当前 SSE 返回检索状态、完整答案和完成事件，后续可继续升级为模型 Token 级流式输出。
+
+安装开发依赖并启动：
+
+```powershell
+python -m pip install -r requirements.txt -r requirements-dev.txt
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+启动后访问 `http://127.0.0.1:8000/docs` 查看交互式接口文档，或调用：
+
+```text
+GET  /health
+GET  /metrics
+POST /api/v1/ask
+POST /api/v1/ask/stream
+POST /api/v1/agent/review
+POST /api/v1/agents/regulatory
+POST /api/v1/agents/test-design
+POST /api/v1/agents/evaluation
+POST /api/v1/agents/route
+POST /api/v1/agents/workflow
+POST /api/v1/chat
+GET  /api/v1/conversations/{conversation_id}
+DELETE /api/v1/conversations/{conversation_id}
+POST /api/v1/evaluations/run
+GET  /api/v1/evaluations/{job_id}
+GET  /api/v1/evaluations/{job_id}/result
+```
+
+`/metrics` 以 Prometheus 文本格式暴露 HTTP 请求量与延迟、RAGFlow
+调用结果与延迟、Agent 路由置信度、各 Agent 成功率与延迟、工具调用、
+启发式 Token/成本估算、Redis 会话操作和异步评测任务状态。
+服务日志采用单行 JSON，包含请求 ID、路由、状态码和耗时；不记录问题
+正文、回答正文、API Key 或 Redis 密码。调用方也可传入 `X-Request-ID`
+用于跨服务追踪。
+
+### Nginx + Docker Compose 统一部署
+
+根目录 `.env` 配置好 RAGFlow 与 Redis 密码后运行：
+
+```powershell
+docker compose -f deploy/docker-compose.agent.yml up -d --build
+```
+
+部署后可访问：
+
+- `http://localhost:8080/docs`：经 Nginx 代理的 FastAPI 文档；
+- `http://localhost:8080/metrics`：Prometheus 文本指标；
+- `http://localhost:9090`：Prometheus 查询界面。
+- `http://localhost:16686`：Jaeger Trace 查询界面；
+- `http://localhost:8080/mcp`：MCP Streamable HTTP 工具入口。
+
+该 Compose 栈只新增 Agent API、专用 Redis、Nginx 和 Prometheus，
+不会重建或删除已有 RAGFlow 数据。容器内 API 通过
+`host.docker.internal:9380` 访问宿主机上的 RAGFlow；如端口不同，可在
+`.env` 中设置 `AGENT_RAGFLOW_BASE_URL`。SSE 路由已关闭 Nginx 缓冲。
+
+MCP 服务向可信客户端提供法规问答、测试设计、证据核查、意图路由、
+受控多步工作流、登记题集评测启动和评测状态查询七个工具。设计与安全
+边界见 [Agent 工作台增强说明](docs/agent_workbench_v1.2.md)，v1.3 的
+评测与追踪设计见 [Agent 评测与全链路追踪](docs/agent_evaluation_v1.3.md)。
+
+运行 3 道 Agent 冒烟评测或完整 30 道冻结评测：
+
+```powershell
+python scripts/run_agent_eval.py --limit 3 --label agent_v1_smoke
+python scripts/run_agent_eval.py --limit 30 --label agent_v1_frozen
+```
+
+冻结集最终合并结果：30/30请求成功，三个Agent各10题，端到端路由准确率
+100%、必需工具召回率100%、任务完成率96.7%，p95延迟56.2秒。首次运行
+因30秒RAGFlow超时产生的16个502被单独保留和补测，没有覆盖原始结果。
+
+运行接口测试：
+
+```powershell
+python -m pytest
+python scripts/configure_redis_memory.py
+python scripts/check_memory.py
+python scripts/check_mcp.py
+```
+
+### 批量文档摄取
+
+离线摄取管线按清单发现文档，使用SHA-256跳过未变化文件，以SQLite保存
+任务状态和失败信息，通过有限ProcessPool调用Docling完成PDF/DOCX结构化，
+再使用LangChain按Markdown标题及中文标点递归切片。默认只生成结构化Markdown、
+JSONL切片和质量报告；确认后才通过RAGFlow API上传、解析和索引。
+
+```powershell
+python -m pip install -r requirements-ingestion.txt
+
+python scripts/ingest_batch_documents.py `
+  --manifest "config/document_ingestion_manifest.json" `
+  --workers 2
+
+python scripts/ingest_batch_documents.py `
+  --manifest "config/document_ingestion_manifest.json" `
+  --apply `
+  --dataset-name "医疗器械控制软件测试知识库" `
+  --workers 2 `
+  --ragflow-workers 2 `
+  --metrics-port 9108
+```
+
+完整的清单字段、安全边界、恢复方式和指标说明见
+[批量文档摄取说明](docs/batch_document_ingestion.md)。
+
 ## 项目结构
 
 ```text
 medical-device-test-rag/
+├── app/                # FastAPI 服务层与数据模型
 ├── evaluation/
 │   ├── baseline/        # 人工评测工作簿
+│   ├── agent/           # 30 道 Agent 路由与工具调用冻结题集
 │   ├── config/          # 可接受等价文档配置
 │   ├── expansion/       # 100 道官方扩充题集
 │   ├── holdout/         # 原独立留出集，现作为回归集
@@ -249,8 +368,12 @@ medical-device-test-rag/
 │   └── results/         # 本地批量运行结果
 ├── scripts/
 │   ├── check_connection.py
+│   ├── ingest_single_document.py
+│   ├── ingest_batch_documents.py
 │   ├── ragflow_client.py
 │   ├── run_batch_eval.py
+│   ├── run_agent_eval.py
+│   ├── merge_agent_eval_retry.py
 │   ├── merge_eval_retry.py
 │   ├── score_acceptable_hits.py
 │   ├── score_citation_hits.py
@@ -258,9 +381,11 @@ medical-device-test-rag/
 │   ├── run_judge_eval.py
 │   ├── compare_judge_baseline.py
 │   └── compare_retrieval_experiments.py
+├── tests/              # API 单元测试（不调用真实模型）
 ├── .env.example
 ├── .gitignore
 ├── requirements.txt
+├── requirements-ingestion.txt
 └── README.md
 ```
 
@@ -286,7 +411,21 @@ medical-device-test-rag/
 - [x] 冻结并运行 100 道官方扩充题集
 - [x] 建立并运行 24 道项目原创实践层题集
 - [x] 完成覆盖 30 个文件条目的 204 道全语料回归评测
-- [ ] 整理 v1.1 最终提交并发布 GitHub Release
+- [x] 整理 v1.1 最终提交并发布 GitHub Release
+- [x] 增加 FastAPI 健康检查、结构化问答与 SSE 事件流接口
+- [x] 增加基于工具调用的证据核查 Agent
+- [x] 增加法规、测试设计和评测三个专业 Agent
+- [x] 增加可解释意图识别与专业 Agent 自动路由
+- [x] 增加 Redis 多轮会话记忆、历史查询和会话清理接口
+- [x] 将批量评测脚本封装为异步评测 API 和任务状态接口
+- [x] 增加 Prometheus 指标、请求 ID 和隐私安全的 JSON 结构化日志
+- [x] 增加 Nginx、Prometheus、Redis 与 FastAPI 的 Docker Compose 部署
+- [x] 增加基于 Streamable HTTP 的 MCP 领域工具服务
+- [x] 建立 30 道 Agent 路由与工具调用冻结评测集
+- [x] 统一路由、工具、证据、任务、延迟和估算成本指标
+- [x] 接入 OpenTelemetry + Jaeger 全链路追踪
+- [x] 增加低置信度查询改写与引用质量门禁多步工作流
+- [x] 增加LangChain、Docling、SQLite和SHA-256驱动的批量摄取管线
 
 ## 许可与资料声明
 

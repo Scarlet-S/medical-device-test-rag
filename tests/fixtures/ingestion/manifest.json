@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "defaults": {
+    "parser": "markdown",
+    "chunk_size": 220,
+    "chunk_overlap": 30,
+    "chunk_method": "naive",
+    "index_mode": "ragflow_native",
+    "output_dir": "data/processed/ingestion_smoke",
+    "state_db": "data/processed/ingestion_smoke_state.sqlite3",
+    "metrics_output": "data/processed/ingestion_smoke/metrics.prom"
+  },
+  "documents": [
+    {
+      "document_code": "DOC900",
+      "title": "医疗器械软件测试样例",
+      "path": "tests/fixtures/ingestion/DOC900_sample.md"
+    },
+    {
+      "document_code": "DOC901",
+      "title": "医疗器械软件风险测试样例",
+      "path": "tests/fixtures/ingestion/DOC901_sample.md"
+    }
+  ]
+}

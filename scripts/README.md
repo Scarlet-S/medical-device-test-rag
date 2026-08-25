@@ -35,6 +35,32 @@ python scripts/ingest_single_document.py `
 For a previously uploaded or failed document, use the exact filename with
 `--use-existing`; add `--retry-failed` only after reviewing the failure.
 
+## Batch document ingestion
+
+`ingest_batch_documents.py` implements an offline, resumable ingestion
+pipeline for Markdown, text, PDF, and DOCX files. It combines SHA-256
+fingerprints, a SQLite checkpoint, a bounded `ProcessPoolExecutor`, Docling,
+LangChain header/recursive splitting, RAGFlow API indexing, and Prometheus
+metrics.
+
+Install the optional ingestion dependencies first:
+
+```powershell
+python -m pip install -r requirements-ingestion.txt
+```
+
+Run a local-only dry run before modifying RAGFlow:
+
+```powershell
+python scripts/ingest_batch_documents.py `
+  --manifest "config/document_ingestion_manifest.json" `
+  --workers 2
+```
+
+After reviewing generated quality reports, add `--apply`. The script never
+deletes an existing RAGFlow document. See
+`docs/batch_document_ingestion.md` for index modes and recovery rules.
+
 ## Evaluation result merging
 
 `merge_eval_retry.py` replaces failed or explicitly selected successful
@@ -52,3 +78,31 @@ python scripts/merge_judge_retry.py `
   --source-result "evaluation/results/batch_eval_100_final.json" `
   --label official_expansion_final
 ```
+
+## Agent routing and tool evaluation
+
+`run_agent_eval.py` calls the controlled Agent workflow and evaluates routing,
+required tools, reference coverage, task completion, p95 latency, and
+heuristic token/cost usage against the frozen 30-case Agent set.
+
+```powershell
+python scripts/run_agent_eval.py --limit 3 --label agent_v1_smoke
+python scripts/run_agent_eval.py --limit 30 --label agent_v1_frozen
+```
+
+Set `AGENT_EVAL_TIMEOUT_SECONDS` and `AGENT_EVAL_MAX_ATTEMPTS` to control
+network timeout and retries. The default is one attempt, so failures do not
+silently turn into long waits.
+
+If a frozen run contains transport failures, preserve it, rerun only those
+case IDs, and merge successful retries without overwriting the first result:
+
+```powershell
+python scripts/merge_agent_eval_retry.py `
+  --base "evaluation/results/agent_eval_30_base.json" `
+  --retry "evaluation/results/agent_eval_16_retry.json" `
+  --label agent_v1_merged
+```
+
+The report separates conditional quality metrics (successful responses only)
+from end-to-end metrics that count transport failures against the full set.

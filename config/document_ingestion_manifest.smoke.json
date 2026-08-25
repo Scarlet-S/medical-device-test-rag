@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "defaults": {
+    "parser": "markdown",
+    "chunk_size": 800,
+    "chunk_overlap": 80,
+    "chunk_method": "naive",
+    "index_mode": "ragflow_native",
+    "output_dir": "data/processed/practice_ingestion_smoke",
+    "state_db": "data/processed/practice_ingestion_smoke_state.sqlite3",
+    "metrics_output": "data/processed/practice_ingestion_smoke/metrics.prom"
+  },
+  "documents": [
+    {
+      "document_code": "PRACTICE001",
+      "title": "医疗器械软件测试策略与生命周期",
+      "path": "data/practice_documents/PRACTICE001_test_strategy_and_lifecycle.md",
+      "metadata": {
+        "document_type": "practice",
+        "language": "zh-CN",
+        "smoke_test": true
+      }
+    },
+    {
+      "document_code": "PRACTICE003",
+      "title": "访问控制与审计日志测试",
+      "path": "data/practice_documents/PRACTICE003_access_control_and_audit_log_testing.md",
+      "metadata": {
+        "document_type": "practice",
+        "language": "zh-CN",
+        "smoke_test": true
+      }
+    }
+  ]
+}

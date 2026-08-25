@@ -10,6 +10,10 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+.pytest_cache/
+.pytest_tmp*/
+.coverage
+htmlcov/
 
 # IDE
 .vscode/
@@ -30,6 +34,8 @@ tmp/
 
 # Local data and generated files
 data/raw/*
+data/incoming/*
+.pip-cache/
 data/processed/*
 outputs/*
 evaluation/results/*

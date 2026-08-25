@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "defaults": {
+    "parser": "auto",
+    "chunk_size": 800,
+    "chunk_overlap": 80,
+    "chunk_method": "naive",
+    "index_mode": "ragflow_native",
+    "output_dir": "data/processed/ingestion",
+    "state_db": "data/processed/ingestion_state.sqlite3",
+    "metrics_output": "data/processed/ingestion/metrics.prom"
+  },
+  "documents": [
+    {
+      "enabled": false,
+      "document_code": "DOC017",
+      "title": "示例法规文件",
+      "path": "data/incoming/DOC017_example.md",
+      "parser": "markdown",
+      "index_mode": "ragflow_native",
+      "metadata": {
+        "authority": "NMPA",
+        "language": "zh-CN",
+        "document_type": "guideline"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "enabled": false,
+      "glob": "data/incoming/**/*.md",
+      "parser": "markdown",
+      "index_mode": "ragflow_native",
+      "metadata": {
+        "batch": "example"
+      }
+    }
+  ]
+}

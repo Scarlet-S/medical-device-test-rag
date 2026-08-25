@@ -1,0 +1,5 @@
+-r requirements.txt
+
+# Verified with the project's Python 3.14.4 virtual environment.
+langchain-text-splitters==1.1.2
+docling==2.122.0

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "name": "online-graphrag-final-holdout-v2",
+  "frozen_before_first_run": true,
+  "description": "别名与路径选择逻辑修复后建立的最终留出问题；不得用于后续图谱或别名调优。",
+  "cases": [
+    {
+      "case_id": "OH001",
+      "type": "multi_hop",
+      "question": "软件危险对应的控制措施最终如何落实为可核查的测试记录？",
+      "expected_nodes": ["hazard", "risk_control", "safety_requirement", "design_code", "test_evidence"]
+    },
+    {
+      "case_id": "OH002",
+      "type": "multi_hop",
+      "question": "版本更新完成后若回归失败，后续缺陷记录应如何沿证据链产生？",
+      "expected_nodes": ["software_update", "regression_scope", "regression_result", "defect_record"]
+    },
+    {
+      "case_id": "OH003",
+      "type": "multi_hop",
+      "question": "从威胁建模结论到剩余漏洞处置，需要经过哪些安全控制和测试环节？",
+      "expected_nodes": ["threat_model", "security_control", "security_test", "residual_vulnerability"]
+    },
+    {
+      "case_id": "OH004",
+      "type": "multi_hop",
+      "question": "OTS变化经过影响分析后，怎样决定回归范围并形成回归结果？",
+      "expected_nodes": ["ots_change", "impact_analysis", "regression_scope", "regression_result"]
+    },
+    {
+      "case_id": "OH005",
+      "type": "multi_hop",
+      "question": "用户权限测试中，审计日志怎样支持网络安全测试的追溯？",
+      "expected_nodes": ["access_role", "audit_log", "security_test"]
+    },
+    {
+      "case_id": "OH006",
+      "type": "multi_hop",
+      "question": "缺陷记录显示风险变化时，风险分析怎样决定新的回归测试范围？",
+      "expected_nodes": ["defect_record", "risk_analysis", "regression_scope"]
+    },
+    {
+      "case_id": "OH007",
+      "type": "multi_hop",
+      "question": "权限设计作为风险控制措施时，怎样逐级追溯至验证证据？",
+      "expected_nodes": ["access_role", "risk_control", "safety_requirement", "design_code", "test_evidence"]
+    },
+    {
+      "case_id": "OH008",
+      "type": "multi_hop",
+      "question": "访问日志如何支持安全测试，并进一步形成漏洞处置记录？",
+      "expected_nodes": ["audit_log", "security_test", "residual_vulnerability"]
+    },
+    {
+      "case_id": "OH009",
+      "type": "single_hop_control",
+      "question": "软件安全性级别应如何影响验证证据的充分程度？",
+      "expected_nodes": ["safety_level", "test_evidence"]
+    },
+    {
+      "case_id": "OH010",
+      "type": "single_hop_control",
+      "question": "版本更新的影响程度应如何用于确定测试范围？",
+      "expected_nodes": ["software_update", "regression_scope"]
+    }
+  ]
+}

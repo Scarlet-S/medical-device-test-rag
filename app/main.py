@@ -15,11 +15,15 @@ from app.agents.router import route_intent
 from app.agents.specialists import RegulatoryAgent, TestDesignAgent
 from app.agents.workflow import execute_controlled_workflow
 from app.evaluation_jobs import EvaluationJobManager
+from app.graphrag import GraphRAGIndex
 from app.memory import RedisConversationMemory, build_memory_context
 from app.observability import (
     AGENT_ROUTES,
     ROUTER_CONFIDENCE,
     EVALUATION_JOBS,
+    GRAPHRAG_DURATION,
+    GRAPHRAG_PATH_HOPS,
+    GRAPHRAG_SEARCHES,
     HTTP_DURATION,
     HTTP_REQUESTS,
     LOGGER,
@@ -41,6 +45,10 @@ from app.models import (
     EvaluationJob,
     EvaluationRunRequest,
     HealthResponse,
+    GraphEvidenceItem,
+    GraphPathItem,
+    GraphRAGSearchRequest,
+    GraphRAGSearchResponse,
     ReferenceItem,
     RoutedAgentResponse,
     SpecialistAgentResponse,
@@ -71,7 +79,7 @@ async def lifespan(_: FastAPI):
 app = FastAPI(
     title="医疗器械控制软件测试知识库 API",
     description="基于 RAGFlow 的可追溯医疗器械软件测试知识问答接口。",
-    version="1.3.0",
+    version="1.6.0",
     lifespan=lifespan,
 )
 
@@ -127,6 +135,12 @@ async def observe_http(request: Request, call_next):
 def get_ragflow_client() -> RAGFlowClient:
     """Reuse the HTTP session and resolved RAGFlow chat across requests."""
     return RAGFlowClient()
+
+
+@lru_cache(maxsize=1)
+def get_graphrag_index() -> GraphRAGIndex:
+    """Load the optional graph index once per API process."""
+    return GraphRAGIndex.from_path()
 
 
 def normalize_reference(chunk: dict[str, Any]) -> ReferenceItem:
@@ -243,6 +257,97 @@ async def metrics() -> Response:
 @app.post("/api/v1/ask", response_model=AskResponse, tags=["rag"])
 async def ask(request: AskRequest) -> AskResponse:
     return await execute_question(request.question)
+
+
+@app.post(
+    "/api/v1/graphrag/search",
+    response_model=GraphRAGSearchResponse,
+    tags=["graphrag"],
+)
+async def graphrag_search(
+    request: GraphRAGSearchRequest,
+) -> GraphRAGSearchResponse:
+    """Retrieve an auditable evidence path without changing /chat behavior."""
+
+    started_at = perf_counter()
+    try:
+        with traced_span(
+            "graphrag.search",
+            {
+                "question.length": len(request.question),
+                "graphrag.top_k": request.top_k,
+                "graphrag.max_hops": request.max_hops,
+            },
+        ):
+            index = await asyncio.to_thread(get_graphrag_index)
+            result = await asyncio.to_thread(
+                index.search,
+                request.question,
+                request.top_k,
+                request.max_hops,
+            )
+    except Exception as exc:
+        GRAPHRAG_SEARCHES.labels("graph", "failed").inc()
+        GRAPHRAG_DURATION.labels("graph").observe(perf_counter() - started_at)
+        raise HTTPException(
+            status_code=503,
+            detail=f"GraphRAG 索引不可用：{exc}",
+        ) from exc
+
+    if result.paths:
+        elapsed_seconds = perf_counter() - started_at
+        GRAPHRAG_SEARCHES.labels("graph", "success").inc()
+        GRAPHRAG_DURATION.labels("graph").observe(elapsed_seconds)
+        for path in result.paths:
+            GRAPHRAG_PATH_HOPS.observe(path["hop_count"])
+        return GraphRAGSearchResponse(
+            question=request.question,
+            mode="graph",
+            detected_entities=result.detected_entities,
+            paths=[GraphPathItem(**item) for item in result.paths],
+            evidence=[GraphEvidenceItem(**item) for item in result.evidence],
+            confidence=result.confidence,
+            elapsed_ms=round(elapsed_seconds * 1000),
+        )
+
+    if not request.fallback_to_ragflow:
+        elapsed_seconds = perf_counter() - started_at
+        GRAPHRAG_SEARCHES.labels("graph", "no_path").inc()
+        GRAPHRAG_DURATION.labels("graph").observe(elapsed_seconds)
+        return GraphRAGSearchResponse(
+            question=request.question,
+            mode="graph",
+            detected_entities=result.detected_entities,
+            evidence=[GraphEvidenceItem(**item) for item in result.evidence],
+            confidence=result.confidence,
+            fallback_reason="未发现可解释的多跳证据路径。",
+            elapsed_ms=round(elapsed_seconds * 1000),
+        )
+
+    rag_response = await execute_question(request.question)
+    elapsed_seconds = perf_counter() - started_at
+    GRAPHRAG_SEARCHES.labels("ragflow_fallback", "success").inc()
+    GRAPHRAG_DURATION.labels("ragflow_fallback").observe(elapsed_seconds)
+    fallback_evidence = [
+        GraphEvidenceItem(
+            chunk_id=item.chunk_id,
+            document_name=item.document_name,
+            content=item.content,
+            score=item.similarity or 0.0,
+            source="ragflow",
+        )
+        for item in rag_response.references[: request.top_k]
+    ]
+    return GraphRAGSearchResponse(
+        question=request.question,
+        mode="ragflow_fallback",
+        detected_entities=result.detected_entities,
+        evidence=fallback_evidence,
+        confidence=result.confidence,
+        answer=rag_response.answer,
+        fallback_reason="图索引未形成多跳路径，已安全回退到现有RAGFlow问答。",
+        elapsed_ms=round(elapsed_seconds * 1000),
+    )
 
 
 @app.post("/api/v1/ask/stream", tags=["rag"])

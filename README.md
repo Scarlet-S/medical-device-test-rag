@@ -30,6 +30,7 @@
 - LangChain + Docling 批量解析、SHA-256增量去重与SQLite断点续跑
 - GitHub Actions 自动执行单元测试、配置校验、离线评测和 Docker 构建
 - 小规模 GraphRAG 多跳证据检索对照实验
+- 可选 GraphRAG 在线检索接口、真实切片图索引和安全回退
 
 ## 技术方案
 
@@ -99,7 +100,11 @@ DOC014（GB/T 38634 软件测试系列）因现有转录不完整，已从活动
 
 项目增加了一个不调用外部模型的可重复 GraphRAG-style 对照：在相同 Top-4 返回数量下，6 道多跳题的平均证据召回由 72.2% 提升到 100.0%，完整证据链命中率由 33.3% 提升到 100.0%；2 道单跳对照保持 100.0%。改善集中在危险到测试证据、现成软件变化到回归结果、权限到安全测试、缺陷到回归验证四类需要补齐中间关系的问题。
 
-这是一项小规模受控实验，尚未替换 RAGFlow 在线检索，也不用于声称生产级 GraphRAG 能力。实验设计、逐题结果和限制见 `docs/graphrag_comparison_v1.md`。
+v1.6 进一步加入独立的 `/api/v1/graphrag/search` 在线接口，并从当前知识库
+30 个文件条目的 897 个真实 RAGFlow 切片生成本地图索引。最终 10 题冻结留出
+测试中，平均实体证据召回由 64.7% 提升到 85.8%，9/10 题形成完整预期路径。
+该能力保持可选，未替换稳定的 `/chat` 链路；无图路径时可安全回退到 RAGFlow。
+实验设计、边界和失败案例见 `docs/graphrag_online_pilot_v1.6.md`。
 
 权重对比实验测试了 `0.30/0.70`、`0.50/0.50` 和 `0.70/0.30` 三组向量/全文权重。最终选择 `0.50/0.50`：相比原基线，严格 Top-1 从 70% 提升到 78%，严格 Top-3 从 96% 提升到 100%，同时取得最高的可接受 Top-1。完整实验记录见 `evaluation/reviews/retrieval_parameter_experiment_20260725.md`。
 
@@ -254,6 +259,17 @@ python scripts/run_graphrag_comparison.py --fail-on-no-multihop-improvement
 ```
 
 该实验不调用 RAGFlow 或模型 API，不消耗模型额度。
+
+从当前 RAGFlow 知识库构建本地真实切片图索引并运行冻结留出测试：
+
+```powershell
+python scripts/build_graphrag_index.py
+python scripts/run_online_graphrag_eval.py `
+  --cases evaluation\graphrag\online_multihop_holdout_v2.json `
+  --output evaluation\results\graphrag_online_holdout_v2_once.json
+```
+
+真实切片图索引包含原始内容，仅保存在本地，不提交到公开仓库。
 
 完整的Windows、WSL 2和Docker Desktop部署步骤见：[RAGFlow本地部署与项目运行说明](docs/deployment.md)。
 

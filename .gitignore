@@ -39,6 +39,7 @@ data/incoming/*
 data/processed/*
 outputs/*
 evaluation/results/*
+evaluation/graphrag/ragflow_chunk_graph_*.json
 screenshots/private/*
 
 # Docker local data

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "name": "online-graphrag-unseen-validation-v1",
+  "frozen_before_first_run": true,
+  "description": "未参与图谱结构设计的改写问题，用于对照真实RAGFlow切片上的普通词法召回与GraphRAG证据链。",
+  "cases": [
+    {
+      "case_id": "OG001",
+      "type": "multi_hop",
+      "question": "风险分析发现软件危险后，怎样一路追溯到能够接受检查的验证测试记录？",
+      "expected_nodes": ["hazard", "risk_control", "safety_requirement", "design_code", "test_evidence"]
+    },
+    {
+      "case_id": "OG002",
+      "type": "multi_hop",
+      "question": "一次软件版本更新最终出现测试失败时，应如何沿控制链进入缺陷闭环？",
+      "expected_nodes": ["software_update", "regression_scope", "regression_result", "defect_record"]
+    },
+    {
+      "case_id": "OG003",
+      "type": "multi_hop",
+      "question": "威胁分析识别攻击路径以后，控制验证与未修复漏洞处置之间如何衔接？",
+      "expected_nodes": ["threat_model", "security_control", "security_test", "residual_vulnerability"]
+    },
+    {
+      "case_id": "OG004",
+      "type": "multi_hop",
+      "question": "现成软件补丁发生变化并导致回归失败时，完整的影响与缺陷链路是什么？",
+      "expected_nodes": ["ots_change", "impact_analysis", "regression_scope", "regression_result", "defect_record"]
+    },
+    {
+      "case_id": "OG005",
+      "type": "multi_hop",
+      "question": "角色授权边界如何通过日志证据连接到网络安全验证活动？",
+      "expected_nodes": ["access_role", "audit_log", "security_test"]
+    },
+    {
+      "case_id": "OG006",
+      "type": "multi_hop",
+      "question": "缺陷评估发现风险变化后，怎样把分析结论反馈到下一轮回归测试选择？",
+      "expected_nodes": ["defect_record", "risk_analysis", "regression_scope"]
+    },
+    {
+      "case_id": "OG007",
+      "type": "multi_hop",
+      "question": "用户权限承担风险控制功能时，如何追踪到实现该控制的软件测试证据？",
+      "expected_nodes": ["access_role", "risk_control", "safety_requirement", "design_code", "test_evidence"]
+    },
+    {
+      "case_id": "OG008",
+      "type": "multi_hop",
+      "question": "审计日志发现异常访问后，安全测试和剩余漏洞处理应形成怎样的证据链？",
+      "expected_nodes": ["audit_log", "security_test", "residual_vulnerability"]
+    },
+    {
+      "case_id": "OG009",
+      "type": "single_hop_control",
+      "question": "软件安全性级别与验证测试充分性之间有什么关系？",
+      "expected_nodes": ["safety_level", "test_evidence"]
+    },
+    {
+      "case_id": "OG010",
+      "type": "single_hop_control",
+      "question": "软件更新如何决定回归测试范围？",
+      "expected_nodes": ["software_update", "regression_scope"]
+    }
+  ]
+}

@@ -49,6 +49,43 @@ class AskResponse(BaseModel):
     usage: UsageEstimate = Field(default_factory=UsageEstimate)
 
 
+class GraphRAGSearchRequest(AskRequest):
+    top_k: int = Field(default=4, ge=1, le=10)
+    max_hops: int = Field(default=4, ge=1, le=6)
+    fallback_to_ragflow: bool = True
+
+
+class GraphEvidenceItem(BaseModel):
+    chunk_id: str
+    document_code: str = ""
+    document_name: str = ""
+    title: str = ""
+    content: str = ""
+    score: float = 0.0
+    entities: list[str] = Field(default_factory=list)
+    source: Literal["graph", "ragflow"] = "graph"
+
+
+class GraphPathItem(BaseModel):
+    nodes: list[str] = Field(default_factory=list)
+    node_labels: list[str] = Field(default_factory=list)
+    predicates: list[str] = Field(default_factory=list)
+    evidence_chunks: list[str] = Field(default_factory=list)
+    hop_count: int = 0
+
+
+class GraphRAGSearchResponse(BaseModel):
+    question: str
+    mode: Literal["graph", "ragflow_fallback"]
+    detected_entities: list[str] = Field(default_factory=list)
+    paths: list[GraphPathItem] = Field(default_factory=list)
+    evidence: list[GraphEvidenceItem] = Field(default_factory=list)
+    confidence: float = Field(ge=0, le=1)
+    answer: str = ""
+    fallback_reason: str = ""
+    elapsed_ms: int
+
+
 class HealthResponse(BaseModel):
     status: str
     ragflow_connected: bool

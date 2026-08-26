@@ -175,3 +175,27 @@ python scripts/run_graphrag_comparison.py `
 The experiment is deliberately described as GraphRAG-style evidence
 retrieval, not as a production Microsoft GraphRAG deployment. See
 `docs/graphrag_comparison_v1.md` for the frozen results and limitations.
+
+## Online GraphRAG pilot
+
+`build_graphrag_index.py` reads all existing chunks from the configured
+RAGFlow dataset and builds a local, auditable entity graph. It is read-only
+with respect to RAGFlow. The generated graph contains source text and is
+therefore ignored by Git.
+
+```powershell
+python scripts/build_graphrag_index.py
+```
+
+`run_online_graphrag_eval.py` compares non-graph lexical evidence retrieval
+with graph-path retrieval on a frozen holdout set:
+
+```powershell
+python scripts/run_online_graphrag_eval.py `
+  --cases evaluation\graphrag\online_multihop_holdout_v2.json `
+  --output evaluation\results\graphrag_online_holdout_v2_once.json
+```
+
+Set `GRAPHRAG_INDEX_PATH` to the generated local graph before starting the
+FastAPI service. `/api/v1/graphrag/search` then returns entity paths and source
+evidence, or safely falls back to the existing RAGFlow answer when requested.

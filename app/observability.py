@@ -79,6 +79,21 @@ MEMORY_OPERATIONS = Counter(
     "Redis conversation-memory operations.",
     ("operation", "status"),
 )
+GRAPHRAG_SEARCHES = Counter(
+    "mdtr_graphrag_searches_total",
+    "GraphRAG pilot searches by mode and outcome.",
+    ("mode", "status"),
+)
+GRAPHRAG_DURATION = Histogram(
+    "mdtr_graphrag_search_duration_seconds",
+    "GraphRAG pilot search latency in seconds.",
+    ("mode",),
+)
+GRAPHRAG_PATH_HOPS = Histogram(
+    "mdtr_graphrag_path_hops",
+    "Hop count of evidence paths returned by GraphRAG.",
+    buckets=(0, 1, 2, 3, 4, 5, 6),
+)
 
 
 class JsonFormatter(logging.Formatter):

@@ -353,8 +353,12 @@ python scripts/ingest_batch_documents.py `
 [批量文档摄取说明](docs/batch_document_ingestion.md)。项目另以 FDA 官方
 AI-enabled Medical Devices 清单为入口，确定性下载并离线解析了 300 份公开
 510(k) 决定摘要，形成真实产品验证案例层；300/300 解析成功，最终生成
-17,482 个清洗后切片。选择规则、质量指标和入库边界见
-[FDA AI 医疗器械验证案例语料包 v1](docs/fda_ai_validation_corpus_v1.md)。
+17,482 个清洗后本地切片。全部文档已写入独立 RAGFlow 数据集，300/300
+状态为 `DONE`，生成 4,791 个在线检索切片。冻结 20 题最终容量回归的
+Top-1、Top-3、精确文件定位和引用正确率均为 100%，回答准确度为 92.5%，
+幻觉率为 0%。选择规则、质量指标和最终评测见
+[FDA AI 医疗器械验证案例语料包 v1](docs/fda_ai_validation_corpus_v1.md)和
+[FDA 最终容量回归报告](docs/fda_ai_validation_smoke_evaluation_v1.md)。
 
 ## 项目结构
 
@@ -430,6 +434,7 @@ medical-device-test-rag/
 - [x] 接入 OpenTelemetry + Jaeger 全链路追踪
 - [x] 增加低置信度查询改写与引用质量门禁多步工作流
 - [x] 增加LangChain、Docling、SQLite和SHA-256驱动的批量摄取管线
+- [x] 完成 300 份 FDA AI 医疗器械 510(k) 案例的全量索引与容量回归
 
 ## 许可与资料声明
 

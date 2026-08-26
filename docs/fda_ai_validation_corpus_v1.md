@@ -39,7 +39,7 @@ FDA 官方 CSV
   -> FDA 模板噪声、乱码和低信息片段过滤
   -> SQLite 状态与断点续跑
   -> JSONL、质量报告与 Prometheus 指标
-  -> 人工确认后才允许 RAGFlow API 入库
+  -> 人工确认后通过 RAGFlow API 入库与索引
 ```
 
 准备语料：
@@ -92,13 +92,21 @@ python scripts/ingest_batch_documents.py `
 聚合质量摘要见
 [`docs/fda_ai_validation_corpus_v1_quality.md`](fda_ai_validation_corpus_v1_quality.md)。
 
-## 入库安全边界
+## 全量入库与最终验收
 
-当前阶段只完成下载、结构化解析、清洗、切片和离线质量验收，尚未把 300 份
-文档写入活动 RAGFlow 知识库。正式入库前建议：
+全部 300 份文档已写入独立数据集 `FDA AI 医疗器械验证案例库`，与中国
+监管规范层隔离。最终远端状态为 300/300 `DONE`，生成 4,791 个 RAGFlow
+在线检索切片。
 
-1. 新建独立数据集 `FDA AI 医疗器械验证案例库`，避免与中国规范层混合。
-2. 使用 `scripts/create_smoke_ingestion_manifest.py` 生成覆盖专业面板的 20 份
-   冻结清单，再执行 RAGFlow API 小批量入库并检查引用和语言路由。
-3. 建立未参与切片优化的案例检索题集，确认 Top-3、引用正确率和回答边界。
-4. 评估 Embedding API 的额度和成本，再批准完整 300 份入库。
+项目使用覆盖监管分类、预期用途、性能验证证据及软件/算法功能的 20 道冻结
+题集，在 20、100、199 和 300 文档规模下执行容量回归。300 文档最终结果：
+
+- 执行成功率：20/20（100%）。
+- Top-1 / Top-3 命中率：20/20（100%）。
+- 精确文件 Top-1 / Top-3 命中率：20/20（100%）。
+- 引用正确率：20/20（100%）。
+- 回答准确度：37/40（92.5%）。
+- 幻觉：0/20（0%）。
+
+完整过程、断点失败恢复记录和评测边界见
+[`docs/fda_ai_validation_smoke_evaluation_v1.md`](fda_ai_validation_smoke_evaluation_v1.md)。

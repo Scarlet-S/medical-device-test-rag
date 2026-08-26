@@ -157,3 +157,21 @@ python scripts/merge_agent_eval_retry.py `
 
 The report separates conditional quality metrics (successful responses only)
 from end-to-end metrics that count transport failures against the full set.
+
+## Offline GraphRAG comparison
+
+`run_graphrag_comparison.py` compares deterministic lexical retrieval with a
+small entity-relation path retriever on frozen medical-device multi-hop cases.
+It does not call RAGFlow or any model API, so it is suitable for local and CI
+regression checks.
+
+```powershell
+python scripts/run_graphrag_comparison.py `
+  --output-json evaluation/results/graphrag_local.json `
+  --output-csv evaluation/results/graphrag_local.csv `
+  --fail-on-no-multihop-improvement
+```
+
+The experiment is deliberately described as GraphRAG-style evidence
+retrieval, not as a production Microsoft GraphRAG deployment. See
+`docs/graphrag_comparison_v1.md` for the frozen results and limitations.

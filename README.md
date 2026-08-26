@@ -28,6 +28,8 @@
 - 30 道 Agent 路由/工具调用评测与统一质量、延迟、成本指标
 - Prometheus 指标、OpenTelemetry Trace 与 Jaeger 链路分析
 - LangChain + Docling 批量解析、SHA-256增量去重与SQLite断点续跑
+- GitHub Actions 自动执行单元测试、配置校验、离线评测和 Docker 构建
+- 小规模 GraphRAG 多跳证据检索对照实验
 
 ## 技术方案
 
@@ -92,6 +94,12 @@ DOC014（GB/T 38634 软件测试系列）因现有转录不完整，已从活动
 | 人工复核幻觉率 | 0%（0/204） |
 
 严格文档命中率低于引用正确率的主要原因是 DOC003 与 DOC004 等来源存在语义相同的对应条款。项目同时保留严格来源指标、精确文件名指标、自动裁判原始结果和人工争议复核，不以修改题目或注入标准答案的方式追求满分。完整总报告见 `evaluation/reviews/full_corpus_regression_evaluation_20260805.md`。
+
+### GraphRAG 多跳对照实验
+
+项目增加了一个不调用外部模型的可重复 GraphRAG-style 对照：在相同 Top-4 返回数量下，6 道多跳题的平均证据召回由 72.2% 提升到 100.0%，完整证据链命中率由 33.3% 提升到 100.0%；2 道单跳对照保持 100.0%。改善集中在危险到测试证据、现成软件变化到回归结果、权限到安全测试、缺陷到回归验证四类需要补齐中间关系的问题。
+
+这是一项小规模受控实验，尚未替换 RAGFlow 在线检索，也不用于声称生产级 GraphRAG 能力。实验设计、逐题结果和限制见 `docs/graphrag_comparison_v1.md`。
 
 权重对比实验测试了 `0.30/0.70`、`0.50/0.50` 和 `0.70/0.30` 三组向量/全文权重。最终选择 `0.50/0.50`：相比原基线，严格 Top-1 从 70% 提升到 78%，严格 Top-3 从 96% 提升到 100%，同时取得最高的可接受 Top-1。完整实验记录见 `evaluation/reviews/retrieval_parameter_experiment_20260725.md`。
 
@@ -238,6 +246,14 @@ python scripts/compare_retrieval_experiments.py --baseline "基线JSON" --candid
 ```
 
 生成的 JSON 和 CSV 保存在 `evaluation/results`，该目录中的运行结果默认不提交到 Git。
+
+运行离线 GraphRAG 对照实验：
+
+```powershell
+python scripts/run_graphrag_comparison.py --fail-on-no-multihop-improvement
+```
+
+该实验不调用 RAGFlow 或模型 API，不消耗模型额度。
 
 完整的Windows、WSL 2和Docker Desktop部署步骤见：[RAGFlow本地部署与项目运行说明](docs/deployment.md)。
 

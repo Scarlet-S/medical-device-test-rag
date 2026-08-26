@@ -1,0 +1,176 @@
+{
+  "metadata": {
+    "title": "FDA AI医疗器械验证案例库检索评测集",
+    "version": "v1",
+    "created_date": "2026-08-25",
+    "status": "FROZEN_AFTER_FIRST_RUN",
+    "case_count": 20,
+    "purpose": "验证20份FDA 510(k)决定摘要的精确文件召回、引用与回答质量。",
+    "limitations": [
+      "本题集仅用于新FDA案例库验收，不代表普遍监管要求。",
+      "首次正式运行后不得依据本题集修改切片或提示词。"
+    ]
+  },
+  "cases": [
+    {
+      "question_id": "F001",
+      "expected_document": "FDAAI_K254207",
+      "expected_filename": "FDAAI_K254207_structured.md",
+      "question": "In FDA 510(k) K254207, what regulation number, regulation name, regulatory class, and product code are listed for AiORTA - Plan v2.0?",
+      "expected_location": "510(k) decision letter header",
+      "reference_answer": "The decision summary identifies regulation number 21 CFR 892.2050, regulation name Medical Image Management And Processing System, regulatory class Class II, and product code QIH."
+    },
+    {
+      "question_id": "F002",
+      "expected_document": "FDAAI_K252360",
+      "expected_filename": "FDAAI_K252360_structured.md",
+      "question": "In FDA 510(k) K252360, what regulation number, regulation name, regulatory class, and product code are listed for ECG-AI Pulmonary Hypertension (PH) 12-Lead algorithm (1020)?",
+      "expected_location": "510(k) decision letter header",
+      "reference_answer": "The decision summary identifies regulation number 21 CFR 870.2380, regulation name Cardiovascular machine learning-based notification software, regulatory class Class II, and product code SAT."
+    },
+    {
+      "question_id": "F003",
+      "expected_document": "FDAAI_K253379",
+      "expected_filename": "FDAAI_K253379_structured.md",
+      "question": "In FDA 510(k) K253379, what regulation number, regulation name, regulatory class, and product code are listed for Stealth AXiS Cranial clinical application?",
+      "expected_location": "510(k) decision letter header",
+      "reference_answer": "The decision summary identifies regulation number 21 CFR 882.4560, regulation name Stereotaxic Instrument, regulatory class Class II, and product code HAW."
+    },
+    {
+      "question_id": "F004",
+      "expected_document": "FDAAI_K252282",
+      "expected_filename": "FDAAI_K252282_structured.md",
+      "question": "In FDA 510(k) K252282, what regulation number, regulation name, regulatory class, and product code are listed for SurgiCount+ System?",
+      "expected_location": "510(k) decision letter header",
+      "reference_answer": "The decision summary identifies regulation number 21 CFR 880.2750, regulation name Image Processing Device For of External Blood Loss, regulatory class II, and product code PBZ."
+    },
+    {
+      "question_id": "F005",
+      "expected_document": "FDAAI_K250655",
+      "expected_filename": "FDAAI_K250655_structured.md",
+      "question": "In FDA 510(k) K250655, what regulation number, regulation name, regulatory class, and product code are listed for Deep Capsule® (Deep Capsule US)?",
+      "expected_location": "510(k) decision letter header",
+      "reference_answer": "The decision summary identifies regulation number 21 CFR 876.1540, regulation name Gastrointestinal Capsule Endoscopy Analysis Software Device, regulatory class Class II, and product code QZF."
+    },
+    {
+      "question_id": "F006",
+      "expected_document": "FDAAI_K243348",
+      "expected_filename": "FDAAI_K243348_structured.md",
+      "question": "According to FDA 510(k) K243348, what is the stated intended use or indication for Athelas Home?",
+      "expected_location": "Indications for Use",
+      "reference_answer": "Form Approved: OMB No. 0910-0120 Expiration Date: 07/31/2026 See PRA Statement below. 510(k) Number (if known) K243348 Device Name Athelas Home Indications for Use (Describe) The Athelas Home is indicated for the quantitative determination of white blood cells (WBC) and Neutrophil percentages (NEUT%) in capillary whole blood from fingerstick for patient self-testing with results viewable by healthcare professionals, and in capillary or K2EDTA venous whole blood for multiple-patient use in point-of-care settings. For self- testing, the Athelas Home is intended to be used by a single person and should not be shared. The Athelas Home is only to be used with Athelas Test Strips. The Athelas Home is intended for adult patients (aged 21 and older) at risk of neutropenia. For self-testing patients with psychiatric conditions, clinical judgment should be exercised when deciding the end-user and based on the instructions for use (IFU), the treating physician should determine which patients are competent to perform the test by themselves. Results obtained with the Athelas Home should not be the sole basis for patient diagnosis, treatment, or management of leukopenia and neutropenia, and all "
+    },
+    {
+      "question_id": "F007",
+      "expected_document": "FDAAI_K260104",
+      "expected_filename": "FDAAI_K260104_structured.md",
+      "question": "According to FDA 510(k) K260104, what is the stated intended use or indication for Signature ONE System?",
+      "expected_location": "Indications for Use",
+      "reference_answer": "Please type in the marketing application/submission number, if it is known. This textbox will be left blank for original applications/submissions. K260104 ? Please provide the device trade name(s). ? Signature T TM ONE System Please provide your Indications for Use below. ? The Signature T TM ONE System is indicated, based on patient-specific radiological images with identifiable placement anatomical landmarks, to assist in pre-operative planning and/or intra-operative guiding of surgical instruments for shoulder replacement surgical procedures on patients not precluded from being radiologically scanned. The Signature T TM ONE System is designed for use on a skeletally mature patient population. The targeted population has the same characteristics as the population that is suitable for the implants compatible with the Signature ™ ONE System. The Signature ™ ONE System is to be used with the glenoid components of the following shoulder implant systems in accordance with their indications and contraindications: Zimmer® Trabecular Metal Reverse Plus® Shoulder, Comprehensive® Total Shoulder System, Comprehensive® Reverse Shoulder System, Comprehensive® Reverse Augmented Baseplates and "
+    },
+    {
+      "question_id": "F008",
+      "expected_document": "FDAAI_K251511",
+      "expected_filename": "FDAAI_K251511_structured.md",
+      "question": "According to FDA 510(k) K251511, what is the stated intended use or indication for PhenoMATRIX?",
+      "expected_location": "Indications for Use",
+      "reference_answer": "Form Approved: OMB No. 0910-0120 Expiration Date: 07/31/2026 See PRA Statement below. 510(k) Number (if known) K251511 Device Name PhenoMATRIX Indications for Use (Describe) PhenoMATRIX is a WASPLab optional module intended for the automatic sorting of images of blood-based agar, chocolate agar, MacConkey agar, and CHROMagar Orientation culture media plates according to classification parameters based on Image Analysis Software results and clinical and demographic data. Image Analysis Software performs semi-quantitative and/or qualitative analysis of culture media plates by detecting microbial growth, estimating colony counts and differentiating isolates based on phenotypic colony characteristics. The system determines how the images should be sorted based on image analysis results in addition to patient data according to expert rules defined by the laboratory. All images shall be evaluated by trained personnel for final assessment and result definition. Type of Use (Select one or both, as applicable) - [x] Prescription Use (Part 21 CFR 801 Subpart D) - [ ] Over-The-Counter Use (21 CFR 801 Subpart C)"
+    },
+    {
+      "question_id": "F009",
+      "expected_document": "FDAAI_K252497",
+      "expected_filename": "FDAAI_K252497_structured.md",
+      "question": "According to FDA 510(k) K252497, what is the stated intended use or indication for SANSA HSAT?",
+      "expected_location": "Indications for Use",
+      "reference_answer": "Form Approved: OMB No. 0910-0120 Expiration Date: 07/31/2026 See PRA Statement below. 510(k) Number (if known) K252497 Device Name SANSA HSAT Indications for Use (Describe) The Huxley Home Sleep Apnea Test (SANSA) is a wearable device intended for use in the recording, analysis and storage of biophysical parameters to aid in the evaluation of sleep-related breathing disorders of adults suspected of sleep apnea. The device is intended for the clinical and home use setting under the direction of a Healthcare Professional (HCP) Type of Use (Select one or both, as applicable) - [x] Prescription Use (Part 21 CFR 801 Subpart D) - [ ] Over-The-Counter Use (21 CFR 801 Subpart C)"
+    },
+    {
+      "question_id": "F010",
+      "expected_document": "FDAAI_K243449",
+      "expected_filename": "FDAAI_K243449_structured.md",
+      "question": "According to FDA 510(k) K243449, what is the stated intended use or indication for INFINITT DPS?",
+      "expected_location": "Indications for Use",
+      "reference_answer": "Form Approved: OMB No. 0910-0120 Expiration Date: 07/31/2026 See PRA Statement below. 510(k) Number (if known) K243449 Device Name INFINITT DPS Indications for Use (Describe) INFINITT DPS is a software device intended for viewing and management of whole slide digital images derived from scanned surgical pathology slides prepared from formalin-fixed, paraffin-embedded (FFPE) tissue. It serves as an aid for pathologists to review and interpret these digital images for the purpose of pathology primary diagnosis. INFINITT DPS is intended for use with Hamamatsu NanoZoomer S360MD scanner and Barco MDPC-8127 display. It is the responsibility of the pathologist to implement appropriate procedures and safeguards that assure the integrity and accuracy of image interpretation when utilizing the INFINITT DPS. The system is not intended for use with frozen sections, cytology, or non-FFPE hematopathology specimens. Type of Use (Select one or both, as applicable) - [x] Prescription Use (Part 21 CFR 801 Subpart D) - [ ] Over-The-Counter Use (21 CFR 801 Subpart C)"
+    },
+    {
+      "question_id": "F011",
+      "expected_document": "FDAAI_K251082",
+      "expected_filename": "FDAAI_K251082_structured.md",
+      "question": "What performance or validation evidence is described for HYDROS Robotic System (HY1000); HYDROS Handpiece (HH1000); HYDROS TRUS Probe (HU1000) in FDA 510(k) K251082?",
+      "expected_location": "Non - Clinical Performance Data",
+      "reference_answer": "Design validation included simulated use testing and cadaver testing. Please see table below for testing conducted in accordance with applicable standards and guidance documents on the HYDROS Robotic System and its components. Summary of non-clinical testing in accordance with applicable standards and guidance documents Non - Clinical Bench Tests Guidance/Standard ID Guidance/Standard Name Results -------------------------------- -------------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ----------- System Verification FDA Guidance Guidance for the Non‐ Clinical and Clinical Investigation of Devices Used for the Treatment of Benign Prostatic Hyperplasia (BPH) Pass Usability IEC 62366- 1:2015/COR1:2016 Medical devices – – Part 1: Application of usability engineering to medical devices Pass Usability ANSI/AAMI HE75:2009 (R2018) Human Factors Engineering - Design Of Medical Devices Pass Electromagnetic Compatibility IEC60601 - 1 - 2:2020 Medical electrical equipment - Part 1 - 2: General requirements for basic saf"
+    },
+    {
+      "question_id": "F012",
+      "expected_document": "FDAAI_K243851",
+      "expected_filename": "FDAAI_K243851_structured.md",
+      "question": "What performance or validation evidence is described for CHLOE BLAST in FDA 510(k) K243851?",
+      "expected_location": "8. Summary of Non-Clinical Performance Testing",
+      "reference_answer": "Devices classified under 21 CFR 884.6195 (Assisted Reproduction Embryo Image Assessment System) and product code PBH must address several non-clinical special controls, including software validation, verification, and hazard analysis, an assessment of light exposure and output, simulated use, cleaning and disinfection, package integrity and transit testing, electrical safety and electromagnetic compatibility testing, and prediction algorithm reproducibility. As CHLOE BLAST is a software, some of the special controls do not apply to this submission. Software was evaluated at the Basic Documentation level as recommended in the 2023 FDA guidance document \"Content of Premarket Submissions for Device Software Functions.\""
+    },
+    {
+      "question_id": "F013",
+      "expected_document": "FDAAI_K243878",
+      "expected_filename": "FDAAI_K243878_structured.md",
+      "question": "What performance or validation evidence is described for CLARUS (700) in FDA 510(k) K243878?",
+      "expected_location": "Software Verification and Validation Testing",
+      "reference_answer": "The software of this device is considered to have an Enhanced Documentation Level. Software verification and validation testing was conducted, and documentation was provided as recommended by FDA's Guidance for Industry and FDA Staff, \"Guidance for the Content of Premarket Submissions for Software Contained in Medical Devices.\" Verification and validation of CLARUS 700 demonstrated that the product works as designed."
+    },
+    {
+      "question_id": "F014",
+      "expected_document": "FDAAI_K233625",
+      "expected_filename": "FDAAI_K233625_structured.md",
+      "question": "What performance or validation evidence is described for RAYDENT SW in FDA 510(k) K233625?",
+      "expected_location": "9. Performance Testing",
+      "reference_answer": "Software, hardware, and integration verification and validation testing was performed in accordance with the FDA Guidance Document \"Guidance for the Content of Premarket Submissions for Device Software Functions\" and \"Guidance for the Cybersecurity in Medical Devices: Quality System Considerations and Content of Premarket Submissions\". The validation suite includes validation of implemented mitigations related to device hazards identified in the risk management procedures. All test results have been reviewed and approved, showing the RAYDENT SW to be substantially equivalent to the predicate devices. The documentation level of RAYDENT SW corresponds to basic documentation level based on the intended use, design, and risk of device software functionality."
+    },
+    {
+      "question_id": "F015",
+      "expected_document": "FDAAI_K222921",
+      "expected_filename": "FDAAI_K222921_structured.md",
+      "question": "What performance or validation evidence is described for Minuteful-kidney test in FDA 510(k) K222921?",
+      "expected_location": "Performance Testing:",
+      "reference_answer": "The performance characteristics of the Minuteful - kidney test were evaluated according to the following performance tests:"
+    },
+    {
+      "question_id": "F016",
+      "expected_document": "FDAAI_K252148",
+      "expected_filename": "FDAAI_K252148_structured.md",
+      "question": "What software, algorithm, or device-function information is described for Butterfly Gestational Age Tool in FDA 510(k) K252148?",
+      "expected_location": "Device Description:",
+      "reference_answer": "The Butterfly Gestational Age Tool (GA Tool) is a software application that guides trained healthcare professionals through measuring fundal height and obtaining ultrasound cines of a patient ' s gravid abdomen , using a Butterfly ultrasound probe (iQ+ or iQ3) connected to a tablet . Users launch the tool as a calculation tool within the iQ App ' s OB scan presets (OB 1/GYN or OB 2/3) . Users first measure the fundal height in centimeters , which determines the number of ultrasound videos or \" sweeps \" needed . These sweeps are short cines captured by moving the probe across the abdomen in specific orientations without relying on the live B-mode . The system presents users with animations for each sweep to communicate the intended path and probe orientation , rather than relying on a live B - mode scan . The collected sweeps are input into a deep-learning model within the GA Tool . The model then outputs an estimated gestational age . Users can delete the measurement or add additional documentation like patient details or notes . When performing the sweeps , the ultrasound probe makes direct contact with the patient ' s skin using a coupling medium such as an ultrasound gel . Once "
+    },
+    {
+      "question_id": "F017",
+      "expected_document": "FDAAI_K252089",
+      "expected_filename": "FDAAI_K252089_structured.md",
+      "question": "What software, algorithm, or device-function information is described for Tyto Stethoscope (G3) in FDA 510(k) K252089?",
+      "expected_location": "Device description",
+      "reference_answer": "The Tyto Stethoscope (G3) system is designed for use by lay users in non-clinical environments to capture auscultation sounds for transmission to a clinician for review. It enables three types of stethoscope exams: Heart, Lungs and Heart Rate. The Tyto Stethoscope (G3) system is a multiple functions system, the operation process of the system uses four (4) primary functional elements: - (1) The Tyto Stethoscope (composed of a TytoCare Device with Stethoscope adaptor supported with proprietary TytoCare Device App software) . The TytoCare Device App contains device software functions. - (2) A mobile device (e.g., a smartphone, not part of the Tyto Stethoscope device, not supplied by TytoCare, on which the proprietary TytoCare user App is running) , The TytoCare User App contains only other software functions. - (3) The TytoCare Server platform (composed of server hardware not part of the Tyto Stethoscope device, not supplied by TytoCare, on which the proprietary TytoCare server software is running) . The TytoCare server software is composed of two modules: - TytoCare Server Software (Data Processing Software Module) – contains device software functions - TytoCare Server Software (Ser"
+    },
+    {
+      "question_id": "F018",
+      "expected_document": "FDAAI_K253668",
+      "expected_filename": "FDAAI_K253668_structured.md",
+      "question": "What software, algorithm, or device-function information is described for Onera SleepMap (SLEEPMAP) in FDA 510(k) K253668?",
+      "expected_location": "Device Description Summary:",
+      "reference_answer": "Onera SleepMap is a software-only medical device that analyses previously recorded physiological signals obtained during sleep through a polysomnography sleep test with the Onera STS I device. SleepMap can analyze at-home or in-lab sleep study recordings of adult patients. Automated algorithms are applied to the raw input signals (read from a measurement file in the EDF file format originating from the Onera STS I device) in order to derive additional signals: - a heartrate (HR) signal from the raw ECG signal. The heartrate algorithm does not include any automated arrhythmia analysis. - a quantized position signal from the raw continuous value position signal. Additionally, multiple algorithms are used to interpret the raw and derived signals by classifying sleep stages, sleep events and artifacts. The software automates recognition of the following sleep events: obstructive apnea and obstructive hypopnea events , arousal events, desaturation events, leg movement and PLM events. The Onera SleepMap contains the following algorithms: - Sleep staging algorithm, a deep learning model (AI-model) which classifies sleep stages, based on EEG, EOG and EMG inputs. - Arousals algorithm, a Con"
+    },
+    {
+      "question_id": "F019",
+      "expected_document": "FDAAI_K232250",
+      "expected_filename": "FDAAI_K232250_structured.md",
+      "question": "What software, algorithm, or device-function information is described for SurgiCount+ System in FDA 510(k) K232250?",
+      "expected_location": "V. Device Description",
+      "reference_answer": "The SurgiCount+ [SC+] System Software is a multi-functional software application that is intended to be used as an adjunct in the estimation of blood loss and management of surgical sponges and other surgical substrates. The system incorporates three distinct software configurations: Triton AI, SC+ Sponge Counting, and Triton Quantitative Blood Loss [QBL]. Additionally, combined workflows (SC+AI and SC+QBL) are provided for"
+    },
+    {
+      "question_id": "F020",
+      "expected_document": "FDAAI_K253664",
+      "expected_filename": "FDAAI_K253664_structured.md",
+      "question": "What software, algorithm, or device-function information is described for SKOUT system in FDA 510(k) K253664?",
+      "expected_location": "Device Description",
+      "reference_answer": "The SKOUT® system is a software-based computer aided detection (CADe) system for the analysis of high-definition endoscopic video during colonoscopy procedures. The SKOUT ® system is intended to aid gastroenterologists with the detection of potential colorectal polyps during colonoscopy by providing an informational visual aid on the endoscopic monitor using trained software that processes the endoscopic video in real time. Users will primarily interact with the SKOUT ® system by observing the software display, including the polyp detection box and device status indicator signal."
+    }
+  ]
+}

@@ -3,16 +3,19 @@ import json
 from pathlib import Path
 
 import pytest
+import requests
 
 from scripts.ingest_batch_documents import (
     DocumentSpec,
     IngestionStateStore,
     audit_local_chunks,
+    configure_local_model_cache,
     load_manifest,
     parse_document_worker,
     parse_with_docling,
     pipeline_signature,
     sha256_file,
+    ingest_result_to_ragflow,
 )
 
 
@@ -117,6 +120,14 @@ def test_sha256_changes_when_source_changes(tmp_path):
     assert second == hashlib.sha256(b"second").hexdigest()
 
 
+def test_model_cache_is_kept_in_ignored_processed_directory(monkeypatch):
+    for name in ("HF_HOME", "HF_HUB_CACHE", "TORCH_HOME"):
+        monkeypatch.delenv(name, raising=False)
+    cache_root = configure_local_model_cache()
+    assert cache_root.name == ".cache"
+    assert cache_root.parent.name == "processed"
+
+
 def test_quality_audit_detects_duplicate_and_mojibake():
     content = "有效条款内容"
     digest = hashlib.sha256(content.encode("utf-8")).hexdigest()
@@ -164,3 +175,67 @@ def test_docling_converts_docx_structure_to_markdown(tmp_path):
     assert "验证活动应形成可追溯记录" in markdown
     assert "单元测试" in markdown
     assert "测试报告" in markdown
+
+
+def test_upload_disconnect_reconciles_existing_remote_document(
+    monkeypatch, tmp_path
+):
+    source = tmp_path / "DOC903_structured.md"
+    source.write_text("# 软件测试\n\n测试记录应可追溯。", encoding="utf-8")
+    spec = DocumentSpec(
+        document_code="DOC903",
+        path=str(source),
+        title="软件测试",
+        parser="markdown",
+        chunk_size=800,
+        chunk_overlap=80,
+        chunk_method="naive",
+        index_mode="ragflow_native",
+        metadata={},
+    )
+
+    class FakeClient:
+        list_calls = 0
+
+        def find_dataset(self, _name):
+            return {"id": "dataset-1"}
+
+        def list_documents(self, _dataset_id):
+            self.list_calls += 1
+            if self.list_calls == 1:
+                return []
+            return [
+                {
+                    "id": "document-1",
+                    "name": source.name,
+                    "run": "DONE",
+                    "chunk_method": "naive",
+                }
+            ]
+
+        def upload_document(self, *_args, **_kwargs):
+            raise requests.ConnectionError("connection closed after upload")
+
+        def list_all_chunks(self, _dataset_id, _document_id):
+            return [{"id": "chunk-1", "content": "测试记录应可追溯。"}]
+
+    monkeypatch.setattr(
+        "scripts.ingest_single_document.RAGFlowIngestionClient", FakeClient
+    )
+    result = type(
+        "ParseResultStub",
+        (),
+        {"structured_path": str(source), "chunks_path": str(source)},
+    )()
+
+    remote = ingest_result_to_ragflow(
+        spec,
+        result,
+        dataset_name="测试知识库",
+        reuse_existing=True,
+        wait_seconds=30,
+        poll_seconds=1,
+    )
+
+    assert remote["document_id"] == "document-1"
+    assert remote["chunk_count"] == 1

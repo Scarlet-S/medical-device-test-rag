@@ -43,6 +43,38 @@ fingerprints, a SQLite checkpoint, a bounded `ProcessPoolExecutor`, Docling,
 LangChain header/recursive splitting, RAGFlow API indexing, and Prometheus
 metrics.
 
+For a large real-world validation corpus, first prepare a deterministic sample
+from the FDA AI-enabled medical device catalog. The default run downloads 300
+public 510(k) decision summaries, caps Radiology at 120 documents, validates
+PDF signatures, and generates a per-document ingestion manifest with source
+URLs and SHA-256 hashes:
+
+```powershell
+python scripts/prepare_fda_ai_validation_corpus.py `
+  --limit 300 `
+  --radiology-cap 120 `
+  --workers 8
+```
+
+The source PDFs are local-only. Review the generated catalog and then pass
+`config/document_ingestion_manifest.fda_ai_validation_v1.json` to the batch
+ingestion command below. These decision summaries form a real-world validation
+evidence layer; they are not normative substitutes for Chinese regulations or
+consensus standards.
+
+Before a full RAGFlow import, create a deterministic 20-document smoke
+manifest. The selector cycles through the `panel` metadata groups before taking
+a second document from any group, so the smoke set covers 15 professional
+panels instead of only the dominant Radiology records:
+
+```powershell
+python scripts/create_smoke_ingestion_manifest.py `
+  --source "config/document_ingestion_manifest.fda_ai_validation_v1.json" `
+  --output "config/document_ingestion_manifest.fda_ai_validation_smoke20_v1.json" `
+  --limit 20 `
+  --group-field panel
+```
+
 Install the optional ingestion dependencies first:
 
 ```powershell
@@ -60,6 +92,25 @@ python scripts/ingest_batch_documents.py `
 After reviewing generated quality reports, add `--apply`. The script never
 deletes an existing RAGFlow document. See
 `docs/batch_document_ingestion.md` for index modes and recovery rules.
+
+Aggregate document-level reports and JSONL chunks after a dry run:
+
+```powershell
+python scripts/summarize_ingestion_quality.py `
+  --input-dir "data/processed/fda_ai_validation_corpus_v1" `
+  --json-output "data/processed/fda_ai_validation_corpus_v1_quality.json" `
+  --markdown-output "docs/fda_ai_validation_corpus_v1_quality.md"
+```
+
+If Docling output is already present and only cleanup or split rules changed,
+reuse the structured Markdown instead of parsing every PDF again:
+
+```powershell
+python scripts/ingest_batch_documents.py `
+  --manifest "config/document_ingestion_manifest.fda_ai_validation_v1.json" `
+  --workers 4 `
+  --reuse-structured
+```
 
 ## Evaluation result merging
 

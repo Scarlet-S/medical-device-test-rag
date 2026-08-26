@@ -2,6 +2,7 @@ import argparse
 import csv
 import json
 import re
+import sys
 import time
 from datetime import datetime
 from pathlib import Path
@@ -104,7 +105,11 @@ def extract_doc_code(value):
     if not value:
         return ""
 
-    match = re.search(r"DOC\d{3}", str(value), re.IGNORECASE)
+    match = re.search(
+        r"(?:FDAAI_K\d{6}|PRACTICE\d{3}|DOC\d{3})",
+        str(value),
+        re.IGNORECASE,
+    )
     return match.group(0).upper() if match else ""
 
 
@@ -458,6 +463,8 @@ def save_results(records, workbook_path, experiment_label=""):
 
 
 def main():
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--limit",

@@ -55,12 +55,22 @@ class RAGFlowIngestionClient:
         )
 
     def request(self, method, path, **kwargs):
-        response = self.http.request(
-            method,
-            f"{self.base_url}{path}",
-            timeout=kwargs.pop("timeout", self.timeout),
-            **kwargs,
-        )
+        timeout = kwargs.pop("timeout", self.timeout)
+        method = method.upper()
+        attempts = 3 if method == "GET" else 1
+        for attempt in range(1, attempts + 1):
+            try:
+                response = self.http.request(
+                    method,
+                    f"{self.base_url}{path}",
+                    timeout=timeout,
+                    **kwargs,
+                )
+                break
+            except (requests.ConnectionError, requests.Timeout):
+                if attempt >= attempts:
+                    raise
+                time.sleep(min(attempt, 2))
         response.raise_for_status()
         payload = response.json()
         if payload.get("code") != 0:

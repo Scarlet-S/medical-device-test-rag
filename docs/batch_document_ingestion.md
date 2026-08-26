@@ -35,6 +35,9 @@ python -m pip install -r requirements-ingestion.txt
 
 Docling 2.59.0 or later supports Python 3.14. Its first PDF conversion can
 download model artifacts and therefore takes longer than Markdown parsing.
+The runner pins Hugging Face and Torch caches under the ignored
+`data/processed/.cache/` directory so worker processes do not depend on a
+user-profile cache being writable.
 
 ## Manifest
 
@@ -42,6 +45,17 @@ Copy `config/document_ingestion_manifest.example.json` and enable only the
 documents intended for the current batch. Explicit `documents` and recursive
 `sources[].glob` discovery can be combined. Supported inputs are Markdown,
 text, PDF, and DOCX.
+
+For born-digital PDFs with a selectable text layer, set the parser to
+`docling_text_pdf`. It keeps Docling's layout and table processing while
+disabling OCR and using the PDF text layer. Keep the normal `docling` parser
+for scanned or image-heavy PDFs that require OCR.
+
+When a previous dry run already produced structured Markdown, pass
+`--reuse-structured` to rerun cleanup and LangChain splitting without invoking
+Docling again. This is useful after changing noise filters or chunk settings;
+SHA-256 and the SQLite state database still determine which documents need to
+be processed.
 
 Two RAGFlow index modes are available:
 

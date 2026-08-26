@@ -350,7 +350,11 @@ python scripts/ingest_batch_documents.py `
 ```
 
 完整的清单字段、安全边界、恢复方式和指标说明见
-[批量文档摄取说明](docs/batch_document_ingestion.md)。
+[批量文档摄取说明](docs/batch_document_ingestion.md)。项目另以 FDA 官方
+AI-enabled Medical Devices 清单为入口，确定性下载并离线解析了 300 份公开
+510(k) 决定摘要，形成真实产品验证案例层；300/300 解析成功，最终生成
+17,482 个清洗后切片。选择规则、质量指标和入库边界见
+[FDA AI 医疗器械验证案例语料包 v1](docs/fda_ai_validation_corpus_v1.md)。
 
 ## 项目结构
 

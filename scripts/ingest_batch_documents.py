@@ -9,11 +9,13 @@ import sqlite3
 import statistics
 import sys
 import time
+from collections import Counter as CollectionCounter
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import requests
 from prometheus_client import (
     CollectorRegistry,
     Counter,
@@ -26,7 +28,7 @@ from prometheus_client.exposition import write_to_textfile
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
-PIPELINE_VERSION = "1.0.0"
+PIPELINE_VERSION = "1.2.1"
 SUPPORTED_EXTENSIONS = {
     ".md",
     ".markdown",
@@ -57,6 +59,33 @@ CHINESE_SEPARATORS = [
     " ",
     "",
 ]
+FDA_CLEARANCE_BOILERPLATE_MARKERS = (
+    "We have reviewed your section 510(k) premarket notification",
+    "Please be advised that FDA's issuance of a substantial equivalence",
+    "The 510(k) Premarket Notification Database available at",
+    "Misbranding by reference to premarket notification",
+    "All medical devices, including Class I and unclassified devices",
+    "For additional information on these requirements, please see the UDI",
+    "Your device is also subject to, among other requirements, the Quality System",
+    "You must comply with all the Act's requirements",
+    "CONTINUE ON A SEPARATE PAGE IF NEEDED",
+    "For comprehensive regulatory information about medical devices",
+    "DEPARTMENT OF HEALTH AND HUMAN SERVICES",
+)
+
+
+def configure_local_model_cache() -> Path:
+    """Keep Docling/Hugging Face artifacts inside the writable workspace."""
+    cache_root = PROJECT_ROOT / "data" / "processed" / ".cache"
+    huggingface_cache = cache_root / "huggingface"
+    huggingface_hub_cache = huggingface_cache / "hub"
+    torch_cache = cache_root / "torch"
+    for path in (huggingface_cache, huggingface_hub_cache, torch_cache):
+        path.mkdir(parents=True, exist_ok=True)
+    os.environ.setdefault("HF_HOME", str(huggingface_cache))
+    os.environ.setdefault("HF_HUB_CACHE", str(huggingface_hub_cache))
+    os.environ.setdefault("TORCH_HOME", str(torch_cache))
+    return cache_root
 
 
 @dataclass(frozen=True)
@@ -319,7 +348,12 @@ def load_manifest(path: Path):
         parser_name = str(merged.get("parser", "auto")).casefold()
         if parser_name == "auto":
             parser_name = PARSER_BY_SUFFIX[source_path.suffix.casefold()]
-        if parser_name not in {"markdown", "text", "docling"}:
+        if parser_name not in {
+            "markdown",
+            "text",
+            "docling",
+            "docling_text_pdf",
+        }:
             raise ValueError(f"不支持的解析器：{parser_name}")
         index_mode = str(
             merged.get("index_mode", "ragflow_native")
@@ -366,7 +400,7 @@ def pipeline_signature(spec: DocumentSpec):
     return hashlib.sha256(serialized).hexdigest()
 
 
-def parse_with_docling(path: Path):
+def parse_with_docling(path: Path, disable_ocr: bool = False):
     try:
         from docling.document_converter import DocumentConverter
     except ImportError as exc:
@@ -374,7 +408,27 @@ def parse_with_docling(path: Path):
             "解析PDF/DOCX需要Docling。请运行："
             "python -m pip install -r requirements-ingestion.txt"
         ) from exc
-    converter = DocumentConverter()
+    if disable_ocr and path.suffix.casefold() == ".pdf":
+        from docling.backend.pypdfium2_backend import (
+            PyPdfiumDocumentBackend,
+        )
+        from docling.datamodel.base_models import InputFormat
+        from docling.datamodel.pipeline_options import PdfPipelineOptions
+        from docling.document_converter import PdfFormatOption
+
+        pipeline_options = PdfPipelineOptions()
+        pipeline_options.do_ocr = False
+        pipeline_options.do_table_structure = True
+        converter = DocumentConverter(
+            format_options={
+                InputFormat.PDF: PdfFormatOption(
+                    pipeline_options=pipeline_options,
+                    backend=PyPdfiumDocumentBackend,
+                )
+            }
+        )
+    else:
+        converter = DocumentConverter()
     result = converter.convert(path)
     return result.document.export_to_markdown()
 
@@ -417,7 +471,9 @@ def split_markdown(spec: DocumentSpec, markdown: str):
     )
     split_documents = splitter.split_documents(header_documents)
     chunks = []
-    for index, document in enumerate(split_documents, start=1):
+    filtered = CollectionCounter()
+    seen_hashes: set[str] = set()
+    for document in split_documents:
         content = document.page_content.strip()
         if not content:
             continue
@@ -427,6 +483,49 @@ def split_markdown(spec: DocumentSpec, markdown: str):
             if key.startswith("h") and value
         }
         breadcrumb = " > ".join(headers.values())
+        if "DO NOT SEND YOUR COMPLETED FORM TO THE PRA STAFF" in content:
+            filtered["boilerplate"] += 1
+            continue
+        if any(
+            marker.casefold() in content.casefold()
+            for marker in FDA_CLEARANCE_BOILERPLATE_MARKERS
+        ):
+            filtered["boilerplate"] += 1
+            continue
+        if any(
+            token in content
+            for token in ("\ufffd", "锟斤拷", "鏂囧瓧", "缂哄皯")
+        ):
+            filtered["mojibake"] += 1
+            continue
+        semantic_lines = []
+        for line in content.splitlines():
+            candidate = re.sub(r"<!--.*?-->", " ", line)
+            candidate = re.sub(r"^\s*#{1,6}\s*", "", candidate)
+            candidate = re.sub(r"[#*_`>|\\\-]+", " ", candidate)
+            candidate = re.sub(
+                rf"\b{re.escape(spec.document_code)}\b",
+                " ",
+                candidate,
+                flags=re.IGNORECASE,
+            )
+            candidate = " ".join(candidate.split())
+            if candidate:
+                semantic_lines.append(candidate)
+        semantic_text = " ".join(semantic_lines)
+        non_heading_lines = [
+            line
+            for line in content.splitlines()
+            if line.strip()
+            and not line.lstrip().startswith("#")
+            and "<!-- image -->" not in line
+        ]
+        if not non_heading_lines:
+            filtered["heading_or_image_only"] += 1
+            continue
+        if len(semantic_text) < 20:
+            filtered["low_information"] += 1
+            continue
         prefix_parts = [
             f"来源文档：{spec.document_code}｜{spec.title}",
         ]
@@ -436,6 +535,10 @@ def split_markdown(spec: DocumentSpec, markdown: str):
         chunk_hash = hashlib.sha256(
             retrieval_text.encode("utf-8")
         ).hexdigest()
+        if chunk_hash in seen_hashes:
+            continue
+        seen_hashes.add(chunk_hash)
+        index = len(chunks) + 1
         chunks.append(
             {
                 "chunk_index": index,
@@ -451,7 +554,7 @@ def split_markdown(spec: DocumentSpec, markdown: str):
                 "metadata": spec.metadata,
             }
         )
-    return chunks
+    return chunks, dict(filtered)
 
 
 def percentile(values, percentage):
@@ -468,11 +571,11 @@ def percentile(values, percentage):
     )
 
 
-def audit_local_chunks(chunks, chunk_size):
+def audit_local_chunks(chunks, chunk_size, filtered=None):
     lengths = [len(chunk["content"]) for chunk in chunks]
     hashes = [chunk["content_sha256"] for chunk in chunks]
     suspicious_tokens = ("\ufffd", "锟斤拷", "鏂囧瓧", "缂哄皯")
-    return {
+    result = {
         "chunk_count": len(chunks),
         "empty_chunk_count": sum(not chunk["content"].strip() for chunk in chunks),
         "very_short_chunk_count": sum(0 < length < 40 for length in lengths),
@@ -492,6 +595,10 @@ def audit_local_chunks(chunks, chunk_size):
         "length_p95": percentile(lengths, 0.95),
         "length_max": max(lengths) if lengths else 0,
     }
+    for reason, count in (filtered or {}).items():
+        result[f"filtered_{reason}_chunk_count"] = count
+    result["filtered_chunk_count"] = sum((filtered or {}).values())
+    return result
 
 
 def atomic_write_text(path: Path, content: str):
@@ -508,29 +615,37 @@ def parse_document_worker(payload):
     output_root = Path(payload["output_root"])
     started = time.monotonic()
     source_path = Path(spec.path)
+    document_dir = output_root / (
+        f"{safe_component(spec.document_code)}__{source_sha256[:12]}"
+    )
+    source_stem = safe_component(source_path.stem)
+    structured_path = document_dir / f"{source_stem}_structured.md"
+    reuse_structured = bool(
+        payload.get("reuse_structured") and structured_path.is_file()
+    )
 
-    if spec.parser in {"markdown", "text"}:
+    if reuse_structured:
+        markdown = structured_path.read_text(encoding="utf-8")
+    elif spec.parser in {"markdown", "text"}:
         markdown = read_text_with_fallback(source_path)
         if spec.parser == "text":
             markdown = f"# {spec.document_code}｜{spec.title}\n\n{markdown}"
-    elif spec.parser == "docling":
-        markdown = parse_with_docling(source_path)
+    elif spec.parser in {"docling", "docling_text_pdf"}:
+        markdown = parse_with_docling(
+            source_path,
+            disable_ocr=spec.parser == "docling_text_pdf",
+        )
     else:
         raise ValueError(f"未知解析器：{spec.parser}")
 
     markdown = normalize_markdown(markdown)
     if not re.match(r"^\s*#\s+", markdown):
         markdown = f"# {spec.document_code}｜{spec.title}\n\n{markdown}"
-    chunks = split_markdown(spec, markdown)
+    chunks, filtered = split_markdown(spec, markdown)
     if not chunks:
         raise RuntimeError("解析后没有生成任何有效切片")
-    quality = audit_local_chunks(chunks, spec.chunk_size)
+    quality = audit_local_chunks(chunks, spec.chunk_size, filtered)
 
-    document_dir = output_root / (
-        f"{safe_component(spec.document_code)}__{source_sha256[:12]}"
-    )
-    source_stem = safe_component(source_path.stem)
-    structured_path = document_dir / f"{source_stem}_structured.md"
     chunks_path = document_dir / "chunks.jsonl"
     report_path = document_dir / "quality_report.json"
     atomic_write_text(structured_path, markdown)
@@ -545,6 +660,7 @@ def parse_document_worker(payload):
         "document": asdict(spec),
         "source_sha256": source_sha256,
         "pipeline_signature": signature,
+        "structured_reused": reuse_structured,
         "quality": quality,
         "artifacts": {
             "structured_path": str(structured_path),
@@ -636,13 +752,36 @@ def ingest_result_to_ragflow(
             "为防止覆盖或复用旧版本，本次未写入。"
             "确认属于同一版本后可增加--reuse-existing。"
         )
-    document = (
-        existing[0]
-        if existing
-        else client.upload_document(
-            dataset["id"], structured_path, upload_name=upload_name
-        )
-    )
+    if existing:
+        document = existing[0]
+    else:
+        try:
+            document = client.upload_document(
+                dataset["id"], structured_path, upload_name=upload_name
+            )
+        except (requests.ConnectionError, requests.Timeout) as upload_error:
+            # RAGFlow may accept the multipart upload before the HTTP connection
+            # closes. Reconcile by the deterministic upload name before retrying,
+            # otherwise a resume run could create duplicate remote documents.
+            document = None
+            for attempt in range(3):
+                if attempt:
+                    time.sleep(2)
+                matches = [
+                    candidate
+                    for candidate in client.list_documents(dataset["id"])
+                    if candidate.get("name", "").casefold()
+                    == upload_name.casefold()
+                ]
+                if len(matches) > 1:
+                    raise RuntimeError(
+                        f"RAGFlow存在多个同名文档：{upload_name}"
+                    ) from upload_error
+                if matches:
+                    document = matches[0]
+                    break
+            if document is None:
+                raise upload_error
 
     if spec.index_mode == "manual_chunks":
         local_chunks = load_chunk_records(result)
@@ -724,6 +863,14 @@ def parse_args():
     parser.add_argument("--ragflow-workers", type=int, default=2)
     parser.add_argument("--force", action="store_true")
     parser.add_argument(
+        "--reuse-structured",
+        action="store_true",
+        help=(
+            "若本地产物中已有结构化Markdown，则跳过Docling并仅重新切片；"
+            "适用于清洗规则或切片参数变更后的快速重跑。"
+        ),
+    )
+    parser.add_argument(
         "--reuse-existing",
         action="store_true",
         help="复用RAGFlow中的同名结构化文档，用于中断后续跑。",
@@ -744,6 +891,7 @@ def parse_args():
 
 def main():
     args = parse_args()
+    model_cache = configure_local_model_cache()
     manifest_path = args.manifest.expanduser().resolve()
     manifest, specs = load_manifest(manifest_path)
     if not specs:
@@ -784,6 +932,7 @@ def main():
     print(f"文档数：{len(specs)}｜解析进程：{workers}")
     print(f"状态库：{state_db}")
     print(f"输出目录：{output_root}")
+    print(f"模型缓存：{model_cache}")
     print(f"模式：{'APPLY' if args.apply else 'DRY-RUN'}")
 
     try:
@@ -820,6 +969,7 @@ def main():
                     "source_sha256": source_sha256,
                     "pipeline_signature": signature,
                     "output_root": str(output_root),
+                    "reuse_structured": args.reuse_structured,
                 }
             )
 

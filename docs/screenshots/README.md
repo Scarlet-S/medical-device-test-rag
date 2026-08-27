@@ -14,6 +14,18 @@
 | `06-batch-evaluation.png` | 50题批量评测终端结果 | 展示50/50成功、Top-1和Top-3指标 |
 | `07-parameter-comparison.png` | 参数A/B/C对比结果 | 展示三组参数及最终选择0.50/0.50 |
 
+## v1.6 运行实证
+
+`v1.6/` 保存 v1.6.0 全链路部署验收截图：
+
+| 文件名 | 截图内容 | 验收要点 |
+|---|---|---|
+| `01-ragflow-answer-with-citations.png` | RAGFlow 领域问答 | 回答和来源引用同时可见 |
+| `02-graphrag-api-response.png` | FastAPI GraphRAG 响应 | HTTP 200、`mode=graph`、实体和多跳路径可见 |
+| `03-prometheus-graphrag-metrics.png` | Prometheus 指标 | `mdtr_graphrag_searches_total` 成功序列可见 |
+| `04-jaeger-graphrag-trace.png` | Jaeger 调用链 | API 请求与 `graphrag.search` Span 可见 |
+| `05-github-v1.6.0-release.png` | GitHub Release | v1.6.0、Latest 标签和主要更新可见 |
+
 ## 推荐演示问题
 
 ### 检索测试

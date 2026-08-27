@@ -106,6 +106,31 @@ v1.6 进一步加入独立的 `/api/v1/graphrag/search` 在线接口，并从当
 该能力保持可选，未替换稳定的 `/chat` 链路；无图路径时可安全回退到 RAGFlow。
 实验设计、边界和失败案例见 `docs/graphrag_online_pilot_v1.6.md`。
 
+### v1.6 运行实证
+
+以下截图来自 v1.6.0 本地部署验收，展示从知识问答、GraphRAG 多跳证据检索到
+监控追踪和版本发布的完整链路。截图已检查，不包含 API Key、邮箱或本地私密路径。
+
+**RAGFlow 带来源引用的领域问答**
+
+![RAGFlow 带来源引用的领域问答](docs/screenshots/v1.6/01-ragflow-answer-with-citations.png)
+
+**GraphRAG 多跳检索成功响应**
+
+![GraphRAG 多跳检索成功响应](docs/screenshots/v1.6/02-graphrag-api-response.png)
+
+**Prometheus GraphRAG 成功调用指标**
+
+![Prometheus GraphRAG 成功调用指标](docs/screenshots/v1.6/03-prometheus-graphrag-metrics.png)
+
+**Jaeger `graphrag.search` 全链路 Span**
+
+![Jaeger graphrag.search 调用链](docs/screenshots/v1.6/04-jaeger-graphrag-trace.png)
+
+**GitHub v1.6.0 Release**
+
+![GitHub v1.6.0 Release](docs/screenshots/v1.6/05-github-v1.6.0-release.png)
+
 权重对比实验测试了 `0.30/0.70`、`0.50/0.50` 和 `0.70/0.30` 三组向量/全文权重。最终选择 `0.50/0.50`：相比原基线，严格 Top-1 从 70% 提升到 78%，严格 Top-3 从 96% 提升到 100%，同时取得最高的可接受 Top-1。完整实验记录见 `evaluation/reviews/retrieval_parameter_experiment_20260725.md`。
 
 ### 100 题官方扩充评测

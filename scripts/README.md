@@ -134,11 +134,16 @@ python scripts/merge_judge_retry.py `
 
 `run_agent_eval.py` calls the controlled Agent workflow and evaluates routing,
 required tools, reference coverage, task completion, p95 latency, and
-heuristic token/cost usage against the frozen 30-case Agent set.
+heuristic token/cost usage. The repository retains the original 30-case set
+and the balanced 90-case v2 set.
 
 ```powershell
 python scripts/run_agent_eval.py --limit 3 --label agent_v1_smoke
 python scripts/run_agent_eval.py --limit 30 --label agent_v1_frozen
+python scripts/run_agent_eval.py `
+  --limit 90 `
+  --dataset evaluation\agent\agent_evaluation_v2.json `
+  --label agent_v2_90_frozen_once
 ```
 
 Set `AGENT_EVAL_TIMEOUT_SECONDS` and `AGENT_EVAL_MAX_ATTEMPTS` to control
@@ -178,13 +183,33 @@ retrieval, not as a production Microsoft GraphRAG deployment. See
 
 ## Online GraphRAG pilot
 
-`build_graphrag_index.py` reads all existing chunks from the configured
-RAGFlow dataset and builds a local, auditable entity graph. It is read-only
+`build_graphrag_index.py` reads existing chunks from one or more configured
+RAGFlow datasets and builds a local, auditable entity graph. It is read-only
 with respect to RAGFlow. The generated graph contains source text and is
-therefore ignored by Git.
+therefore ignored by Git. Repeating `--dataset-name` enables a deterministic
+multi-dataset build; the total number of real chunks and the maximum evidence
+count per entity pair can be bounded explicitly.
 
 ```powershell
-python scripts/build_graphrag_index.py
+python scripts/build_graphrag_index.py `
+  --dataset-name "医疗器械控制软件测试知识库" `
+  --dataset-name "FDA AI 医疗器械验证案例库" `
+  --schema evaluation\graphrag\medical_device_graph_v2.json `
+  --output evaluation\graphrag\ragflow_chunk_graph_v2.json `
+  --max-total-chunks 5000 `
+  --max-evidence-per-pair 8
+```
+
+`rebuild_graphrag_relations.py` rebuilds relations from an already downloaded
+real-chunk index when only the schema or evidence cap changes. It does not
+rescan RAGFlow and does not call an LLM or embedding service.
+
+```powershell
+python scripts/rebuild_graphrag_relations.py `
+  --source-index evaluation\graphrag\ragflow_chunk_graph_v2.json `
+  --schema evaluation\graphrag\medical_device_graph_v2.json `
+  --output evaluation\graphrag\ragflow_chunk_graph_v2.json `
+  --max-evidence-per-pair 8
 ```
 
 `run_online_graphrag_eval.py` compares non-graph lexical evidence retrieval
@@ -192,8 +217,10 @@ with graph-path retrieval on a frozen holdout set:
 
 ```powershell
 python scripts/run_online_graphrag_eval.py `
-  --cases evaluation\graphrag\online_multihop_holdout_v2.json `
-  --output evaluation\results\graphrag_online_holdout_v2_once.json
+  --index evaluation\graphrag\ragflow_chunk_graph_v2.json `
+  --cases evaluation\graphrag\online_multihop_holdout_v3.json `
+  --output evaluation\results\graphrag_online_holdout_v3_once.json `
+  --top-k 8 --max-hops 8
 ```
 
 Set `GRAPHRAG_INDEX_PATH` to the generated local graph before starting the

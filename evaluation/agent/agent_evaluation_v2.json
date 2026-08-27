@@ -1,0 +1,1399 @@
+{
+  "title": "医疗器械软件测试知识库 Agent 路由与工具调用评测集 v2",
+  "version": "2.0.0",
+  "frozen_at": "2026-08-27",
+  "frozen_before_first_run": true,
+  "description": "90道平衡题，法规、测试设计、评测三类各30道；覆盖常规路由、跨意图边界、低置信度查询改写、引用异常、概念混合和复合失败场景。",
+  "cases": [
+    {
+      "case_id": "AV2001",
+      "question": "NMPA对医疗器械软件安全性级别的划分和判定依据有哪些规定？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "classification"
+      ]
+    },
+    {
+      "case_id": "AV2002",
+      "question": "独立软件现场检查中，黑盒测试人员独立性对应哪些条款要求？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "inspection"
+      ]
+    },
+    {
+      "case_id": "AV2003",
+      "question": "医疗器械软件缺陷管理规范要求形成哪些文件、记录和评审证据？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "defect_management"
+      ]
+    },
+    {
+      "case_id": "AV2004",
+      "question": "YY/T 0664对医疗器械软件生存周期过程提出了哪些核心要求？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "standard",
+        "lifecycle"
+      ]
+    },
+    {
+      "case_id": "AV2005",
+      "question": "GB/T 42062规定风险控制措施实施后还应完成哪些活动？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "standard",
+        "risk_management"
+      ]
+    },
+    {
+      "case_id": "AV2006",
+      "question": "注册质量管理体系现场核查可能形成哪四种结论？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "qms_inspection"
+      ]
+    },
+    {
+      "case_id": "AV2007",
+      "question": "医疗器械召回法规对调查评估报告和召回计划有什么要求？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "recall"
+      ]
+    },
+    {
+      "case_id": "AV2008",
+      "question": "法规如何要求控制医疗器械软件设计开发变更？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "change_control"
+      ]
+    },
+    {
+      "case_id": "AV2009",
+      "question": "指导原则对现成软件的识别、风险评价和更新控制有哪些要求？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "guidance",
+        "ots"
+      ]
+    },
+    {
+      "case_id": "AV2010",
+      "question": "医疗器械网络安全注册资料通常需要说明哪些内容？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "cybersecurity"
+      ]
+    },
+    {
+      "case_id": "AV2011",
+      "question": "NMPA对软件需求规范的形成、评审和批准有什么要求？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "requirements"
+      ]
+    },
+    {
+      "case_id": "AV2012",
+      "question": "标准对软件配置项、版本基线和配置状态记录有哪些规定？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "standard",
+        "configuration"
+      ]
+    },
+    {
+      "case_id": "AV2013",
+      "question": "现场检查如何核查软件发布记录与批准活动？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "inspection",
+        "release"
+      ]
+    },
+    {
+      "case_id": "AV2014",
+      "question": "法规对医疗器械软件供应商评价和外包质量协议有哪些要求？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "supplier"
+      ]
+    },
+    {
+      "case_id": "AV2015",
+      "question": "指导原则如何区分重大软件更新和轻微软件更新？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "guidance",
+        "software_update"
+      ]
+    },
+    {
+      "case_id": "AV2016",
+      "question": "NMPA对用户测试的环境、记录和可追溯性有什么要求？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "user_test"
+      ]
+    },
+    {
+      "case_id": "AV2017",
+      "question": "标准对风险管理计划、风险可接受准则和剩余风险评价有什么规定？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "standard",
+        "risk_management"
+      ]
+    },
+    {
+      "case_id": "AV2018",
+      "question": "注册检验产品真实性核查应重点核对哪些信息？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "registration_test"
+      ]
+    },
+    {
+      "case_id": "AV2019",
+      "question": "医疗器械软件停运时需要考虑哪些法规和质量体系要求？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regulation",
+        "retirement"
+      ]
+    },
+    {
+      "case_id": "AV2020",
+      "question": "FDA软件验证通用原则如何解释验证、确认和风险之间的关系？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "fda",
+        "validation"
+      ]
+    },
+    {
+      "case_id": "AV2021",
+      "question": "软件更新后怎样确定验证确认的工作范围？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "low_confidence_query_rewrite"
+      ],
+      "min_references": 1,
+      "expect_rewrite": true,
+      "scenario_tags": [
+        "low_confidence",
+        "software_update"
+      ]
+    },
+    {
+      "case_id": "AV2022",
+      "question": "可追溯性分析分别需要建立哪些关系？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "low_confidence_query_rewrite"
+      ],
+      "min_references": 1,
+      "expect_rewrite": true,
+      "scenario_tags": [
+        "low_confidence",
+        "traceability"
+      ]
+    },
+    {
+      "case_id": "AV2023",
+      "question": "软件发布前通常需要准备什么？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "low_confidence_query_rewrite"
+      ],
+      "min_references": 1,
+      "expect_rewrite": true,
+      "scenario_tags": [
+        "low_confidence",
+        "release"
+      ]
+    },
+    {
+      "case_id": "AV2024",
+      "question": "变更完成以后还要留下哪些证据？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "low_confidence_query_rewrite"
+      ],
+      "min_references": 1,
+      "expect_rewrite": true,
+      "scenario_tags": [
+        "low_confidence",
+        "change_control"
+      ]
+    },
+    {
+      "case_id": "AV2025",
+      "question": "出现剩余风险时下一步如何处理？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "low_confidence_query_rewrite"
+      ],
+      "min_references": 1,
+      "expect_rewrite": true,
+      "scenario_tags": [
+        "low_confidence",
+        "risk_management"
+      ]
+    },
+    {
+      "case_id": "AV2026",
+      "question": "第三方组件发生变化后企业要做什么？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "low_confidence_query_rewrite"
+      ],
+      "min_references": 1,
+      "expect_rewrite": true,
+      "scenario_tags": [
+        "low_confidence",
+        "ots"
+      ]
+    },
+    {
+      "case_id": "AV2027",
+      "question": "用户权限发生调整后需要保留什么记录？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "low_confidence_query_rewrite"
+      ],
+      "min_references": 1,
+      "expect_rewrite": true,
+      "scenario_tags": [
+        "low_confidence",
+        "access_control"
+      ]
+    },
+    {
+      "case_id": "AV2028",
+      "question": "执行结果不符合预期以后应该怎样闭环？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "low_confidence_query_rewrite"
+      ],
+      "min_references": 1,
+      "expect_rewrite": true,
+      "scenario_tags": [
+        "low_confidence",
+        "defect_management"
+      ]
+    },
+    {
+      "case_id": "AV2029",
+      "question": "上线前谁需要确认哪些内容？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "low_confidence_query_rewrite"
+      ],
+      "min_references": 1,
+      "expect_rewrite": true,
+      "scenario_tags": [
+        "low_confidence",
+        "release"
+      ]
+    },
+    {
+      "case_id": "AV2030",
+      "question": "产品退出使用后相关资料怎么处理？",
+      "expected_agent": "regulatory",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "low_confidence_query_rewrite"
+      ],
+      "min_references": 1,
+      "expect_rewrite": true,
+      "scenario_tags": [
+        "low_confidence",
+        "retirement"
+      ]
+    },
+    {
+      "case_id": "AV2031",
+      "question": "请为医疗器械软件登录失败锁定功能设计测试用例和预期结果。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "functional",
+        "security"
+      ]
+    },
+    {
+      "case_id": "AV2032",
+      "question": "如何测试不同角色对患者数据的访问权限？请给出测试步骤。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "security",
+        "access_control"
+      ]
+    },
+    {
+      "case_id": "AV2033",
+      "question": "为软件升级中断和回滚场景设计异常测试方案。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "reliability",
+        "software_update"
+      ]
+    },
+    {
+      "case_id": "AV2034",
+      "question": "医疗器械软件日期时间输入字段应如何设计边界值测试？",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "boundary",
+        "input_validation"
+      ]
+    },
+    {
+      "case_id": "AV2035",
+      "question": "请根据风险控制要求设计报警功能的验证方法和测试点。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "risk_based",
+        "alarm"
+      ]
+    },
+    {
+      "case_id": "AV2036",
+      "question": "为审计日志的完整性、时间戳和防篡改能力设计测试方案。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "security",
+        "audit_log"
+      ]
+    },
+    {
+      "case_id": "AV2037",
+      "question": "软件更新后回归测试范围应如何转化为测试用例？",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regression",
+        "software_update"
+      ]
+    },
+    {
+      "case_id": "AV2038",
+      "question": "请给出网络断开、恢复和数据重传的测试前置条件与预期结果。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "reliability",
+        "network"
+      ]
+    },
+    {
+      "case_id": "AV2039",
+      "question": "如何测试第三方现成软件组件升级后的兼容性和风险？",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "compatibility",
+        "ots"
+      ]
+    },
+    {
+      "case_id": "AV2040",
+      "question": "请为用户会话超时设计正向、异常和边界测试用例。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "security",
+        "session"
+      ]
+    },
+    {
+      "case_id": "AV2041",
+      "question": "依据风险管理标准，为高风险报警延迟设计可执行测试用例。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "cross_intent",
+        "alarm"
+      ]
+    },
+    {
+      "case_id": "AV2042",
+      "question": "根据网络安全指导原则设计身份认证失败与账户恢复测试。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "cross_intent",
+        "authentication"
+      ]
+    },
+    {
+      "case_id": "AV2043",
+      "question": "请设计数据备份、恢复完整性和恢复时间目标的验证方案。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "reliability",
+        "backup_restore"
+      ]
+    },
+    {
+      "case_id": "AV2044",
+      "question": "如何验证加密数据在存储、传输和密钥轮换过程中的安全性？",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "security",
+        "encryption"
+      ]
+    },
+    {
+      "case_id": "AV2045",
+      "question": "为并发用户修改同一患者记录设计冲突和一致性测试。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "concurrency",
+        "data_integrity"
+      ]
+    },
+    {
+      "case_id": "AV2046",
+      "question": "请为低电量、意外断电和重启后的状态恢复设计异常测试。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "reliability",
+        "power_failure"
+      ]
+    },
+    {
+      "case_id": "AV2047",
+      "question": "如何针对软件安装、卸载、升级和降级设计兼容性测试矩阵？",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "compatibility",
+        "deployment"
+      ]
+    },
+    {
+      "case_id": "AV2048",
+      "question": "为医疗器械软件接口超时、重复报文和乱序报文设计测试点。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "interface",
+        "fault_injection"
+      ]
+    },
+    {
+      "case_id": "AV2049",
+      "question": "请设计临床关键任务的可用性测试场景、观察指标和通过准则。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "usability",
+        "critical_task"
+      ]
+    },
+    {
+      "case_id": "AV2050",
+      "question": "如何将威胁建模中的攻击路径转化为渗透测试和安全测试用例？",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "security",
+        "threat_model"
+      ]
+    },
+    {
+      "case_id": "AV2051",
+      "question": "请为算法输入超出训练分布的情况设计检测和降级测试。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "ai_validation",
+        "robustness"
+      ]
+    },
+    {
+      "case_id": "AV2052",
+      "question": "如何验证AI医疗器械模型更新前后的性能一致性和临床风险？",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "ai_validation",
+        "software_update"
+      ]
+    },
+    {
+      "case_id": "AV2053",
+      "question": "为设备时钟漂移导致的日志顺序异常设计边界和恢复测试。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "boundary",
+        "audit_log"
+      ]
+    },
+    {
+      "case_id": "AV2054",
+      "question": "请设计数据库连接池耗尽时的告警、降级和数据完整性测试。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "reliability",
+        "resource_exhaustion"
+      ]
+    },
+    {
+      "case_id": "AV2055",
+      "question": "如何验证权限撤销后已有会话、缓存和令牌立即失效？",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "security",
+        "access_control"
+      ]
+    },
+    {
+      "case_id": "AV2056",
+      "question": "为批量导入患者数据设计格式错误、部分失败和回滚测试。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "data_integrity",
+        "batch_processing"
+      ]
+    },
+    {
+      "case_id": "AV2057",
+      "question": "请设计软件缺陷修复后的定向复测与影响范围回归方案。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "regression",
+        "defect_management"
+      ]
+    },
+    {
+      "case_id": "AV2058",
+      "question": "如何测试多语言界面切换不会改变剂量、单位和关键提示含义？",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "localization",
+        "safety"
+      ]
+    },
+    {
+      "case_id": "AV2059",
+      "question": "为云服务不可用、区域切换和服务终止设计业务连续性测试。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "cloud",
+        "business_continuity"
+      ]
+    },
+    {
+      "case_id": "AV2060",
+      "question": "请设计无网络条件下数据缓存、重连同步和重复提交测试。",
+      "expected_agent": "test_design",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "offline",
+        "data_integrity"
+      ]
+    },
+    {
+      "case_id": "AV2061",
+      "question": "请复核这个回答的引用正确性：软件安全性级别只有严重一级。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "citation",
+        "factual_error"
+      ]
+    },
+    {
+      "case_id": "AV2062",
+      "question": "评估回答是否完整：缺陷管理只需要修复缺陷，不需要回归测试。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "completeness",
+        "omission"
+      ]
+    },
+    {
+      "case_id": "AV2063",
+      "question": "请检查该结论是否存在幻觉：所有医疗器械软件都必须采用云部署。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "hallucination",
+        "unsupported_claim"
+      ]
+    },
+    {
+      "case_id": "AV2064",
+      "question": "请对回答质量评分并说明证据是否支持：黑盒测试人员可以兼任开发人员。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "citation",
+        "quality"
+      ]
+    },
+    {
+      "case_id": "AV2065",
+      "question": "复核这段回答是否遗漏软件更新中的风险管理和用户告知要求。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "completeness",
+        "software_update"
+      ]
+    },
+    {
+      "case_id": "AV2066",
+      "question": "请核查回答中的[ID:9]是否属于有效引用，并判断引用正确性。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "citation",
+        "invalid_id"
+      ]
+    },
+    {
+      "case_id": "AV2067",
+      "question": "评测这份答案对标准答案要点的覆盖程度，并指出重要遗漏。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "completeness",
+        "coverage"
+      ]
+    },
+    {
+      "case_id": "AV2068",
+      "question": "请判断回答引用的DOC003条款能否直接支持其主要结论。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "citation",
+        "source_alignment"
+      ]
+    },
+    {
+      "case_id": "AV2069",
+      "question": "复核回答是否把用户需求与产品需求错误地视为同一概念。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "hallucination",
+        "concept_confusion"
+      ]
+    },
+    {
+      "case_id": "AV2070",
+      "question": "请评分：回答声称所有软件缺陷都必须在24小时内关闭。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "hallucination",
+        "unsupported_deadline"
+      ]
+    },
+    {
+      "case_id": "AV2071",
+      "question": "评估回答是否把合理概括误判成无依据扩展。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "judge_boundary",
+        "paraphrase"
+      ]
+    },
+    {
+      "case_id": "AV2072",
+      "question": "复核回答引用多个文件时，主要结论是否至少有一条直接证据支持。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "citation",
+        "multi_source"
+      ]
+    },
+    {
+      "case_id": "AV2073",
+      "question": "请评测拒绝回答是否合理：检索证据已经明确给出四种核查结论。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "answerability",
+        "refusal"
+      ]
+    },
+    {
+      "case_id": "AV2074",
+      "question": "判断回答只遗漏次要示例时，准确度应评为1还是2，并说明理由。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "judge_boundary",
+        "minor_omission"
+      ]
+    },
+    {
+      "case_id": "AV2075",
+      "question": "请检查回答是否将推荐性指导原则表述成强制性法规要求。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "hallucination",
+        "modality"
+      ]
+    },
+    {
+      "case_id": "AV2076",
+      "question": "评估回答中的适用范围是否被证据直接支持，还是无依据扩大。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "hallucination",
+        "scope"
+      ]
+    },
+    {
+      "case_id": "AV2077",
+      "question": "请核对回答中的条款编号、文件名称与所给证据是否一致。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "citation",
+        "metadata"
+      ]
+    },
+    {
+      "case_id": "AV2078",
+      "question": "复核回答是否覆盖问题要求的活动、输出和可追溯关系三个部分。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "completeness",
+        "multi_part"
+      ]
+    },
+    {
+      "case_id": "AV2079",
+      "question": "请判断答案虽然结论正确但没有内联引用时，引用正确性应如何评分。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "citation",
+        "missing_inline"
+      ]
+    },
+    {
+      "case_id": "AV2080",
+      "question": "评测回答是否把测试方法和测试阶段混为一谈。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "accuracy",
+        "concept_confusion"
+      ]
+    },
+    {
+      "case_id": "AV2081",
+      "question": "请复核回答中的数字阈值是否在引用证据中真实出现。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "hallucination",
+        "numeric_claim"
+      ]
+    },
+    {
+      "case_id": "AV2082",
+      "question": "判断回答增加的处理流程是否属于合理建议还是无依据强制要求。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "hallucination",
+        "prescriptive_claim"
+      ]
+    },
+    {
+      "case_id": "AV2083",
+      "question": "请评估回答是否只引用了背景段落而没有引用直接要求条款。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "citation",
+        "indirect_evidence"
+      ]
+    },
+    {
+      "case_id": "AV2084",
+      "question": "复核答案对重大更新与轻微更新的处理差异是否完整。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "completeness",
+        "classification"
+      ]
+    },
+    {
+      "case_id": "AV2085",
+      "question": "请判断回答将DOC003与DOC004的相同要求互相引用是否仍可接受。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "citation",
+        "acceptable_source"
+      ]
+    },
+    {
+      "case_id": "AV2086",
+      "question": "评测答案是否在证据不足时错误断言整份文档没有相关内容。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "hallucination",
+        "retrieval_failure"
+      ]
+    },
+    {
+      "case_id": "AV2087",
+      "question": "请检查回答中的FDA要求是否被误写为NMPA要求。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "citation",
+        "authority_mismatch"
+      ]
+    },
+    {
+      "case_id": "AV2088",
+      "question": "复核答案是否完整说明风险控制实施、验证和剩余风险评价。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "completeness",
+        "risk_management"
+      ]
+    },
+    {
+      "case_id": "AV2089",
+      "question": "评估引用证据相互冲突时，回答是否明确说明适用条件和不确定性。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "quality",
+        "conflicting_evidence"
+      ]
+    },
+    {
+      "case_id": "AV2090",
+      "question": "请对一份含正确结论、重要遗漏和无依据期限的回答分别判定引用、准确度与幻觉。",
+      "expected_agent": "evaluation",
+      "required_tools": [
+        "intent_router",
+        "ragflow_knowledge_qa",
+        "citation_reference_audit"
+      ],
+      "min_references": 1,
+      "expect_rewrite": false,
+      "scenario_tags": [
+        "composite",
+        "adversarial"
+      ]
+    }
+  ]
+}

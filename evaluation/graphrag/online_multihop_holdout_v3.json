@@ -1,0 +1,447 @@
+{
+  "schema_version": 2,
+  "name": "online-graphrag-frozen-holdout-v3",
+  "version": "3.0.0",
+  "frozen_at": "2026-08-27",
+  "frozen_before_first_run": true,
+  "description": "40道未用于图谱调优的多跳问题，覆盖生命周期、变更、风险、网络安全、可用性与AI验证证据链。首次运行后不得修改。",
+  "cases": [
+    {
+      "case_id": "GV301",
+      "type": "multi_hop",
+      "question": "从用户需求到最终用户测试证据，需要经过哪些软件工程环节？",
+      "expected_nodes": [
+        "user_need",
+        "software_requirement",
+        "architecture_design",
+        "design_code",
+        "unit_test",
+        "integration_test",
+        "system_test",
+        "user_test",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV302",
+      "type": "multi_hop",
+      "question": "软件需求如何经架构和代码逐级落实为单元测试证据？",
+      "expected_nodes": [
+        "software_requirement",
+        "architecture_design",
+        "design_code",
+        "unit_test"
+      ]
+    },
+    {
+      "case_id": "GV303",
+      "type": "multi_hop",
+      "question": "单元测试完成后，证据怎样继续流向用户测试？",
+      "expected_nodes": [
+        "unit_test",
+        "integration_test",
+        "system_test",
+        "user_test"
+      ]
+    },
+    {
+      "case_id": "GV304",
+      "type": "multi_hop",
+      "question": "软件需求怎样通过可追溯性矩阵连接到验证证据？",
+      "expected_nodes": [
+        "software_requirement",
+        "traceability_matrix",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV305",
+      "type": "multi_hop",
+      "question": "架构评审记录如何支持最终测试证据？",
+      "expected_nodes": [
+        "architecture_design",
+        "review_record",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV306",
+      "type": "multi_hop",
+      "question": "软件配置项如何形成可发布且可核查的证据链？",
+      "expected_nodes": [
+        "configuration_item",
+        "version_baseline",
+        "release_record",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV307",
+      "type": "multi_hop",
+      "question": "变更请求如何经过分析批准并最终决定回归测试范围？",
+      "expected_nodes": [
+        "change_request",
+        "impact_analysis",
+        "change_approval",
+        "software_update",
+        "regression_scope"
+      ]
+    },
+    {
+      "case_id": "GV308",
+      "type": "multi_hop",
+      "question": "补丁信息出现后，怎样经过评价和影响分析形成回归范围？",
+      "expected_nodes": [
+        "vulnerability_monitoring",
+        "patch_evaluation",
+        "impact_analysis",
+        "regression_scope"
+      ]
+    },
+    {
+      "case_id": "GV309",
+      "type": "multi_hop",
+      "question": "供应商评价怎样沿现成软件清单追踪到补丁处置？",
+      "expected_nodes": [
+        "supplier_evaluation",
+        "ots_inventory",
+        "vulnerability_monitoring",
+        "patch_evaluation"
+      ]
+    },
+    {
+      "case_id": "GV310",
+      "type": "multi_hop",
+      "question": "网络安全需求中的认证机制如何形成安全测试证据？",
+      "expected_nodes": [
+        "cybersecurity_requirement",
+        "authentication",
+        "security_test"
+      ]
+    },
+    {
+      "case_id": "GV311",
+      "type": "multi_hop",
+      "question": "网络安全需求如何通过授权控制落实到安全测试？",
+      "expected_nodes": [
+        "cybersecurity_requirement",
+        "authorization",
+        "security_test"
+      ]
+    },
+    {
+      "case_id": "GV312",
+      "type": "multi_hop",
+      "question": "网络安全需求中的加密措施怎样验证并发现剩余漏洞？",
+      "expected_nodes": [
+        "cybersecurity_requirement",
+        "encryption",
+        "security_test",
+        "residual_vulnerability"
+      ]
+    },
+    {
+      "case_id": "GV313",
+      "type": "multi_hop",
+      "question": "备份恢复要求如何通过安全测试进入事件响应？",
+      "expected_nodes": [
+        "backup_restore",
+        "security_test",
+        "incident_response"
+      ]
+    },
+    {
+      "case_id": "GV314",
+      "type": "multi_hop",
+      "question": "安全测试发现重大问题后，事件响应如何反馈风险分析？",
+      "expected_nodes": [
+        "security_test",
+        "incident_response",
+        "risk_analysis"
+      ]
+    },
+    {
+      "case_id": "GV315",
+      "type": "multi_hop",
+      "question": "使用场景怎样经过关键任务评价最终连接到用户测试？",
+      "expected_nodes": [
+        "use_scenario",
+        "critical_task",
+        "formative_evaluation",
+        "summative_evaluation",
+        "user_test"
+      ]
+    },
+    {
+      "case_id": "GV316",
+      "type": "multi_hop",
+      "question": "关键任务如何经过形成性和总结性评价形成测试证据？",
+      "expected_nodes": [
+        "critical_task",
+        "formative_evaluation",
+        "summative_evaluation",
+        "user_test",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV317",
+      "type": "multi_hop",
+      "question": "AI模型如何通过独立验证数据集形成临床性能测试证据？",
+      "expected_nodes": [
+        "ai_model",
+        "validation_dataset",
+        "clinical_performance",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV318",
+      "type": "multi_hop",
+      "question": "AI算法如何由软件需求连接到独立验证数据？",
+      "expected_nodes": [
+        "software_requirement",
+        "ai_model",
+        "validation_dataset"
+      ]
+    },
+    {
+      "case_id": "GV319",
+      "type": "multi_hop",
+      "question": "预期用途如何通过对比器械比较连接到临床性能？",
+      "expected_nodes": [
+        "user_need",
+        "predicate_device",
+        "clinical_performance"
+      ]
+    },
+    {
+      "case_id": "GV320",
+      "type": "multi_hop",
+      "question": "对比器械的等同性比较如何最终形成验证证据？",
+      "expected_nodes": [
+        "predicate_device",
+        "clinical_performance",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV321",
+      "type": "multi_hop",
+      "question": "软件危险如何沿风险控制、需求、实现追溯到测试证据？",
+      "expected_nodes": [
+        "hazard",
+        "risk_control",
+        "safety_requirement",
+        "design_code",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV322",
+      "type": "multi_hop",
+      "question": "版本更新回归失败后，怎样形成缺陷记录并重新确定范围？",
+      "expected_nodes": [
+        "software_update",
+        "regression_scope",
+        "regression_result",
+        "defect_record",
+        "risk_analysis"
+      ]
+    },
+    {
+      "case_id": "GV323",
+      "type": "multi_hop",
+      "question": "威胁建模结果怎样经安全控制和测试进入事件响应？",
+      "expected_nodes": [
+        "threat_model",
+        "security_control",
+        "security_test",
+        "incident_response"
+      ]
+    },
+    {
+      "case_id": "GV324",
+      "type": "multi_hop",
+      "question": "现成软件变化如何经影响分析转化为回归测试结果？",
+      "expected_nodes": [
+        "ots_change",
+        "impact_analysis",
+        "regression_scope",
+        "regression_result"
+      ]
+    },
+    {
+      "case_id": "GV325",
+      "type": "multi_hop",
+      "question": "权限设计如何通过审计日志连接到网络安全测试？",
+      "expected_nodes": [
+        "access_role",
+        "audit_log",
+        "security_test"
+      ]
+    },
+    {
+      "case_id": "GV326",
+      "type": "multi_hop",
+      "question": "缺陷记录引起的风险变化如何决定新的回归范围？",
+      "expected_nodes": [
+        "defect_record",
+        "risk_analysis",
+        "regression_scope"
+      ]
+    },
+    {
+      "case_id": "GV327",
+      "type": "multi_hop",
+      "question": "软件安全性级别如何影响验证证据，并进一步支持发布记录？",
+      "expected_nodes": [
+        "safety_level",
+        "test_evidence",
+        "release_record"
+      ]
+    },
+    {
+      "case_id": "GV328",
+      "type": "multi_hop",
+      "question": "访问控制怎样经安全测试识别需要继续处置的漏洞？",
+      "expected_nodes": [
+        "authorization",
+        "security_test",
+        "residual_vulnerability"
+      ]
+    },
+    {
+      "case_id": "GV329",
+      "type": "multi_hop",
+      "question": "软件更新怎样经回归执行、失败记录和风险分析形成闭环？",
+      "expected_nodes": [
+        "software_update",
+        "regression_scope",
+        "regression_result",
+        "defect_record",
+        "risk_analysis"
+      ]
+    },
+    {
+      "case_id": "GV330",
+      "type": "multi_hop",
+      "question": "用户需求如何通过软件需求和追溯矩阵形成验证证据？",
+      "expected_nodes": [
+        "user_need",
+        "software_requirement",
+        "traceability_matrix",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV331",
+      "type": "multi_hop",
+      "question": "软件架构如何经过评审并最终支撑验证测试？",
+      "expected_nodes": [
+        "architecture_design",
+        "review_record",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV332",
+      "type": "multi_hop",
+      "question": "配置基线批准后怎样连接发布记录和验证证据？",
+      "expected_nodes": [
+        "version_baseline",
+        "release_record",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV333",
+      "type": "multi_hop",
+      "question": "现成软件清单中的漏洞如何经补丁评价影响测试范围？",
+      "expected_nodes": [
+        "ots_inventory",
+        "vulnerability_monitoring",
+        "patch_evaluation",
+        "impact_analysis",
+        "regression_scope"
+      ]
+    },
+    {
+      "case_id": "GV334",
+      "type": "multi_hop",
+      "question": "身份认证测试发现漏洞后怎样进入事件响应和风险分析？",
+      "expected_nodes": [
+        "authentication",
+        "security_test",
+        "incident_response",
+        "risk_analysis"
+      ]
+    },
+    {
+      "case_id": "GV335",
+      "type": "multi_hop",
+      "question": "使用环境中的关键任务如何经过两阶段可用性评价？",
+      "expected_nodes": [
+        "use_scenario",
+        "critical_task",
+        "formative_evaluation",
+        "summative_evaluation"
+      ]
+    },
+    {
+      "case_id": "GV336",
+      "type": "multi_hop",
+      "question": "临床性能结果怎样与测试证据和发布记录形成核查链？",
+      "expected_nodes": [
+        "clinical_performance",
+        "test_evidence",
+        "release_record"
+      ]
+    },
+    {
+      "case_id": "GV337",
+      "type": "multi_hop",
+      "question": "AI算法实现的软件需求如何通过临床性能得到验证？",
+      "expected_nodes": [
+        "software_requirement",
+        "ai_model",
+        "validation_dataset",
+        "clinical_performance"
+      ]
+    },
+    {
+      "case_id": "GV338",
+      "type": "multi_hop",
+      "question": "风险控制措施如何通过安全需求落实为授权测试证据？",
+      "expected_nodes": [
+        "risk_control",
+        "safety_requirement",
+        "design_code",
+        "test_evidence"
+      ]
+    },
+    {
+      "case_id": "GV339",
+      "type": "multi_hop",
+      "question": "审计日志发现越权行为后怎样沿安全测试进入剩余漏洞处置？",
+      "expected_nodes": [
+        "audit_log",
+        "security_test",
+        "residual_vulnerability"
+      ]
+    },
+    {
+      "case_id": "GV340",
+      "type": "multi_hop",
+      "question": "变更影响分析怎样连接批准、软件更新和缺陷闭环？",
+      "expected_nodes": [
+        "impact_analysis",
+        "change_approval",
+        "software_update",
+        "regression_scope",
+        "regression_result",
+        "defect_record"
+      ]
+    }
+  ]
+}

@@ -149,9 +149,10 @@ HOLDOUT_CASES = [
 
 def write_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
+    path.write_bytes(
+        (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode(
+            "utf-8"
+        )
     )
 
 
@@ -221,8 +222,8 @@ def main() -> int:
     assert len({item["question"] for item in holdout["cases"]}) == 40
     write_json(HOLDOUT_OUTPUT, holdout)
     digest = hashlib.sha256(HOLDOUT_OUTPUT.read_bytes()).hexdigest()
-    HOLDOUT_CHECKSUM.write_text(
-        f"{digest}  {HOLDOUT_OUTPUT.name}\n", encoding="utf-8"
+    HOLDOUT_CHECKSUM.write_bytes(
+        f"{digest}  {HOLDOUT_OUTPUT.name}\n".encode("utf-8")
     )
     print(f"实体类型：{len(schema['nodes'])}")
     print(f"受控关系：{len(schema['relations'])}")

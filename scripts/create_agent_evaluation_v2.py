@@ -167,12 +167,12 @@ def main() -> int:
         "cases": build_cases(),
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    digest = hashlib.sha256(OUTPUT.read_bytes()).hexdigest()
-    CHECKSUM.write_text(f"{digest}  {OUTPUT.name}\n", encoding="utf-8")
+    serialized = (
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    ).encode("utf-8")
+    OUTPUT.write_bytes(serialized)
+    digest = hashlib.sha256(serialized).hexdigest()
+    CHECKSUM.write_bytes(f"{digest}  {OUTPUT.name}\n".encode("utf-8"))
     print(f"题数：{len(payload['cases'])}")
     print(f"评测集：{OUTPUT}")
     print(f"SHA-256：{digest}")

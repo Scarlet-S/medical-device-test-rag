@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-08-27T12:42:47.388454+00:00",
+  "local_index_file": "ragflow_chunk_graph_v2.json",
+  "local_index_sha256": "0ff4d5160f5a3301050d37b7be25ff3ed1b158594fa04e7b8f1723dc926a53ac",
+  "real_chunk_count": 5000,
+  "entity_type_count": 51,
+  "traceable_relation_count": 1578,
+  "cooccurrence_relation_count": 1518,
+  "curated_relation_count": 60,
+  "relation_policy": {
+    "method": "deterministic_alias_cooccurrence_with_curated_overlay",
+    "max_evidence_per_pair": 8
+  },
+  "source_datasets": [
+    {
+      "name": "医疗器械控制软件测试知识库",
+      "available_document_count": 30,
+      "included_document_count": 30,
+      "included_chunk_count": 897
+    },
+    {
+      "name": "FDA AI 医疗器械验证案例库",
+      "available_document_count": 300,
+      "included_document_count": 255,
+      "included_chunk_count": 4103
+    }
+  ],
+  "publication_policy": "The local index contains source chunk text and is ignored by Git. This manifest contains counts and hashes only."
+}

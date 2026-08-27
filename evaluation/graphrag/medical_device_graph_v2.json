@@ -1,0 +1,1471 @@
+{
+  "schema_version": 2,
+  "name": "medical-device-software-graphrag-schema-v2",
+  "description": "覆盖医疗器械软件生命周期、风险、网络安全、可用性和AI验证的可审计领域图模式；示例片段为结构化改写，不替代法规原文。",
+  "nodes": [
+    {
+      "id": "hazard",
+      "label": "软件危险",
+      "aliases": [
+        "软件危险",
+        "危险",
+        "危害"
+      ]
+    },
+    {
+      "id": "risk_control",
+      "label": "风险控制措施",
+      "aliases": [
+        "风险控制",
+        "控制措施"
+      ]
+    },
+    {
+      "id": "safety_requirement",
+      "label": "安全相关软件需求",
+      "aliases": [
+        "安全需求",
+        "软件需求"
+      ]
+    },
+    {
+      "id": "design_code",
+      "label": "设计与代码实现",
+      "aliases": [
+        "软件设计",
+        "代码实现",
+        "源代码"
+      ]
+    },
+    {
+      "id": "test_evidence",
+      "label": "验证测试证据",
+      "aliases": [
+        "测试证据",
+        "验证证据",
+        "测试记录",
+        "验证测试"
+      ]
+    },
+    {
+      "id": "software_update",
+      "label": "软件更新",
+      "aliases": [
+        "软件更新",
+        "版本更新",
+        "版本变化",
+        "变更"
+      ]
+    },
+    {
+      "id": "regression_scope",
+      "label": "回归测试范围",
+      "aliases": [
+        "回归范围",
+        "测试范围",
+        "回归测试选择"
+      ]
+    },
+    {
+      "id": "regression_result",
+      "label": "回归测试结果",
+      "aliases": [
+        "回归结果",
+        "回归失败",
+        "测试失败"
+      ]
+    },
+    {
+      "id": "defect_record",
+      "label": "缺陷记录",
+      "aliases": [
+        "缺陷记录",
+        "软件缺陷",
+        "缺陷"
+      ]
+    },
+    {
+      "id": "threat_model",
+      "label": "威胁建模",
+      "aliases": [
+        "威胁建模",
+        "威胁分析"
+      ]
+    },
+    {
+      "id": "security_control",
+      "label": "网络安全控制",
+      "aliases": [
+        "网络安全控制",
+        "安全控制"
+      ]
+    },
+    {
+      "id": "security_test",
+      "label": "网络安全测试",
+      "aliases": [
+        "网络安全测试",
+        "网络安全验证",
+        "安全测试"
+      ]
+    },
+    {
+      "id": "residual_vulnerability",
+      "label": "剩余漏洞处置",
+      "aliases": [
+        "剩余漏洞",
+        "漏洞处置"
+      ]
+    },
+    {
+      "id": "ots_change",
+      "label": "现成软件变化",
+      "aliases": [
+        "现成软件变化",
+        "现成软件版本",
+        "现成软件补丁",
+        "OTS变化"
+      ]
+    },
+    {
+      "id": "impact_analysis",
+      "label": "变更影响分析",
+      "aliases": [
+        "影响分析",
+        "受影响功能"
+      ]
+    },
+    {
+      "id": "access_role",
+      "label": "用户角色与权限",
+      "aliases": [
+        "用户角色",
+        "用户权限",
+        "访问权限",
+        "权限设计",
+        "角色授权"
+      ]
+    },
+    {
+      "id": "audit_log",
+      "label": "审计日志",
+      "aliases": [
+        "审计日志",
+        "访问日志"
+      ]
+    },
+    {
+      "id": "risk_analysis",
+      "label": "风险分析",
+      "aliases": [
+        "风险分析",
+        "风险评估",
+        "风险变化"
+      ]
+    },
+    {
+      "id": "safety_level",
+      "label": "软件安全性级别",
+      "aliases": [
+        "软件安全性级别",
+        "安全性级别"
+      ]
+    },
+    {
+      "id": "user_need",
+      "label": "用户需求与预期用途",
+      "aliases": [
+        "用户需求",
+        "预期用途",
+        "intended use",
+        "indications for use"
+      ]
+    },
+    {
+      "id": "software_requirement",
+      "label": "软件需求规范",
+      "aliases": [
+        "软件需求规范",
+        "软件需求",
+        "software requirements",
+        "performance specification"
+      ]
+    },
+    {
+      "id": "architecture_design",
+      "label": "软件架构设计",
+      "aliases": [
+        "软件架构",
+        "架构设计",
+        "software architecture",
+        "architecture design"
+      ]
+    },
+    {
+      "id": "unit_test",
+      "label": "单元测试",
+      "aliases": [
+        "单元测试",
+        "unit testing",
+        "unit test"
+      ]
+    },
+    {
+      "id": "integration_test",
+      "label": "集成测试",
+      "aliases": [
+        "集成测试",
+        "integration testing",
+        "integration test"
+      ]
+    },
+    {
+      "id": "system_test",
+      "label": "系统测试",
+      "aliases": [
+        "系统测试",
+        "system testing",
+        "system test"
+      ]
+    },
+    {
+      "id": "user_test",
+      "label": "用户测试",
+      "aliases": [
+        "用户测试",
+        "可用性确认",
+        "user testing",
+        "user validation"
+      ]
+    },
+    {
+      "id": "traceability_matrix",
+      "label": "可追溯性矩阵",
+      "aliases": [
+        "可追溯性矩阵",
+        "追溯矩阵",
+        "traceability matrix"
+      ]
+    },
+    {
+      "id": "review_record",
+      "label": "评审记录",
+      "aliases": [
+        "评审记录",
+        "设计评审",
+        "review record",
+        "design review"
+      ]
+    },
+    {
+      "id": "configuration_item",
+      "label": "软件配置项",
+      "aliases": [
+        "软件配置项",
+        "配置项",
+        "configuration item"
+      ]
+    },
+    {
+      "id": "version_baseline",
+      "label": "版本基线",
+      "aliases": [
+        "版本基线",
+        "配置基线",
+        "version baseline",
+        "configuration baseline"
+      ]
+    },
+    {
+      "id": "change_request",
+      "label": "变更请求",
+      "aliases": [
+        "变更请求",
+        "更新请求",
+        "change request"
+      ]
+    },
+    {
+      "id": "change_approval",
+      "label": "变更批准",
+      "aliases": [
+        "变更批准",
+        "更新批准",
+        "change approval"
+      ]
+    },
+    {
+      "id": "release_record",
+      "label": "软件发布记录",
+      "aliases": [
+        "软件发布记录",
+        "发布记录",
+        "release record",
+        "release documentation"
+      ]
+    },
+    {
+      "id": "ots_inventory",
+      "label": "现成软件清单",
+      "aliases": [
+        "现成软件清单",
+        "OTS清单",
+        "SOUP清单",
+        "off-the-shelf software",
+        "software bill of materials",
+        "SBOM"
+      ]
+    },
+    {
+      "id": "supplier_evaluation",
+      "label": "供应商评价",
+      "aliases": [
+        "供应商评价",
+        "供应商审核",
+        "supplier evaluation",
+        "supplier assessment"
+      ]
+    },
+    {
+      "id": "vulnerability_monitoring",
+      "label": "漏洞监测",
+      "aliases": [
+        "漏洞监测",
+        "漏洞监控",
+        "vulnerability monitoring",
+        "vulnerability surveillance"
+      ]
+    },
+    {
+      "id": "patch_evaluation",
+      "label": "补丁影响评价",
+      "aliases": [
+        "补丁评价",
+        "补丁影响",
+        "patch evaluation",
+        "patch assessment"
+      ]
+    },
+    {
+      "id": "cybersecurity_requirement",
+      "label": "网络安全需求",
+      "aliases": [
+        "网络安全需求",
+        "安全需求",
+        "cybersecurity requirements",
+        "security requirements"
+      ]
+    },
+    {
+      "id": "authentication",
+      "label": "身份认证",
+      "aliases": [
+        "身份认证",
+        "用户认证",
+        "authentication",
+        "user authentication"
+      ]
+    },
+    {
+      "id": "authorization",
+      "label": "授权与访问控制",
+      "aliases": [
+        "授权控制",
+        "访问控制",
+        "authorization",
+        "access control"
+      ]
+    },
+    {
+      "id": "encryption",
+      "label": "数据加密",
+      "aliases": [
+        "数据加密",
+        "传输加密",
+        "encryption",
+        "encrypted transmission"
+      ]
+    },
+    {
+      "id": "backup_restore",
+      "label": "备份与恢复",
+      "aliases": [
+        "备份与恢复",
+        "数据恢复",
+        "backup and restore",
+        "data recovery"
+      ]
+    },
+    {
+      "id": "incident_response",
+      "label": "网络安全事件响应",
+      "aliases": [
+        "事件响应",
+        "网络安全事件",
+        "incident response",
+        "cybersecurity incident"
+      ]
+    },
+    {
+      "id": "use_scenario",
+      "label": "使用场景",
+      "aliases": [
+        "使用场景",
+        "使用情景",
+        "use scenario",
+        "use environment"
+      ]
+    },
+    {
+      "id": "critical_task",
+      "label": "关键任务",
+      "aliases": [
+        "关键任务",
+        "关键操作",
+        "critical task"
+      ]
+    },
+    {
+      "id": "formative_evaluation",
+      "label": "形成性评价",
+      "aliases": [
+        "形成性评价",
+        "形成性测试",
+        "formative evaluation"
+      ]
+    },
+    {
+      "id": "summative_evaluation",
+      "label": "总结性评价",
+      "aliases": [
+        "总结性评价",
+        "可用性验证",
+        "summative evaluation",
+        "usability validation"
+      ]
+    },
+    {
+      "id": "ai_model",
+      "label": "AI模型与算法",
+      "aliases": [
+        "AI模型",
+        "人工智能算法",
+        "machine learning model",
+        "artificial intelligence algorithm",
+        "AI algorithm"
+      ]
+    },
+    {
+      "id": "validation_dataset",
+      "label": "独立验证数据集",
+      "aliases": [
+        "验证数据集",
+        "独立测试集",
+        "validation dataset",
+        "independent test set"
+      ]
+    },
+    {
+      "id": "clinical_performance",
+      "label": "临床性能评价",
+      "aliases": [
+        "临床性能",
+        "临床评价",
+        "clinical performance",
+        "clinical validation"
+      ]
+    },
+    {
+      "id": "predicate_device",
+      "label": "对比器械",
+      "aliases": [
+        "对比器械",
+        "等同性比较",
+        "predicate device",
+        "substantial equivalence"
+      ]
+    }
+  ],
+  "chunks": [
+    {
+      "id": "C001",
+      "document_code": "DOC013",
+      "title": "危险与风险控制",
+      "entities": [
+        "hazard",
+        "risk_control"
+      ],
+      "text": "对已识别的软件危险应确定风险控制措施，并保存控制措施的实施记录。"
+    },
+    {
+      "id": "C002",
+      "document_code": "DOC013",
+      "title": "风险控制与安全需求",
+      "entities": [
+        "risk_control",
+        "safety_requirement"
+      ],
+      "text": "由软件实现的风险控制措施应转化为可验证的安全相关软件需求，并保持双向追溯。"
+    },
+    {
+      "id": "C003",
+      "document_code": "DOC003",
+      "title": "需求到实现的追溯",
+      "entities": [
+        "safety_requirement",
+        "design_code"
+      ],
+      "text": "安全相关软件需求应追溯到软件设计和代码实现，以定位承担控制功能的配置项。"
+    },
+    {
+      "id": "C004",
+      "document_code": "DOC003",
+      "title": "实现到测试证据的追溯",
+      "entities": [
+        "design_code",
+        "test_evidence"
+      ],
+      "text": "代码实现应追溯到验证测试用例、执行结果和评审记录，形成可核查的测试证据。"
+    },
+    {
+      "id": "C005",
+      "document_code": "DOC003",
+      "title": "更新与回归范围",
+      "entities": [
+        "software_update",
+        "regression_scope"
+      ],
+      "text": "软件更新后的回归测试范围应根据更新类型、内容和影响程度确定。"
+    },
+    {
+      "id": "C006",
+      "document_code": "DOC001",
+      "title": "回归测试目的",
+      "entities": [
+        "regression_scope",
+        "regression_result"
+      ],
+      "text": "在确定的范围内执行回归测试，用于发现更新造成的不良影响和新引入的不可接受缺陷。"
+    },
+    {
+      "id": "C007",
+      "document_code": "DOC004",
+      "title": "回归失败闭环",
+      "entities": [
+        "regression_result",
+        "defect_record"
+      ],
+      "text": "回归失败应进入缺陷管理，记录问题、修复、复测结果和关闭依据。"
+    },
+    {
+      "id": "C008",
+      "document_code": "DOC002",
+      "title": "威胁建模输出",
+      "entities": [
+        "threat_model",
+        "security_control"
+      ],
+      "text": "威胁建模识别资产、威胁、脆弱性和攻击路径，并据此选择网络安全风险控制措施。"
+    },
+    {
+      "id": "C009",
+      "document_code": "DOC002",
+      "title": "安全控制验证",
+      "entities": [
+        "security_control",
+        "security_test"
+      ],
+      "text": "网络安全控制措施需要通过适宜的安全测试验证其有效性，并保存测试证据。"
+    },
+    {
+      "id": "C010",
+      "document_code": "DOC002",
+      "title": "剩余漏洞处置",
+      "entities": [
+        "security_test",
+        "residual_vulnerability"
+      ],
+      "text": "安全测试发现的未修复漏洞应进行剩余风险评价，记录延期理由、缓解措施和后续处置计划。"
+    },
+    {
+      "id": "C011",
+      "document_code": "DOC001",
+      "title": "现成软件变化监测",
+      "entities": [
+        "ots_change",
+        "impact_analysis"
+      ],
+      "text": "现成软件版本或补丁变化后，应分析受影响功能、接口、已知问题和风险控制措施。"
+    },
+    {
+      "id": "C012",
+      "document_code": "DOC003",
+      "title": "影响分析与回归范围",
+      "entities": [
+        "impact_analysis",
+        "regression_scope"
+      ],
+      "text": "变更影响分析的结果用于选择受影响功能对应的验证活动和回归测试范围。"
+    },
+    {
+      "id": "C013",
+      "document_code": "PRACTICE003",
+      "title": "角色权限设计",
+      "entities": [
+        "access_role",
+        "risk_control"
+      ],
+      "text": "权限设计应按用户角色明确授权边界，并将未授权访问作为需要控制的风险。"
+    },
+    {
+      "id": "C014",
+      "document_code": "PRACTICE003",
+      "title": "权限与审计",
+      "entities": [
+        "access_role",
+        "audit_log"
+      ],
+      "text": "角色权限测试应核查允许和拒绝路径，审计日志应记录关键访问主体、时间、操作和结果。"
+    },
+    {
+      "id": "C015",
+      "document_code": "PRACTICE003",
+      "title": "审计证据与安全测试",
+      "entities": [
+        "audit_log",
+        "security_test"
+      ],
+      "text": "安全测试应结合审计日志验证越权尝试可被阻止、记录和追溯。"
+    },
+    {
+      "id": "C016",
+      "document_code": "DOC004",
+      "title": "缺陷风险分析",
+      "entities": [
+        "defect_record",
+        "risk_analysis"
+      ],
+      "text": "软件缺陷应评估对安全有效性和既有风险控制措施的影响，并记录风险分析结论。"
+    },
+    {
+      "id": "C017",
+      "document_code": "DOC013",
+      "title": "风险分析驱动回归",
+      "entities": [
+        "risk_analysis",
+        "regression_scope"
+      ],
+      "text": "风险分析识别的受影响控制和功能应纳入回归测试范围，并以测试结果证明控制仍然有效。"
+    },
+    {
+      "id": "C018",
+      "document_code": "DOC001",
+      "title": "软件安全性级别定义",
+      "entities": [
+        "safety_level"
+      ],
+      "text": "软件安全性级别用于表达软件风险程度，分为轻微、中等和严重。"
+    },
+    {
+      "id": "C019",
+      "document_code": "DOC003",
+      "title": "安全性级别与验证充分性",
+      "entities": [
+        "safety_level",
+        "test_evidence"
+      ],
+      "text": "验证活动及测试覆盖的充分性应与软件安全性级别相适宜。"
+    },
+    {
+      "id": "C020",
+      "document_code": "PRACTICE007",
+      "title": "一般测试执行记录",
+      "entities": [
+        "test_evidence"
+      ],
+      "text": "测试执行记录通常包含环境、步骤、输入、预期结果、实际结果和执行人。"
+    },
+    {
+      "id": "C021",
+      "document_code": "DOC001",
+      "title": "用户需求到软件需求",
+      "entities": [
+        "user_need",
+        "software_requirement"
+      ],
+      "text": "用户需求和预期用途应转化为可验证的软件需求规范。"
+    },
+    {
+      "id": "C022",
+      "document_code": "DOC001",
+      "title": "需求分配到架构",
+      "entities": [
+        "software_requirement",
+        "architecture_design"
+      ],
+      "text": "软件需求应分配到软件架构和软件项，并保持追溯。"
+    },
+    {
+      "id": "C023",
+      "document_code": "DOC003",
+      "title": "架构到实现",
+      "entities": [
+        "architecture_design",
+        "design_code"
+      ],
+      "text": "软件架构设计应细化为软件设计并落实到代码实现。"
+    },
+    {
+      "id": "C024",
+      "document_code": "DOC003",
+      "title": "实现的单元验证",
+      "entities": [
+        "design_code",
+        "unit_test"
+      ],
+      "text": "代码实现应通过源代码审核、静态分析和单元测试进行验证。"
+    },
+    {
+      "id": "C025",
+      "document_code": "DOC001",
+      "title": "单元到集成测试",
+      "entities": [
+        "unit_test",
+        "integration_test"
+      ],
+      "text": "单元测试完成后应对组合的软件单元开展集成测试。"
+    },
+    {
+      "id": "C026",
+      "document_code": "DOC001",
+      "title": "集成到系统测试",
+      "entities": [
+        "integration_test",
+        "system_test"
+      ],
+      "text": "集成测试证据支持后续软件系统测试。"
+    },
+    {
+      "id": "C027",
+      "document_code": "DOC004",
+      "title": "系统到用户测试",
+      "entities": [
+        "system_test",
+        "user_test"
+      ],
+      "text": "系统测试完成后通过真实或模拟使用环境下的用户测试确认预期用途。"
+    },
+    {
+      "id": "C028",
+      "document_code": "DOC004",
+      "title": "用户测试证据",
+      "entities": [
+        "user_test",
+        "test_evidence"
+      ],
+      "text": "用户测试应形成测试记录、测试报告和评审记录。"
+    },
+    {
+      "id": "C029",
+      "document_code": "DOC003",
+      "title": "需求追溯矩阵",
+      "entities": [
+        "software_requirement",
+        "traceability_matrix"
+      ],
+      "text": "可追溯性分析应记录软件需求与设计、测试和风险控制之间的关系。"
+    },
+    {
+      "id": "C030",
+      "document_code": "DOC003",
+      "title": "追溯矩阵到证据",
+      "entities": [
+        "traceability_matrix",
+        "test_evidence"
+      ],
+      "text": "追溯矩阵将软件需求映射到测试用例、执行结果和评审证据。"
+    },
+    {
+      "id": "C031",
+      "document_code": "DOC004",
+      "title": "架构评审",
+      "entities": [
+        "architecture_design",
+        "review_record"
+      ],
+      "text": "软件架构与详细设计应经过评审并形成评审记录。"
+    },
+    {
+      "id": "C032",
+      "document_code": "DOC004",
+      "title": "评审支持验证证据",
+      "entities": [
+        "review_record",
+        "test_evidence"
+      ],
+      "text": "评审记录是验证活动和测试充分性的组成证据。"
+    },
+    {
+      "id": "C033",
+      "document_code": "DOC003",
+      "title": "配置项与基线",
+      "entities": [
+        "configuration_item",
+        "version_baseline"
+      ],
+      "text": "软件配置项应纳入版本基线并记录配置状态。"
+    },
+    {
+      "id": "C034",
+      "document_code": "DOC003",
+      "title": "基线到发布记录",
+      "entities": [
+        "version_baseline",
+        "release_record"
+      ],
+      "text": "批准的软件版本基线应与发布记录和交付版本保持一致。"
+    },
+    {
+      "id": "C035",
+      "document_code": "DOC003",
+      "title": "发布证据",
+      "entities": [
+        "release_record",
+        "test_evidence"
+      ],
+      "text": "软件发布记录应引用已完成的验证确认结果和批准证据。"
+    },
+    {
+      "id": "C036",
+      "document_code": "DOC004",
+      "title": "变更请求影响分析",
+      "entities": [
+        "change_request",
+        "impact_analysis"
+      ],
+      "text": "软件变更请求应先开展影响分析和风险评价。"
+    },
+    {
+      "id": "C037",
+      "document_code": "DOC004",
+      "title": "影响分析支持批准",
+      "entities": [
+        "impact_analysis",
+        "change_approval"
+      ],
+      "text": "变更批准应基于影响分析、风险评价和验证确认计划。"
+    },
+    {
+      "id": "C038",
+      "document_code": "DOC004",
+      "title": "批准的软件更新",
+      "entities": [
+        "change_approval",
+        "software_update"
+      ],
+      "text": "经批准的变更进入软件更新实施并形成记录。"
+    },
+    {
+      "id": "C039",
+      "document_code": "DOC003",
+      "title": "供应商与现成软件",
+      "entities": [
+        "supplier_evaluation",
+        "ots_inventory"
+      ],
+      "text": "现成软件供应商应接受评价，采购的软件组件应纳入清单。"
+    },
+    {
+      "id": "C040",
+      "document_code": "DOC002",
+      "title": "现成软件漏洞监测",
+      "entities": [
+        "ots_inventory",
+        "vulnerability_monitoring"
+      ],
+      "text": "现成软件清单支持持续监测已知漏洞、补丁和停止维护状态。"
+    },
+    {
+      "id": "C041",
+      "document_code": "DOC002",
+      "title": "漏洞触发补丁评价",
+      "entities": [
+        "vulnerability_monitoring",
+        "patch_evaluation"
+      ],
+      "text": "新漏洞或补丁信息应触发安全影响与补丁适用性评价。"
+    },
+    {
+      "id": "C042",
+      "document_code": "DOC002",
+      "title": "补丁影响分析",
+      "entities": [
+        "patch_evaluation",
+        "impact_analysis"
+      ],
+      "text": "补丁评价结果用于确定受影响功能、风险控制和回归测试范围。"
+    },
+    {
+      "id": "C043",
+      "document_code": "DOC002",
+      "title": "认证安全需求",
+      "entities": [
+        "cybersecurity_requirement",
+        "authentication"
+      ],
+      "text": "身份认证机制用于实现网络安全访问需求。"
+    },
+    {
+      "id": "C044",
+      "document_code": "DOC002",
+      "title": "授权安全需求",
+      "entities": [
+        "cybersecurity_requirement",
+        "authorization"
+      ],
+      "text": "授权和访问控制机制用于实现最小权限要求。"
+    },
+    {
+      "id": "C045",
+      "document_code": "DOC002",
+      "title": "加密安全需求",
+      "entities": [
+        "cybersecurity_requirement",
+        "encryption"
+      ],
+      "text": "加密机制用于保护医疗数据存储和传输。"
+    },
+    {
+      "id": "C046",
+      "document_code": "DOC002",
+      "title": "恢复安全需求",
+      "entities": [
+        "cybersecurity_requirement",
+        "backup_restore"
+      ],
+      "text": "备份恢复机制用于支持数据可得性和业务连续性。"
+    },
+    {
+      "id": "C047",
+      "document_code": "DOC002",
+      "title": "认证安全测试",
+      "entities": [
+        "authentication",
+        "security_test"
+      ],
+      "text": "认证失败、锁定和恢复机制需要通过网络安全测试验证。"
+    },
+    {
+      "id": "C048",
+      "document_code": "DOC002",
+      "title": "授权安全测试",
+      "entities": [
+        "authorization",
+        "security_test"
+      ],
+      "text": "访问控制需要通过允许、拒绝和越权场景测试验证。"
+    },
+    {
+      "id": "C049",
+      "document_code": "DOC002",
+      "title": "加密安全测试",
+      "entities": [
+        "encryption",
+        "security_test"
+      ],
+      "text": "数据加密和密钥管理需要通过适宜的安全测试验证。"
+    },
+    {
+      "id": "C050",
+      "document_code": "DOC002",
+      "title": "备份恢复测试",
+      "entities": [
+        "backup_restore",
+        "security_test"
+      ],
+      "text": "备份完整性和恢复能力需要通过测试形成证据。"
+    },
+    {
+      "id": "C051",
+      "document_code": "DOC002",
+      "title": "安全测试与事件响应",
+      "entities": [
+        "security_test",
+        "incident_response"
+      ],
+      "text": "安全测试发现的重大问题应进入漏洞处置和事件响应流程。"
+    },
+    {
+      "id": "C052",
+      "document_code": "DOC002",
+      "title": "事件响应更新风险",
+      "entities": [
+        "incident_response",
+        "risk_analysis"
+      ],
+      "text": "网络安全事件调查结果应反馈更新风险分析和控制措施。"
+    },
+    {
+      "id": "C053",
+      "document_code": "DOC006",
+      "title": "场景识别关键任务",
+      "entities": [
+        "use_scenario",
+        "critical_task"
+      ],
+      "text": "使用场景分析应识别与安全有关的关键用户任务。"
+    },
+    {
+      "id": "C054",
+      "document_code": "DOC006",
+      "title": "关键任务形成性评价",
+      "entities": [
+        "critical_task",
+        "formative_evaluation"
+      ],
+      "text": "形成性评价用于发现关键任务中的使用困难并改进设计。"
+    },
+    {
+      "id": "C055",
+      "document_code": "DOC006",
+      "title": "形成性到总结性评价",
+      "entities": [
+        "formative_evaluation",
+        "summative_evaluation"
+      ],
+      "text": "形成性评价改进完成后开展总结性评价验证使用安全性。"
+    },
+    {
+      "id": "C056",
+      "document_code": "DOC006",
+      "title": "总结性评价与用户测试",
+      "entities": [
+        "summative_evaluation",
+        "user_test"
+      ],
+      "text": "总结性评价结果支持用户测试和预期用途确认。"
+    },
+    {
+      "id": "C057",
+      "document_code": "FDAAI",
+      "title": "AI模型独立验证",
+      "entities": [
+        "ai_model",
+        "validation_dataset"
+      ],
+      "text": "AI模型应在与开发数据独立的验证数据集上评价性能。"
+    },
+    {
+      "id": "C058",
+      "document_code": "FDAAI",
+      "title": "验证数据与临床性能",
+      "entities": [
+        "validation_dataset",
+        "clinical_performance"
+      ],
+      "text": "验证数据用于计算灵敏度、特异度或其他临床性能指标。"
+    },
+    {
+      "id": "C059",
+      "document_code": "FDAAI",
+      "title": "临床性能测试证据",
+      "entities": [
+        "clinical_performance",
+        "test_evidence"
+      ],
+      "text": "临床性能评价结果构成AI医疗器械性能测试和验证证据。"
+    },
+    {
+      "id": "C060",
+      "document_code": "FDAAI",
+      "title": "预期用途与对比器械",
+      "entities": [
+        "user_need",
+        "predicate_device"
+      ],
+      "text": "510(k)等同性比较应核对拟申报器械与对比器械的预期用途。"
+    },
+    {
+      "id": "C061",
+      "document_code": "FDAAI",
+      "title": "对比器械性能比较",
+      "entities": [
+        "predicate_device",
+        "clinical_performance"
+      ],
+      "text": "与对比器械的性能比较用于支持实质等同性结论。"
+    },
+    {
+      "id": "C062",
+      "document_code": "FDAAI",
+      "title": "AI算法实现需求",
+      "entities": [
+        "ai_model",
+        "software_requirement"
+      ],
+      "text": "AI算法实现产品预期用途相关的软件性能需求。"
+    }
+  ],
+  "relations": [
+    {
+      "source": "hazard",
+      "predicate": "controlled_by",
+      "target": "risk_control",
+      "evidence_chunk": "C001"
+    },
+    {
+      "source": "risk_control",
+      "predicate": "specified_as",
+      "target": "safety_requirement",
+      "evidence_chunk": "C002"
+    },
+    {
+      "source": "safety_requirement",
+      "predicate": "implemented_by",
+      "target": "design_code",
+      "evidence_chunk": "C003"
+    },
+    {
+      "source": "design_code",
+      "predicate": "verified_by",
+      "target": "test_evidence",
+      "evidence_chunk": "C004"
+    },
+    {
+      "source": "software_update",
+      "predicate": "determines",
+      "target": "regression_scope",
+      "evidence_chunk": "C005"
+    },
+    {
+      "source": "regression_scope",
+      "predicate": "executed_as",
+      "target": "regression_result",
+      "evidence_chunk": "C006"
+    },
+    {
+      "source": "regression_result",
+      "predicate": "creates_on_failure",
+      "target": "defect_record",
+      "evidence_chunk": "C007"
+    },
+    {
+      "source": "threat_model",
+      "predicate": "selects",
+      "target": "security_control",
+      "evidence_chunk": "C008"
+    },
+    {
+      "source": "security_control",
+      "predicate": "verified_by",
+      "target": "security_test",
+      "evidence_chunk": "C009"
+    },
+    {
+      "source": "security_test",
+      "predicate": "identifies",
+      "target": "residual_vulnerability",
+      "evidence_chunk": "C010"
+    },
+    {
+      "source": "ots_change",
+      "predicate": "requires",
+      "target": "impact_analysis",
+      "evidence_chunk": "C011"
+    },
+    {
+      "source": "impact_analysis",
+      "predicate": "determines",
+      "target": "regression_scope",
+      "evidence_chunk": "C012"
+    },
+    {
+      "source": "access_role",
+      "predicate": "implements",
+      "target": "risk_control",
+      "evidence_chunk": "C013"
+    },
+    {
+      "source": "access_role",
+      "predicate": "recorded_by",
+      "target": "audit_log",
+      "evidence_chunk": "C014"
+    },
+    {
+      "source": "audit_log",
+      "predicate": "supports",
+      "target": "security_test",
+      "evidence_chunk": "C015"
+    },
+    {
+      "source": "defect_record",
+      "predicate": "assessed_by",
+      "target": "risk_analysis",
+      "evidence_chunk": "C016"
+    },
+    {
+      "source": "risk_analysis",
+      "predicate": "determines",
+      "target": "regression_scope",
+      "evidence_chunk": "C017"
+    },
+    {
+      "source": "safety_level",
+      "predicate": "scales",
+      "target": "test_evidence",
+      "evidence_chunk": "C019"
+    },
+    {
+      "source": "user_need",
+      "predicate": "specified_as",
+      "target": "software_requirement",
+      "evidence_chunk": "C021"
+    },
+    {
+      "source": "software_requirement",
+      "predicate": "allocated_to",
+      "target": "architecture_design",
+      "evidence_chunk": "C022"
+    },
+    {
+      "source": "architecture_design",
+      "predicate": "implemented_by",
+      "target": "design_code",
+      "evidence_chunk": "C023"
+    },
+    {
+      "source": "design_code",
+      "predicate": "verified_by",
+      "target": "unit_test",
+      "evidence_chunk": "C024"
+    },
+    {
+      "source": "unit_test",
+      "predicate": "feeds",
+      "target": "integration_test",
+      "evidence_chunk": "C025"
+    },
+    {
+      "source": "integration_test",
+      "predicate": "feeds",
+      "target": "system_test",
+      "evidence_chunk": "C026"
+    },
+    {
+      "source": "system_test",
+      "predicate": "supports",
+      "target": "user_test",
+      "evidence_chunk": "C027"
+    },
+    {
+      "source": "user_test",
+      "predicate": "produces",
+      "target": "test_evidence",
+      "evidence_chunk": "C028"
+    },
+    {
+      "source": "software_requirement",
+      "predicate": "traced_by",
+      "target": "traceability_matrix",
+      "evidence_chunk": "C029"
+    },
+    {
+      "source": "traceability_matrix",
+      "predicate": "links",
+      "target": "test_evidence",
+      "evidence_chunk": "C030"
+    },
+    {
+      "source": "architecture_design",
+      "predicate": "reviewed_in",
+      "target": "review_record",
+      "evidence_chunk": "C031"
+    },
+    {
+      "source": "review_record",
+      "predicate": "supports",
+      "target": "test_evidence",
+      "evidence_chunk": "C032"
+    },
+    {
+      "source": "configuration_item",
+      "predicate": "controlled_by",
+      "target": "version_baseline",
+      "evidence_chunk": "C033"
+    },
+    {
+      "source": "version_baseline",
+      "predicate": "released_as",
+      "target": "release_record",
+      "evidence_chunk": "C034"
+    },
+    {
+      "source": "release_record",
+      "predicate": "evidences",
+      "target": "test_evidence",
+      "evidence_chunk": "C035"
+    },
+    {
+      "source": "change_request",
+      "predicate": "requires",
+      "target": "impact_analysis",
+      "evidence_chunk": "C036"
+    },
+    {
+      "source": "impact_analysis",
+      "predicate": "supports",
+      "target": "change_approval",
+      "evidence_chunk": "C037"
+    },
+    {
+      "source": "change_approval",
+      "predicate": "authorizes",
+      "target": "software_update",
+      "evidence_chunk": "C038"
+    },
+    {
+      "source": "supplier_evaluation",
+      "predicate": "controls",
+      "target": "ots_inventory",
+      "evidence_chunk": "C039"
+    },
+    {
+      "source": "ots_inventory",
+      "predicate": "monitored_by",
+      "target": "vulnerability_monitoring",
+      "evidence_chunk": "C040"
+    },
+    {
+      "source": "vulnerability_monitoring",
+      "predicate": "triggers",
+      "target": "patch_evaluation",
+      "evidence_chunk": "C041"
+    },
+    {
+      "source": "patch_evaluation",
+      "predicate": "feeds",
+      "target": "impact_analysis",
+      "evidence_chunk": "C042"
+    },
+    {
+      "source": "cybersecurity_requirement",
+      "predicate": "implemented_by",
+      "target": "authentication",
+      "evidence_chunk": "C043"
+    },
+    {
+      "source": "cybersecurity_requirement",
+      "predicate": "implemented_by",
+      "target": "authorization",
+      "evidence_chunk": "C044"
+    },
+    {
+      "source": "cybersecurity_requirement",
+      "predicate": "implemented_by",
+      "target": "encryption",
+      "evidence_chunk": "C045"
+    },
+    {
+      "source": "cybersecurity_requirement",
+      "predicate": "implemented_by",
+      "target": "backup_restore",
+      "evidence_chunk": "C046"
+    },
+    {
+      "source": "authentication",
+      "predicate": "verified_by",
+      "target": "security_test",
+      "evidence_chunk": "C047"
+    },
+    {
+      "source": "authorization",
+      "predicate": "verified_by",
+      "target": "security_test",
+      "evidence_chunk": "C048"
+    },
+    {
+      "source": "encryption",
+      "predicate": "verified_by",
+      "target": "security_test",
+      "evidence_chunk": "C049"
+    },
+    {
+      "source": "backup_restore",
+      "predicate": "verified_by",
+      "target": "security_test",
+      "evidence_chunk": "C050"
+    },
+    {
+      "source": "security_test",
+      "predicate": "triggers",
+      "target": "incident_response",
+      "evidence_chunk": "C051"
+    },
+    {
+      "source": "incident_response",
+      "predicate": "updates",
+      "target": "risk_analysis",
+      "evidence_chunk": "C052"
+    },
+    {
+      "source": "use_scenario",
+      "predicate": "identifies",
+      "target": "critical_task",
+      "evidence_chunk": "C053"
+    },
+    {
+      "source": "critical_task",
+      "predicate": "assessed_by",
+      "target": "formative_evaluation",
+      "evidence_chunk": "C054"
+    },
+    {
+      "source": "formative_evaluation",
+      "predicate": "feeds",
+      "target": "summative_evaluation",
+      "evidence_chunk": "C055"
+    },
+    {
+      "source": "summative_evaluation",
+      "predicate": "supports",
+      "target": "user_test",
+      "evidence_chunk": "C056"
+    },
+    {
+      "source": "ai_model",
+      "predicate": "evaluated_on",
+      "target": "validation_dataset",
+      "evidence_chunk": "C057"
+    },
+    {
+      "source": "validation_dataset",
+      "predicate": "measures",
+      "target": "clinical_performance",
+      "evidence_chunk": "C058"
+    },
+    {
+      "source": "clinical_performance",
+      "predicate": "supports",
+      "target": "test_evidence",
+      "evidence_chunk": "C059"
+    },
+    {
+      "source": "user_need",
+      "predicate": "compared_with",
+      "target": "predicate_device",
+      "evidence_chunk": "C060"
+    },
+    {
+      "source": "predicate_device",
+      "predicate": "compared_by",
+      "target": "clinical_performance",
+      "evidence_chunk": "C061"
+    },
+    {
+      "source": "ai_model",
+      "predicate": "implements",
+      "target": "software_requirement",
+      "evidence_chunk": "C062"
+    }
+  ]
+}

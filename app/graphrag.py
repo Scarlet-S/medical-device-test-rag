@@ -289,6 +289,7 @@ def build_graph_dataset_from_chunks(
     chunks: list[dict[str, Any]],
     schema: dict[str, Any],
     name: str,
+    max_evidence_per_pair: int = 0,
 ) -> dict[str, Any]:
     """Create an evidence graph from real RAGFlow chunk records.
 
@@ -302,7 +303,12 @@ def build_graph_dataset_from_chunks(
     normalized_chunks = []
     relations: dict[tuple[str, str, str, str], dict[str, Any]] = {}
     for index, raw in enumerate(chunks, start=1):
-        content = str(raw.get("content") or raw.get("content_with_weight") or "")
+        content = str(
+            raw.get("content")
+            or raw.get("content_with_weight")
+            or raw.get("text")
+            or ""
+        )
         title = str(raw.get("title") or raw.get("document_name") or "")
         chunk_id = str(raw.get("id") or raw.get("chunk_id") or f"RF{index:06d}")
         entities = detector.detect_entities(f"{title} {content}")
@@ -378,6 +384,27 @@ def build_graph_dataset_from_chunks(
             "mapping": "curated_relation_to_real_chunk",
             "mapping_score": round(best_score, 4),
         }
+    relation_values = list(relations.values())
+    if max_evidence_per_pair > 0:
+        grouped: dict[tuple[str, str, str], list[dict[str, Any]]] = defaultdict(list)
+        curated = []
+        for relation in relation_values:
+            if relation.get("predicate") == "co_occurs_in_evidence":
+                key = (
+                    str(relation["source"]),
+                    str(relation["predicate"]),
+                    str(relation["target"]),
+                )
+                grouped[key].append(relation)
+            else:
+                curated.append(relation)
+        relation_values = list(curated)
+        for key in sorted(grouped):
+            evidence = sorted(
+                grouped[key], key=lambda item: str(item["evidence_chunk"])
+            )
+            relation_values.extend(evidence[:max_evidence_per_pair])
+
     return {
         "schema_version": 1,
         "name": name,
@@ -387,6 +414,6 @@ def build_graph_dataset_from_chunks(
         ),
         "nodes": nodes,
         "chunks": normalized_chunks,
-        "relations": list(relations.values()),
+        "relations": relation_values,
         "cases": [],
     }

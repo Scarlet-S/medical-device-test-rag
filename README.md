@@ -25,11 +25,11 @@
 - 自动结果与人工基线对比及争议题复核
 - 法规、测试设计、评测三个专业 Agent 与可解释意图路由
 - 低置信度查询改写、引用质量门禁和一次受控重试
-- 30 道 Agent 路由/工具调用评测与统一质量、延迟、成本指标
+- 90 道 Agent 路由/工具调用冻结评测与统一质量、延迟、成本指标
 - Prometheus 指标、OpenTelemetry Trace 与 Jaeger 链路分析
 - LangChain + Docling 批量解析、SHA-256增量去重与SQLite断点续跑
 - GitHub Actions 自动执行单元测试、配置校验、离线评测和 Docker 构建
-- 小规模 GraphRAG 多跳证据检索对照实验
+- 40 道冻结多跳题、5,000 个真实切片和 1,578 条可追溯关系的 GraphRAG 对照
 - 可选 GraphRAG 在线检索接口、真实切片图索引和安全回退
 
 ## 技术方案
@@ -105,6 +105,13 @@ v1.6 进一步加入独立的 `/api/v1/graphrag/search` 在线接口，并从当
 测试中，平均实体证据召回由 64.7% 提升到 85.8%，9/10 题形成完整预期路径。
 该能力保持可选，未替换稳定的 `/chat` 链路；无图路径时可安全回退到 RAGFlow。
 实验设计、边界和失败案例见 `docs/graphrag_online_pilot_v1.6.md`。
+
+v1.7 将在线图索引扩展到两个实际 RAGFlow 知识库，共读取 5,000 个真实切片，
+识别 51 类实体并形成 1,578 条带证据切片 ID 的关系；同一实体对最多保留 8 条
+不同证据，避免通过重复共现虚增规模。新建的 40 道冻结多跳题只运行一次：
+普通词法检索平均实体证据召回率为 63.5%，GraphRAG 为 79.0%，14/40 道明确
+改善，严格完整预期路径率为 45.0%。该结果未用于继续修改冻结题或图谱。
+扩容设计、校验值和复现方法见 `docs/evaluation_scale_v1.7.md`。
 
 ### v1.6 运行实证
 
@@ -288,10 +295,18 @@ python scripts/run_graphrag_comparison.py --fail-on-no-multihop-improvement
 从当前 RAGFlow 知识库构建本地真实切片图索引并运行冻结留出测试：
 
 ```powershell
-python scripts/build_graphrag_index.py
+python scripts/build_graphrag_index.py `
+  --dataset-name "医疗器械控制软件测试知识库" `
+  --dataset-name "FDA AI 医疗器械验证案例库" `
+  --schema evaluation\graphrag\medical_device_graph_v2.json `
+  --output evaluation\graphrag\ragflow_chunk_graph_v2.json `
+  --max-total-chunks 5000 `
+  --max-evidence-per-pair 8
 python scripts/run_online_graphrag_eval.py `
-  --cases evaluation\graphrag\online_multihop_holdout_v2.json `
-  --output evaluation\results\graphrag_online_holdout_v2_once.json
+  --index evaluation\graphrag\ragflow_chunk_graph_v2.json `
+  --cases evaluation\graphrag\online_multihop_holdout_v3.json `
+  --output evaluation\results\graphrag_online_holdout_v3_once.json `
+  --top-k 8 --max-hops 8
 ```
 
 真实切片图索引包含原始内容，仅保存在本地，不提交到公开仓库。
@@ -368,16 +383,27 @@ MCP 服务向可信客户端提供法规问答、测试设计、证据核查、�
 边界见 [Agent 工作台增强说明](docs/agent_workbench_v1.2.md)，v1.3 的
 评测与追踪设计见 [Agent 评测与全链路追踪](docs/agent_evaluation_v1.3.md)。
 
-运行 3 道 Agent 冒烟评测或完整 30 道冻结评测：
+运行 3 道 Agent 冒烟评测、原 30 道冻结评测或扩展后的 90 道冻结评测：
 
 ```powershell
 python scripts/run_agent_eval.py --limit 3 --label agent_v1_smoke
 python scripts/run_agent_eval.py --limit 30 --label agent_v1_frozen
+python scripts/run_agent_eval.py `
+  --limit 90 `
+  --dataset evaluation\agent\agent_evaluation_v2.json `
+  --label agent_v2_90_frozen_once
 ```
 
 冻结集最终合并结果：30/30请求成功，三个Agent各10题，端到端路由准确率
 100%、必需工具召回率100%、任务完成率96.7%，p95延迟56.2秒。首次运行
 因30秒RAGFlow超时产生的16个502被单独保留和补测，没有覆盖原始结果。
+
+v1.7 进一步建立三类各 30 道的 90 道 Agent 专项冻结集。首次完整运行成功
+79/90（87.8%），11 道 RAGFlow 502/超时被原样保留；成功样本的路由 Accuracy、
+Macro-F1、必需工具召回率和引用覆盖率均为 100%，任务完成率 96.2%，p95 延迟
+52.7 秒。仅补测基础设施失败题后的合并视图达到 90/90 调用成功、100% 端到端
+路由与工具召回、95.6% 任务完成率和 51.4 秒 p95。完整边界见
+`docs/evaluation_scale_v1.7.md`。
 
 运行接口测试：
 
@@ -429,7 +455,7 @@ medical-device-test-rag/
 ├── app/                # FastAPI 服务层与数据模型
 ├── evaluation/
 │   ├── baseline/        # 人工评测工作簿
-│   ├── agent/           # 30 道 Agent 路由与工具调用冻结题集
+│   ├── agent/           # 30 道历史集与 90 道 Agent v2 冻结题集
 │   ├── config/          # 可接受等价文档配置
 │   ├── expansion/       # 100 道官方扩充题集
 │   ├── holdout/         # 原独立留出集，现作为回归集
@@ -491,13 +517,13 @@ medical-device-test-rag/
 - [x] 增加 Prometheus 指标、请求 ID 和隐私安全的 JSON 结构化日志
 - [x] 增加 Nginx、Prometheus、Redis 与 FastAPI 的 Docker Compose 部署
 - [x] 增加基于 Streamable HTTP 的 MCP 领域工具服务
-- [x] 建立 30 道 Agent 路由与工具调用冻结评测集
+- [x] 建立三类均衡的 90 道 Agent 路由与工具调用冻结评测集
 - [x] 统一路由、工具、证据、任务、延迟和估算成本指标
 - [x] 接入 OpenTelemetry + Jaeger 全链路追踪
 - [x] 增加低置信度查询改写与引用质量门禁多步工作流
 - [x] 增加LangChain、Docling、SQLite和SHA-256驱动的批量摄取管线
 - [x] 完成 300 份 FDA AI 医疗器械 510(k) 案例的全量索引与容量回归
-- [x] 增加真实 RAGFlow 切片驱动的可选 GraphRAG 在线检索与安全回退
+- [x] 将 GraphRAG 扩展至 5,000 个真实切片、1,578 条可追溯关系和 40 道冻结多跳题
 - [x] 完成 v1.6 Docker Compose、Prometheus、Jaeger 和 MCP 全链路部署验收
 
 ## 许可与资料声明

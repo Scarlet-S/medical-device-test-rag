@@ -1,1 +1,5 @@
 *.patch whitespace=-blank-at-eol
+evaluation/agent/*.json text eol=lf
+evaluation/agent/*.sha256 text eol=lf
+evaluation/graphrag/*.json text eol=lf
+evaluation/graphrag/*.sha256 text eol=lf

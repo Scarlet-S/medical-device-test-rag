@@ -16,10 +16,12 @@ services:
       OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://jaeger:4318/v1/traces
       OTEL_TRACE_SAMPLE_RATIO: ${OTEL_TRACE_SAMPLE_RATIO:-1.0}
       DEPLOYMENT_ENVIRONMENT: ${DEPLOYMENT_ENVIRONMENT:-local}
+      GRAPHRAG_INDEX_PATH: ${GRAPHRAG_INDEX_PATH:-evaluation/graphrag/medical_device_graph_v1.json}
     extra_hosts:
       - host.docker.internal:host-gateway
     volumes:
       - ../evaluation/results:/app/evaluation/results
+      - ../evaluation/graphrag:/app/evaluation/graphrag:ro
     depends_on:
       redis:
         condition: service_healthy

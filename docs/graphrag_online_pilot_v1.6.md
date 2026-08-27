@@ -73,3 +73,29 @@ python scripts/run_online_graphrag_eval.py `
 
 运行 API 时，在 `.env` 中将 `GRAPHRAG_INDEX_PATH` 指向本地真实切片图索引。
 如不配置，则使用仓库内不含受限原文的小型演示图谱。
+
+## Docker 安全加载与部署验收
+
+真实切片图索引含受版权约束的原始片段，因此同时由 `.gitignore` 和
+`.dockerignore` 排除，不进入 Git 历史或 Docker 镜像。Compose 在运行时将
+`evaluation/graphrag` 挂载到 `/app/evaluation/graphrag`，且挂载权限为只读。
+
+PowerShell 部署命令：
+
+```powershell
+$env:GRAPHRAG_INDEX_PATH="evaluation/graphrag/ragflow_chunk_graph_v1.json"
+docker compose --env-file .env -f deploy/docker-compose.agent.yml up -d --build
+```
+
+2026-08-27 的 v1.6.0 发布验收结果：
+
+- 52 项单元测试全部通过；
+- API、Redis 和 MCP 健康检查通过，Nginx、Prometheus、Jaeger 正常运行；
+- 镜像内不存在真实切片图索引，API 容器可通过只读挂载加载该索引；
+- `/health` 返回 `status=ok` 且 `ragflow_connected=true`；
+- 真实多跳问题返回 `mode=graph`、置信度 0.97、4 跳路径和 4 条证据；
+- `/metrics`、Prometheus Ready 和 Jaeger UI 均返回 HTTP 200；
+- Jaeger 已记录 `medical-device-agent-api` 服务与 `graphrag.search` Span；
+- MCP Streamable HTTP 连接成功并公开 7 个受控工具。
+
+发布说明见 [v1.6.0 Release](release_v1.6.0.md)。

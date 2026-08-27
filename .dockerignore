@@ -6,6 +6,7 @@ __pycache__
 .env
 *.log
 evaluation/results/*
+evaluation/graphrag/ragflow_chunk_graph_*.json
 data/raw
 data/processed
 data/source_documents

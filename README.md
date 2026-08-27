@@ -317,8 +317,13 @@ GET  /api/v1/evaluations/{job_id}/result
 根目录 `.env` 配置好 RAGFlow 与 Redis 密码后运行：
 
 ```powershell
-docker compose -f deploy/docker-compose.agent.yml up -d --build
+$env:GRAPHRAG_INDEX_PATH="evaluation/graphrag/ragflow_chunk_graph_v1.json"
+docker compose --env-file .env -f deploy/docker-compose.agent.yml up -d --build
 ```
+
+如本地尚未生成真实切片图索引，可不设置 `GRAPHRAG_INDEX_PATH`，服务将使用
+仓库内不含受限原文的小型演示图谱。真实索引由 `.dockerignore` 排除，不会写入
+Docker 镜像；Compose 仅在运行时将 `evaluation/graphrag` 只读挂载到 API 容器。
 
 部署后可访问：
 
@@ -467,6 +472,8 @@ medical-device-test-rag/
 - [x] 增加低置信度查询改写与引用质量门禁多步工作流
 - [x] 增加LangChain、Docling、SQLite和SHA-256驱动的批量摄取管线
 - [x] 完成 300 份 FDA AI 医疗器械 510(k) 案例的全量索引与容量回归
+- [x] 增加真实 RAGFlow 切片驱动的可选 GraphRAG 在线检索与安全回退
+- [x] 完成 v1.6 Docker Compose、Prometheus、Jaeger 和 MCP 全链路部署验收
 
 ## 许可与资料声明
 
